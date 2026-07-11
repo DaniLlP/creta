@@ -1,0 +1,2090 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía Definitiva de Creta — El manual completo de la isla</title>
+<meta name="description" content="La guía interactiva más completa de Creta en español: playas, gastronomía, senderismo, running, cultura minoica, idioma griego e itinerarios. Con mapas, filtros y modo oscuro.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ============================================================
+   GUÍA DEFINITIVA DE CRETA — hoja de estilos
+   Sistema de diseño inspirado en las paletas de los frescos
+   minoicos de Cnosos (ocre, azul "egipcio", óxido de columna)
+   y en la cerámica de meandros (motivo laberinto).
+   ============================================================ */
+
+:root{
+  /* --- Modo claro: piedra caliza cretense --- */
+  --bg: #EFEAD9;
+  --bg-alt: #E6DEC7;
+  --surface: #F8F4E8;
+  --text: #241E17;
+  --text-soft: #5B5142;
+  --border: rgba(36,30,23,0.14);
+  --border-strong: rgba(36,30,23,0.28);
+  --shadow: 0 1px 2px rgba(36,30,23,0.06), 0 8px 24px -12px rgba(36,30,23,0.18);
+
+  /* --- Acentos: paleta de fresco minoico (constante en ambos modos) --- */
+  --oxblood: #9C2E1B;
+  --oxblood-bright: #C24428;
+  --aegean: #0D6B71;
+  --aegean-bright: #128A92;
+  --ochre: #B8863A;
+  --ochre-bright: #D9A94E;
+  --olive: #5C6640;
+
+  --radius-s: 6px;
+  --radius-m: 12px;
+  --radius-l: 22px;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Manrope', -apple-system, sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --header-h: 68px;
+}
+
+[data-theme="dark"]{
+  --bg: #16130F;
+  --bg-alt: #1D1811;
+  --surface: #221B14;
+  --text: #F2EAD8;
+  --text-soft: #C4B79E;
+  --border: rgba(242,234,216,0.12);
+  --border-strong: rgba(242,234,216,0.24);
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 32px -12px rgba(0,0,0,0.6);
+  --oxblood: #C24428;
+  --oxblood-bright: #E15A3A;
+  --aegean: #1AA0A8;
+  --aegean-bright: #3BC2CA;
+  --ochre: #D9A94E;
+  --ochre-bright: #EFC46E;
+  --olive: #8B9968;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:0.001ms !important;animation-iteration-count:1 !important;transition-duration:0.001ms !important;scroll-behavior:auto !important;}
+}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  transition:background .35s ease,color .35s ease;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;line-height:1.08;margin:0;letter-spacing:-0.01em;}
+p{margin:0;}
+button{font-family:inherit;cursor:pointer;}
+ul{margin:0;padding:0;list-style:none;}
+.container{max-width:1180px;margin:0 auto;padding:0 24px;}
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:11.5px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--oxblood);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:14px;
+  font-weight:700;
+}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--oxblood);display:inline-block;}
+[data-theme="dark"] .eyebrow{color:var(--ochre-bright);}
+[data-theme="dark"] .eyebrow::before{background:var(--ochre-bright);}
+:focus-visible{outline:3px solid var(--aegean-bright);outline-offset:3px;border-radius:4px;}
+
+/* --- Enlace saltar al contenido (accesibilidad) --- */
+.skip-link{
+  position:absolute;left:12px;top:-60px;background:var(--oxblood);color:#fff;
+  padding:12px 18px;border-radius:var(--radius-s);z-index:9999;transition:top .2s ease;font-weight:700;
+}
+.skip-link:focus{top:12px;}
+
+/* --- Barra de progreso de lectura --- */
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--oxblood),var(--ochre),var(--aegean));width:0%;z-index:1200;transition:width .1s linear;}
+
+/* ============ Motivo de meandro (grecado minoico) ============ */
+.meander-divider{
+  height:14px;width:100%;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='14' viewBox='0 0 56 14'%3E%3Cpath d='M0 1 H13 V13 H27 V1 H41 V13 H55' fill='none' stroke='%239C2E1B' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat:repeat-x;
+  background-size:56px 14px;
+  opacity:.55;
+}
+[data-theme="dark"] .meander-divider{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='14' viewBox='0 0 56 14'%3E%3Cpath d='M0 1 H13 V13 H27 V1 H41 V13 H55' fill='none' stroke='%23D9A94E' stroke-width='2'/%3E%3C/svg%3E");
+  opacity:.5;
+}
+
+/* ============ Cabecera / navegación ============ */
+.site-header{
+  position:sticky;top:0;z-index:1000;height:var(--header-h);
+  background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  border-bottom:1px solid var(--border);
+  transition:background .35s ease,border-color .35s ease;
+}
+.site-header .container{display:flex;align-items:center;justify-content:space-between;height:100%;gap:18px;}
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--font-display);font-weight:700;font-size:19px;flex-shrink:0;text-decoration:none;}
+.brand-seal{
+  width:34px;height:34px;border-radius:50%;
+  border:1.5px solid var(--oxblood);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:13px;color:var(--oxblood);flex-shrink:0;
+  background:radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--oxblood) 12%, transparent), transparent 70%);
+}
+[data-theme="dark"] .brand-seal{border-color:var(--ochre-bright);color:var(--ochre-bright);}
+.brand-text em{display:block;font-style:normal;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-soft);font-family:var(--font-mono);font-weight:400;margin-top:1px;}
+
+.main-nav{display:flex;align-items:center;gap:2px;flex:1;justify-content:center;flex-wrap:nowrap;overflow:hidden;}
+.main-nav a{
+  font-size:13.5px;font-weight:600;text-decoration:none;color:var(--text-soft);
+  padding:9px 12px;border-radius:var(--radius-s);white-space:nowrap;transition:color .2s,background .2s;
+  position:relative;
+}
+.main-nav a:hover{color:var(--text);background:var(--bg-alt);}
+.main-nav a.active{color:var(--oxblood);}
+[data-theme="dark"] .main-nav a.active{color:var(--ochre-bright);}
+
+.header-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.icon-btn{
+  width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--surface);
+  color:var(--text);display:flex;align-items:center;justify-content:center;font-size:14px;
+  transition:transform .2s ease,background .2s,border-color .2s;flex-shrink:0;position:relative;
+}
+.icon-btn:hover{transform:translateY(-1px);border-color:var(--border-strong);}
+.icon-btn .fa-moon{display:none;}
+[data-theme="dark"] .icon-btn .fa-sun{display:none;}
+[data-theme="dark"] .icon-btn .fa-moon{display:inline;}
+.fav-count{
+  position:absolute;top:-4px;right:-4px;background:var(--oxblood);color:#fff;font-family:var(--font-mono);
+  font-size:9.5px;min-width:15px;height:15px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  padding:0 3px;font-weight:700;
+}
+.search-wrap{position:relative;display:flex;align-items:center;}
+.search-input{
+  width:168px;padding:9px 14px 9px 34px;border-radius:20px;border:1px solid var(--border);
+  background:var(--surface);color:var(--text);font-family:var(--font-body);font-size:13px;
+  transition:width .25s ease,border-color .2s;
+}
+.search-input:focus{width:230px;border-color:var(--aegean);}
+.search-wrap .fa-magnifying-glass{position:absolute;left:13px;font-size:12px;color:var(--text-soft);pointer-events:none;}
+.search-results{
+  position:absolute;top:calc(100% + 10px);right:0;width:340px;max-height:420px;overflow-y:auto;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-m);box-shadow:var(--shadow);
+  display:none;z-index:1100;
+}
+.search-results.open{display:block;}
+.search-results .sr-item{display:block;padding:12px 16px;border-bottom:1px solid var(--border);text-decoration:none;color:var(--text);}
+.search-results .sr-item:last-child{border-bottom:none;}
+.search-results .sr-item:hover{background:var(--bg-alt);}
+.search-results .sr-tag{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;color:var(--oxblood);letter-spacing:.06em;}
+[data-theme="dark"] .search-results .sr-tag{color:var(--ochre-bright);}
+.search-results .sr-name{font-weight:700;font-size:14px;margin-top:2px;}
+.search-results .sr-empty{padding:20px 16px;color:var(--text-soft);font-size:13.5px;}
+
+.menu-toggle{display:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--surface);align-items:center;justify-content:center;font-size:15px;}
+
+.mobile-nav{
+  display:none;position:fixed;inset:var(--header-h) 0 0 0;background:var(--bg);z-index:999;
+  padding:20px 24px;overflow-y:auto;
+}
+.mobile-nav.open{display:block;}
+.mobile-nav a{display:flex;align-items:center;gap:12px;padding:15px 4px;font-family:var(--font-display);font-size:22px;font-weight:600;text-decoration:none;color:var(--text);border-bottom:1px solid var(--border);}
+.mobile-nav a i{color:var(--oxblood);width:22px;font-size:16px;}
+[data-theme="dark"] .mobile-nav a i{color:var(--ochre-bright);}
+
+@media (max-width:980px){
+  .main-nav{display:none;}
+  .menu-toggle{display:flex;}
+  .search-input{width:0;padding:9px 0;border:none;}
+  .search-input:focus{width:180px;padding:9px 14px 9px 34px;border:1px solid var(--border);}
+  .search-wrap .fa-magnifying-glass{display:none;}
+  .search-wrap.active .fa-magnifying-glass{display:block;}
+}
+
+/* ============ Botones y chips ============ */
+.btn{
+  display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:30px;border:1.5px solid var(--text);
+  background:var(--text);color:var(--bg);font-weight:700;font-size:14px;text-decoration:none;transition:transform .2s,opacity .2s;
+}
+.btn:hover{transform:translateY(-2px);opacity:.9;}
+.btn-outline{background:transparent;color:var(--text);border-color:var(--border-strong);}
+.btn-outline:hover{border-color:var(--text);}
+.btn-accent{background:var(--oxblood);border-color:var(--oxblood);color:#fff;}
+.btn-sm{padding:9px 16px;font-size:12.5px;border-radius:24px;}
+
+.chip{
+  display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:20px;border:1.5px solid var(--border-strong);
+  background:var(--surface);color:var(--text-soft);font-size:12.5px;font-weight:700;font-family:var(--font-mono);
+  text-transform:uppercase;letter-spacing:.03em;transition:all .2s ease;white-space:nowrap;
+}
+.chip:hover{border-color:var(--oxblood);color:var(--text);}
+.chip.active{background:var(--oxblood);border-color:var(--oxblood);color:#fff;}
+[data-theme="dark"] .chip.active{background:var(--ochre-bright);border-color:var(--ochre-bright);color:#1a1508;}
+.chip-row{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:32px;}
+
+/* ============ Secciones genéricas ============ */
+.section{padding:96px 0;position:relative;}
+.section-head{max-width:680px;margin-bottom:52px;}
+.section-head h2{font-size:clamp(32px,4.4vw,50px);}
+.section-head .lede{margin-top:16px;font-size:17px;color:var(--text-soft);line-height:1.65;}
+.section-alt{background:var(--bg-alt);}
+
+/* ============ Tarjetas "etiqueta de hallazgo" (quick facts) ============ */
+.tag-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-m);
+  padding:18px 18px 16px;position:relative;box-shadow:var(--shadow);
+}
+.tag-card::before{
+  content:"";position:absolute;top:14px;right:14px;width:8px;height:8px;border-radius:50%;
+  border:1.5px solid var(--border-strong);
+}
+.tag-card .tc-label{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-soft);margin-bottom:8px;}
+.tag-card .tc-value{font-family:var(--font-display);font-size:21px;font-weight:600;}
+.tag-card .tc-value i{color:var(--oxblood);margin-right:8px;font-size:17px;}
+[data-theme="dark"] .tag-card .tc-value i{color:var(--ochre-bright);}
+
+/* ============ Botón volver arriba ============ */
+.back-to-top{
+  position:fixed;bottom:26px;right:26px;width:48px;height:48px;border-radius:50%;background:var(--oxblood);
+  color:#fff;border:none;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:var(--shadow);
+  opacity:0;pointer-events:none;transform:translateY(10px);transition:all .3s ease;z-index:900;
+}
+.back-to-top.visible{opacity:1;pointer-events:auto;transform:translateY(0);}
+
+/* ============ Favoritos flotante ============ */
+.fav-toggle{
+  position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);
+  background:color-mix(in srgb, var(--surface) 85%, transparent);backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;color:var(--text-soft);font-size:14px;z-index:5;transition:all .2s;
+}
+.fav-toggle:hover{color:var(--oxblood);}
+.fav-toggle.saved{color:var(--oxblood);background:var(--surface);}
+.fav-toggle.saved i{font-weight:900;}
+[data-theme="dark"] .fav-toggle.saved{color:var(--ochre-bright);}
+
+/* Utilidades */
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
+.text-center{text-align:center;}
+.mt-lg{margin-top:64px;}
+.grid{display:grid;gap:22px;}
+.grid-2{grid-template-columns:repeat(2,1fr);}
+.grid-3{grid-template-columns:repeat(3,1fr);}
+.grid-4{grid-template-columns:repeat(4,1fr);}
+@media (max-width:900px){.grid-4{grid-template-columns:repeat(2,1fr);}.grid-3{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:640px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative;min-height:92vh;display:flex;flex-direction:column;justify-content:flex-end;
+  background:
+    radial-gradient(ellipse 120% 60% at 50% 100%, rgba(156,46,27,0.35), transparent 60%),
+    linear-gradient(180deg, #100D09 0%, #1B160F 38%, #2A2013 62%, #16130F 100%);
+  overflow:hidden;padding-top:calc(var(--header-h) + 40px);
+}
+.hero-mountains{position:absolute;left:0;right:0;bottom:0;height:46%;opacity:.9;}
+.hero-mountains svg{width:100%;height:100%;display:block;}
+.hero-texture{
+  position:absolute;inset:0;opacity:.10;mix-blend-mode:screen;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%23D9A94E' stroke-width='1'%3E%3Cpath d='M0 40 Q60 10 120 40 T240 40'/%3E%3Cpath d='M0 90 Q60 60 120 90 T240 90'/%3E%3Cpath d='M0 140 Q60 110 120 140 T240 140'/%3E%3Cpath d='M0 190 Q60 160 120 190 T240 190'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:420px 420px;
+}
+.hero-inner{position:relative;z-index:2;}
+.hero-eyebrow{
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--ochre-bright);
+  display:flex;align-items:center;gap:12px;margin-bottom:22px;
+}
+.hero-eyebrow::before{content:"";width:34px;height:1px;background:var(--ochre-bright);}
+.hero h1{
+  color:#F7F1E1;font-size:clamp(46px,8.6vw,108px);font-weight:600;letter-spacing:-0.02em;max-width:16ch;
+}
+.hero h1 em{font-style:italic;font-weight:500;color:transparent;-webkit-text-stroke:1.4px #F7F1E1;}
+.hero .hero-sub{color:#D9CDB2;font-size:clamp(16px,2vw,20px);max-width:52ch;margin-top:26px;line-height:1.6;}
+.hero-cta-row{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap;}
+.hero-cta-row .btn-outline{border-color:rgba(247,241,225,0.4);color:#F7F1E1;}
+.hero-cta-row .btn-outline:hover{border-color:#F7F1E1;background:rgba(247,241,225,0.08);}
+.hero-scroll-cue{
+  position:absolute;bottom:28px;right:28px;z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:#D9CDB2;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+}
+.hero-scroll-cue i{animation:bob 1.8s ease-in-out infinite;}
+@keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(7px);}}
+
+.quickfacts-strip{padding:56px 0 20px;}
+.quickfacts-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
+@media (max-width:980px){.quickfacts-grid{grid-template-columns:repeat(3,1fr);}}
+@media (max-width:560px){.quickfacts-grid{grid-template-columns:repeat(2,1fr);}}
+
+.overview-map-wrap{margin-top:20px;border-radius:var(--radius-l);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);}
+.overview-map-wrap iframe{width:100%;height:440px;border:0;display:block;}
+
+.season-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px;}
+@media (max-width:900px){.season-grid{grid-template-columns:repeat(2,1fr);}}
+.season-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-m);padding:22px;}
+.season-card h4{font-size:19px;margin-bottom:6px;}
+.season-card .season-months{font-family:var(--font-mono);font-size:11px;color:var(--oxblood);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;display:block;}
+[data-theme="dark"] .season-card .season-months{color:var(--ochre-bright);}
+.season-card p{font-size:13.5px;color:var(--text-soft);line-height:1.55;}
+
+/* ============ Tarjetas de datos (playas, comida, actividades…) ============ */
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+@media (max-width:1020px){.cards-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:640px){.cards-grid{grid-template-columns:1fr;}}
+.cards-grid.cols-4{grid-template-columns:repeat(4,1fr);}
+@media (max-width:1100px){.cards-grid.cols-4{grid-template-columns:repeat(2,1fr);}}
+
+.data-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-m);overflow:hidden;
+  display:flex;flex-direction:column;transition:transform .25s ease,box-shadow .25s ease;position:relative;
+}
+.data-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
+.dc-photo{
+  height:168px;position:relative;display:flex;align-items:flex-end;padding:16px;overflow:hidden;
+}
+.dc-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.35));}
+.dc-photo-icon{position:absolute;top:16px;left:16px;font-size:26px;color:rgba(255,255,255,0.85);z-index:1;}
+.dc-photo-tag{position:relative;z-index:1;color:#fff;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;background:rgba(0,0,0,0.32);padding:5px 11px;border-radius:14px;backdrop-filter:blur(4px);}
+.dc-score{
+  position:absolute;bottom:14px;right:14px;z-index:1;background:rgba(20,16,10,0.55);backdrop-filter:blur(4px);
+  color:#fff;font-family:var(--font-mono);font-weight:700;font-size:13px;padding:4px 9px;border-radius:8px;
+  display:flex;align-items:center;gap:5px;
+}
+.dc-score i{color:var(--ochre-bright);font-size:10px;}
+.dc-body{padding:20px 20px 22px;flex:1;display:flex;flex-direction:column;}
+.dc-region{font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--oxblood);margin-bottom:6px;}
+[data-theme="dark"] .dc-region{color:var(--ochre-bright);}
+.dc-body h3{font-size:22px;margin-bottom:9px;}
+.dc-desc{font-size:13.8px;color:var(--text-soft);line-height:1.6;margin-bottom:14px;}
+.dc-specs{display:flex;flex-wrap:wrap;gap:8px 14px;margin-bottom:6px;font-size:12.3px;color:var(--text-soft);}
+.dc-specs span{display:flex;align-items:center;gap:5px;}
+.dc-specs i{color:var(--aegean);width:13px;text-align:center;}
+[data-theme="dark"] .dc-specs i{color:var(--aegean-bright);}
+.dc-details{margin-top:12px;border-top:1px solid var(--border);padding-top:0;}
+.dc-details summary{
+  padding:12px 0 4px;font-family:var(--font-mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;
+  font-weight:700;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+  list-style:none;
+}
+.dc-details summary::-webkit-details-marker{display:none;}
+.dc-details summary i{transition:transform .25s ease;font-size:10px;color:var(--text-soft);}
+.dc-details[open] summary i{transform:rotate(180deg);}
+.dc-details-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px 16px;padding:8px 0 14px;font-size:12.8px;}
+.dc-details-grid dt{color:var(--text-soft);font-weight:600;}
+.dc-details-grid dd{margin:1px 0 0;font-weight:600;}
+.dc-details-grid .full{grid-column:1/-1;}
+.dc-actions{margin-top:auto;padding-top:14px;display:flex;gap:8px;flex-wrap:wrap;}
+.dc-tags{display:none;} /* used only for search indexing */
+
+.empty-state{
+  text-align:center;padding:60px 20px;color:var(--text-soft);font-size:15px;
+  border:1.5px dashed var(--border-strong);border-radius:var(--radius-m);grid-column:1/-1;
+}
+.empty-state i{font-size:26px;margin-bottom:12px;display:block;color:var(--text-soft);}
+
+.results-count{font-family:var(--font-mono);font-size:12px;color:var(--text-soft);margin-bottom:18px;display:block;}
+
+/* ============ Subpestañas (Aventura, Cultura, Guía práctica) ============ */
+.subtabs{display:flex;gap:8px;margin-bottom:44px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:0;}
+.subtab-btn{
+  padding:12px 6px;margin-right:22px;background:none;border:none;border-bottom:2.5px solid transparent;
+  font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--text-soft);position:relative;top:1px;
+  transition:color .2s,border-color .2s;
+}
+.subtab-btn i{margin-right:8px;font-size:14px;}
+.subtab-btn:hover{color:var(--text);}
+.subtab-btn.active{color:var(--oxblood);border-color:var(--oxblood);}
+[data-theme="dark"] .subtab-btn.active{color:var(--ochre-bright);border-color:var(--ochre-bright);}
+.subpanel{display:none;animation:fadein .4s ease;}
+.subpanel.active{display:block;}
+@keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+/* ============ Tabla de especificación (senderismo / running) ============ */
+.spec-table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius-m);margin-bottom:20px;}
+table.spec-table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:720px;}
+table.spec-table th{
+  text-align:left;font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--text-soft);padding:14px 16px;border-bottom:1.5px solid var(--border-strong);background:var(--bg-alt);white-space:nowrap;
+}
+table.spec-table td{padding:14px 16px;border-bottom:1px solid var(--border);vertical-align:top;}
+table.spec-table tr:last-child td{border-bottom:none;}
+table.spec-table tr:hover td{background:var(--bg-alt);}
+table.spec-table .diff-badge{
+  font-family:var(--font-mono);font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:10px;text-transform:uppercase;
+  display:inline-block;white-space:nowrap;
+}
+.diff-facil{background:color-mix(in srgb, var(--olive) 18%, transparent);color:var(--olive);}
+.diff-moderada{background:color-mix(in srgb, var(--ochre) 20%, transparent);color:var(--ochre);}
+.diff-dificil{background:color-mix(in srgb, var(--oxblood) 16%, transparent);color:var(--oxblood);}
+[data-theme="dark"] .diff-dificil{color:var(--oxblood-bright);}
+table.spec-table strong{display:block;font-family:var(--font-display);font-size:15px;font-weight:600;margin-bottom:2px;}
+table.spec-table .row-desc{color:var(--text-soft);font-size:12.5px;max-width:260px;}
+
+/* ============ Grid de categorías "Qué hacer" ============ */
+.activity-tile{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-m);padding:20px;
+  display:flex;flex-direction:column;gap:10px;transition:transform .2s,border-color .2s;
+}
+.activity-tile:hover{transform:translateY(-3px);border-color:var(--border-strong);}
+.activity-tile .at-icon{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb, var(--oxblood) 12%, transparent);color:var(--oxblood);font-size:17px;}
+[data-theme="dark"] .activity-tile .at-icon{background:color-mix(in srgb, var(--ochre-bright) 15%, transparent);color:var(--ochre-bright);}
+.activity-tile h4{font-size:16.5px;}
+.activity-tile p{font-size:12.8px;color:var(--text-soft);line-height:1.55;}
+.activity-tile .at-cat{font-family:var(--font-mono);font-size:9.5px;text-transform:uppercase;color:var(--text-soft);letter-spacing:.06em;}
+
+/* ============ Línea de tiempo (Historia) ============ */
+.timeline{position:relative;padding-left:32px;border-left:2px solid var(--border-strong);margin:32px 0;}
+.timeline-item{position:relative;padding-bottom:36px;}
+.timeline-item:last-child{padding-bottom:0;}
+.timeline-item::before{
+  content:"";position:absolute;left:-38px;top:4px;width:13px;height:13px;border-radius:50%;background:var(--oxblood);
+  border:3px solid var(--bg);box-shadow:0 0 0 1.5px var(--oxblood);
+}
+[data-theme="dark"] .timeline-item::before{background:var(--ochre-bright);box-shadow:0 0 0 1.5px var(--ochre-bright);}
+.timeline-item .ti-period{font-family:var(--font-mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--oxblood);font-weight:700;margin-bottom:4px;}
+[data-theme="dark"] .timeline-item .ti-period{color:var(--ochre-bright);}
+.timeline-item h4{font-size:19px;margin-bottom:6px;}
+.timeline-item p{font-size:14px;color:var(--text-soft);line-height:1.65;max-width:70ch;}
+
+/* ============ UNESCO / rincones ocultos ============ */
+.gem-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-m);padding:22px;}
+.gem-card .gem-icon{color:var(--aegean);font-size:18px;margin-bottom:10px;}
+[data-theme="dark"] .gem-card .gem-icon{color:var(--aegean-bright);}
+.gem-card h4{font-size:17px;margin-bottom:8px;}
+.gem-card p{font-size:13px;color:var(--text-soft);line-height:1.6;}
+
+.photo-spot-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:16px 0;border-bottom:1px solid var(--border);}
+.photo-spot-row:last-child{border-bottom:none;}
+.photo-spot-row .ps-name{font-family:var(--font-display);font-weight:600;font-size:16px;}
+.photo-spot-row .ps-tip{font-size:12.8px;color:var(--text-soft);margin-top:3px;max-width:52ch;}
+.photo-spot-row .ps-time{font-family:var(--font-mono);font-size:11px;color:var(--ochre);white-space:nowrap;text-transform:uppercase;font-weight:700;flex-shrink:0;}
+[data-theme="dark"] .photo-spot-row .ps-time{color:var(--ochre-bright);}
+
+/* ============ Gráfico de clima (barras CSS) ============ */
+.chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-m);padding:28px 24px 14px;margin-bottom:24px;}
+.chart-legend{display:flex;gap:20px;margin-bottom:22px;flex-wrap:wrap;font-size:12.5px;color:var(--text-soft);}
+.chart-legend span{display:flex;align-items:center;gap:7px;}
+.chart-legend i{width:11px;height:11px;border-radius:3px;display:inline-block;}
+.bar-chart{display:flex;align-items:flex-end;gap:6px;height:220px;border-bottom:1px solid var(--border-strong);padding-bottom:2px;}
+.bar-chart .bc-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:3px;position:relative;}
+.bar-chart .bc-bars{display:flex;align-items:flex-end;gap:2px;height:100%;width:100%;justify-content:center;}
+.bar-chart .bc-bar{width:38%;border-radius:4px 4px 0 0;position:relative;transition:opacity .2s;}
+.bar-chart .bc-bar.air{background:var(--ochre);}
+.bar-chart .bc-bar.sea{background:var(--aegean);}
+[data-theme="dark"] .bar-chart .bc-bar.air{background:var(--ochre-bright);}
+[data-theme="dark"] .bar-chart .bc-bar.sea{background:var(--aegean-bright);}
+.bar-chart .bc-col:hover .bc-bar{opacity:.75;}
+.bar-chart .bc-label{font-family:var(--font-mono);font-size:10.5px;color:var(--text-soft);margin-top:8px;text-transform:uppercase;}
+.bar-chart .bc-val{position:absolute;top:-18px;font-family:var(--font-mono);font-size:9.5px;color:var(--text-soft);opacity:0;transition:opacity .2s;white-space:nowrap;}
+.bar-chart .bc-col:hover .bc-val{opacity:1;}
+
+.crowd-row{display:grid;grid-template-columns:70px 1fr;gap:14px;align-items:center;padding:6px 0;font-size:12.5px;}
+.crowd-row .cr-bar-bg{background:var(--bg-alt);border-radius:6px;height:9px;overflow:hidden;}
+.crowd-row .cr-bar-fill{height:100%;background:linear-gradient(90deg,var(--aegean),var(--oxblood));border-radius:6px;}
+
+/* ============ Calculadora de presupuesto ============ */
+.budget-calc{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-l);padding:32px;}
+.budget-row{display:grid;grid-template-columns:140px 1fr 90px;gap:18px;align-items:center;padding:14px 0;border-bottom:1px solid var(--border);}
+.budget-row:last-of-type{border-bottom:none;}
+.budget-row label{font-weight:700;font-size:14px;display:flex;align-items:center;gap:9px;}
+.budget-row label i{color:var(--oxblood);width:16px;}
+[data-theme="dark"] .budget-row label i{color:var(--ochre-bright);}
+.tier-toggle{display:flex;background:var(--bg-alt);border-radius:20px;padding:3px;gap:2px;}
+.tier-toggle button{flex:1;padding:8px 4px;border-radius:17px;border:none;background:none;font-size:11.5px;font-weight:700;font-family:var(--font-mono);text-transform:uppercase;color:var(--text-soft);transition:all .2s;}
+.tier-toggle button.active{background:var(--oxblood);color:#fff;}
+[data-theme="dark"] .tier-toggle button.active{background:var(--ochre-bright);color:#1a1508;}
+.budget-row .budget-amount{text-align:right;font-family:var(--font-mono);font-weight:700;font-size:15px;}
+.budget-total{display:flex;justify-content:space-between;align-items:baseline;padding-top:22px;margin-top:8px;}
+.budget-total .bt-label{font-family:var(--font-display);font-size:20px;font-weight:600;}
+.budget-total .bt-value{font-family:var(--font-mono);font-size:32px;font-weight:700;color:var(--oxblood);}
+[data-theme="dark"] .budget-total .bt-value{color:var(--ochre-bright);}
+
+/* ============ Frases de idioma ============ */
+.phrase-cat{margin-bottom:12px;}
+.phrase-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:40px;}
+@media (max-width:700px){.phrase-grid{grid-template-columns:1fr;}}
+.phrase-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-s);padding:14px 16px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.phrase-card .ph-es{font-weight:700;font-size:14px;margin-bottom:3px;}
+.phrase-card .ph-gr{font-size:15px;color:var(--oxblood);font-weight:600;}
+[data-theme="dark"] .phrase-card .ph-gr{color:var(--ochre-bright);}
+.phrase-card .ph-pron{font-family:var(--font-mono);font-size:12px;color:var(--text-soft);margin-top:2px;}
+.phrase-card .ph-play{
+  width:36px;height:36px;border-radius:50%;border:1px solid var(--border-strong);background:var(--bg-alt);
+  display:flex;align-items:center;justify-content:center;color:var(--text);flex-shrink:0;transition:all .2s;font-size:13px;
+}
+.phrase-card .ph-play:hover{background:var(--oxblood);color:#fff;border-color:var(--oxblood);}
+.phrase-card .ph-play.playing{background:var(--aegean);color:#fff;border-color:var(--aegean);}
+.alphabet-strip{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 36px;}
+.alphabet-chip{
+  width:44px;height:44px;border-radius:50%;background:var(--surface);border:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--font-display);font-size:16px;font-weight:700;
+}
+.alphabet-chip span{font-family:var(--font-mono);font-size:7.5px;color:var(--text-soft);text-transform:uppercase;margin-top:1px;}
+
+/* ============ Itinerarios ============ */
+.itin-tabs{display:flex;gap:10px;margin-bottom:32px;flex-wrap:wrap;}
+.itin-tab-btn{
+  padding:11px 22px;border-radius:24px;border:1.5px solid var(--border-strong);background:var(--surface);
+  font-weight:700;font-size:14px;font-family:var(--font-display);color:var(--text-soft);
+}
+.itin-tab-btn.active{background:var(--oxblood);border-color:var(--oxblood);color:#fff;}
+[data-theme="dark"] .itin-tab-btn.active{background:var(--ochre-bright);border-color:var(--ochre-bright);color:#1a1508;}
+.itin-day{display:grid;grid-template-columns:64px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid var(--border);}
+.itin-day:last-child{border-bottom:none;}
+.itin-day-num{font-family:var(--font-mono);font-size:12px;color:var(--text-soft);text-transform:uppercase;padding-top:3px;}
+.itin-day-num strong{display:block;font-family:var(--font-display);font-size:30px;color:var(--oxblood);font-weight:700;line-height:1;}
+[data-theme="dark"] .itin-day-num strong{color:var(--ochre-bright);}
+.itin-day h4{font-size:18px;margin-bottom:6px;}
+.itin-day p{font-size:13.8px;color:var(--text-soft);line-height:1.65;}
+.itin-type-notes{display:flex;flex-wrap:wrap;gap:10px;margin-top:36px;}
+.itin-type-notes .chip{cursor:default;}
+
+/* ============ Pie de página ============ */
+footer.site-footer{background:var(--ink,#16130F);color:#EFE7D3;padding:72px 0 32px;margin-top:40px;}
+[data-theme="light"] footer.site-footer,footer.site-footer{background:#16130F;color:#EFE7D3;}
+footer.site-footer a{color:#EFE7D3;}
+footer.site-footer h4{font-size:14px;text-transform:uppercase;letter-spacing:.08em;font-family:var(--font-mono);color:#D9A94E;margin-bottom:16px;}
+footer.site-footer .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:44px;border-bottom:1px solid rgba(239,231,211,0.14);}
+@media (max-width:900px){footer.site-footer .footer-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){footer.site-footer .footer-grid{grid-template-columns:1fr;}}
+footer.site-footer .footer-brand{font-family:var(--font-display);font-size:24px;font-weight:600;margin-bottom:10px;}
+footer.site-footer .footer-brand-desc{font-size:13px;color:#C4B7A0;line-height:1.6;max-width:34ch;}
+footer.site-footer ul li{font-size:13px;margin-bottom:10px;color:#C4B7A0;}
+footer.site-footer ul li a{text-decoration:none;}
+footer.site-footer ul li a:hover{color:#D9A94E;}
+footer.site-footer .footer-bottom{padding-top:28px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;font-size:12px;color:#8F8570;}
+footer.site-footer .disclaimer-box{
+  background:rgba(239,231,211,0.06);border:1px solid rgba(239,231,211,0.14);border-radius:var(--radius-m);
+  padding:18px 20px;font-size:12.5px;line-height:1.7;color:#C4B7A0;margin-bottom:28px;
+}
+footer.site-footer .disclaimer-box strong{color:#EFE7D3;}
+
+/* ============ Cajón de favoritos ============ */
+.fav-drawer{
+  position:fixed;top:0;right:-380px;width:360px;max-width:88vw;height:100vh;background:var(--surface);
+  box-shadow:-8px 0 32px rgba(0,0,0,0.25);z-index:1400;transition:right .35s cubic-bezier(.2,.8,.2,1);
+  padding:26px 22px;overflow-y:auto;border-left:1px solid var(--border);
+}
+.fav-drawer.open{right:0;}
+.fav-drawer-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;}
+.fav-drawer-head h3{font-size:22px;}
+.fav-drawer-close{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--bg-alt);color:var(--text);}
+.fav-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid var(--border);}
+.fav-item .fi-name{font-weight:700;font-size:14px;}
+.fav-item .fi-type{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;color:var(--text-soft);}
+.fav-item button{background:none;border:none;color:var(--text-soft);font-size:14px;}
+.fav-item button:hover{color:var(--oxblood);}
+.fav-drawer-empty{color:var(--text-soft);font-size:13.5px;text-align:center;padding:40px 10px;}
+.scrim{position:fixed;inset:0;background:rgba(10,8,5,0.4);z-index:1300;opacity:0;pointer-events:none;transition:opacity .3s ease;}
+.scrim.open{opacity:1;pointer-events:auto;}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+@media print{
+  .site-header,.mobile-nav,.back-to-top,.progress-bar,.fav-toggle,.icon-btn,.search-wrap,.chip-row,iframe,.gallery-lightbox,video{display:none !important;}
+  body{background:#fff;color:#000;}
+  .section{padding:24px 0;break-inside:avoid;}
+  a{text-decoration:underline;}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Saltar al contenido principal</a>
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="site-header">
+  <div class="container">
+    <a href="#inicio" class="brand">
+      <span class="brand-seal">Κρ</span>
+      <span class="brand-text">Creta<em>Guía definitiva</em></span>
+    </a>
+    <nav class="main-nav" id="mainNav" aria-label="Navegación principal">
+      <a href="#inicio">Inicio</a>
+      <a href="#playas">Playas</a>
+      <a href="#gastronomia">Gastronomía</a>
+      <a href="#aventura">Aventura</a>
+      <a href="#vida-nocturna">Vida nocturna</a>
+      <a href="#cultura">Cultura</a>
+      <a href="#guia-practica">Guía práctica</a>
+      <a href="#idioma">Idioma</a>
+      <a href="#itinerarios">Itinerarios</a>
+    </nav>
+    <div class="header-actions">
+      <div class="search-wrap" id="searchWrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" class="search-input" id="searchInput" placeholder="Buscar en la guía…" aria-label="Buscar en toda la guía">
+        <div class="search-results" id="searchResults"></div>
+      </div>
+      <button class="icon-btn" id="favBtn" title="Ver favoritos" aria-label="Ver favoritos guardados">
+        <i class="fa-solid fa-heart"></i>
+        <span class="fav-count visually-hidden" id="favCount">0</span>
+      </button>
+      <button class="icon-btn" id="themeToggle" title="Cambiar modo claro/oscuro" aria-label="Cambiar entre modo claro y oscuro">
+        <i class="fa-solid fa-sun"></i>
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <button class="icon-btn" id="printBtn" title="Imprimir esta guía" aria-label="Imprimir">
+        <i class="fa-solid fa-print"></i>
+      </button>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="#inicio"><i class="fa-solid fa-house"></i>Inicio</a>
+  <a href="#playas"><i class="fa-solid fa-umbrella-beach"></i>Playas</a>
+  <a href="#gastronomia"><i class="fa-solid fa-utensils"></i>Gastronomía</a>
+  <a href="#aventura"><i class="fa-solid fa-person-hiking"></i>Aventura</a>
+  <a href="#vida-nocturna"><i class="fa-solid fa-champagne-glasses"></i>Vida nocturna</a>
+  <a href="#cultura"><i class="fa-solid fa-landmark"></i>Cultura</a>
+  <a href="#guia-practica"><i class="fa-solid fa-circle-info"></i>Guía práctica</a>
+  <a href="#idioma"><i class="fa-solid fa-comments"></i>Idioma</a>
+  <a href="#itinerarios"><i class="fa-solid fa-route"></i>Itinerarios</a>
+</div>
+
+<main id="main">
+<!-- SECTION:INICIO -->
+<section id="inicio" class="hero">
+  <div class="hero-texture" aria-hidden="true"></div>
+  <div class="hero-mountains" aria-hidden="true">
+    <svg viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,320 L0,210 L120,140 L230,190 L340,90 L430,160 L560,60 L650,150 L760,110 L880,200 L980,130 L1100,180 L1220,100 L1330,170 L1440,120 L1440,320 Z" fill="#241C13" opacity="0.85"/>
+      <path d="M0,320 L0,250 L160,190 L280,230 L400,160 L520,220 L640,150 L760,210 L900,170 L1040,230 L1180,180 L1300,225 L1440,190 L1440,320 Z" fill="#16130F"/>
+    </svg>
+  </div>
+  <div class="container hero-inner">
+    <p class="hero-eyebrow"><i class="fa-solid fa-mountain-sun"></i> Κρήτη — La isla de los cien pueblos</p>
+    <h1>El manual <em>completo</em> de Creta</h1>
+    <p class="hero-sub">Desde los frescos de Cnosos hasta el fondo turquesa de Balos: playas, gastronomía, senderos, running, cultura minoica y el griego imprescindible, todo cruzado entre fuentes y organizado para viajar de verdad — no para leer una lista más.</p>
+    <div class="hero-cta-row">
+      <a href="#playas" class="btn btn-accent"><i class="fa-solid fa-umbrella-beach"></i> Explorar playas</a>
+      <a href="#itinerarios" class="btn btn-outline"><i class="fa-solid fa-route"></i> Ver itinerarios</a>
+    </div>
+  </div>
+  <div class="hero-scroll-cue"><span>Desplázate</span><i class="fa-solid fa-chevron-down"></i></div>
+</section>
+
+<section class="quickfacts-strip container">
+  <div class="eyebrow">Datos rápidos</div>
+  <div class="quickfacts-grid" id="quickFactsGrid">
+    <div class="tag-card"><div class="tc-label">Población</div><div class="tc-value"><i class="fa-solid fa-people-group"></i>~625.000</div></div>
+    <div class="tag-card"><div class="tc-label">Capital</div><div class="tc-value"><i class="fa-solid fa-city"></i>Heraclión</div></div>
+    <div class="tag-card"><div class="tc-label">Moneda</div><div class="tc-value"><i class="fa-solid fa-euro-sign"></i>Euro (€)</div></div>
+    <div class="tag-card"><div class="tc-label">Idioma</div><div class="tc-value"><i class="fa-solid fa-comment"></i>Griego</div></div>
+    <div class="tag-card"><div class="tc-label">Costa</div><div class="tc-value"><i class="fa-solid fa-water"></i>1.046 km</div></div>
+    <div class="tag-card"><div class="tc-label">Punto más alto</div><div class="tc-value"><i class="fa-solid fa-mountain"></i>2.456 m</div></div>
+    <div class="tag-card"><div class="tc-label">Enchufe</div><div class="tc-value"><i class="fa-solid fa-plug"></i>Tipo C/F</div></div>
+    <div class="tag-card"><div class="tc-label">Electricidad</div><div class="tc-value"><i class="fa-solid fa-bolt"></i>230V · 50Hz</div></div>
+    <div class="tag-card"><div class="tc-label">Emergencias</div><div class="tc-value"><i class="fa-solid fa-phone"></i>112</div></div>
+    <div class="tag-card"><div class="tc-label">Conducción</div><div class="tc-value"><i class="fa-solid fa-car"></i>Por la derecha</div></div>
+    <div class="tag-card"><div class="tc-label">Huso horario</div><div class="tc-value"><i class="fa-solid fa-clock"></i>EET (UTC+2)</div></div>
+    <div class="tag-card"><div class="tc-label">Prefijo</div><div class="tc-value"><i class="fa-solid fa-phone-volume"></i>+30</div></div>
+  </div>
+
+  <div class="grid grid-2 mt-lg" style="align-items:start;">
+    <div>
+      <h3 style="font-size:24px;margin-bottom:14px;">Dónde está y cómo se organiza</h3>
+      <p style="color:var(--text-soft);font-size:15px;line-height:1.7;">Creta es la isla más grande de Grecia y la quinta del Mediterráneo, tendida como una barrera de 260 km entre el mar Egeo y el mar de Libia. Se divide en cuatro unidades regionales que de oeste a este son <strong>Chania</strong>, <strong>Rétino</strong>, <strong>Heraclión</strong> (la capital administrativa) y <strong>Lasithi</strong>. La columna vertebral de la isla son tres macizos montañosos — las Montañas Blancas o Lefka Ori al oeste, el Psiloritis (Ida) en el centro y las montañas de Dikti al este — que explican por qué en 45 minutos de coche puedes pasar de una playa de 30°C a un pueblo de montaña con niebla.</p>
+      <p style="color:var(--text-soft);font-size:15px;line-height:1.7;margin-top:14px;">Esta mezcla de mar y montaña tan cercanos es la clave de casi todo lo que hace especial a Creta: microclimas distintos en la costa norte y sur, gargantas que bajan directas al mar y una cocina que combina productos de huerta de montaña con pesca del día.</p>
+    </div>
+    <div class="overview-map-wrap">
+      <iframe src="https://www.google.com/maps?q=Crete,Greece&z=9&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa general de Creta" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="mt-lg">
+    <h3 style="font-size:24px;margin-bottom:6px;">¿Cuándo ir?</h3>
+    <p style="color:var(--text-soft);font-size:15px;">Creta tiene temporada casi todo el año, pero cada franja ofrece una isla distinta. Para el detalle mes a mes con temperatura del mar, ve a la sección de <a href="#clima" style="color:var(--oxblood);font-weight:700;text-decoration:none;">Clima</a>.</p>
+    <div class="season-grid">
+      <div class="season-card">
+        <span class="season-months">Jun · Jul · Ago</span>
+        <h4><i class="fa-solid fa-sun" style="color:var(--ochre);margin-right:6px;"></i>Verano pleno</h4>
+        <p>Calor garantizado (28–29°C), mar a 24–26°C y el <em>meltemi</em> soplando desde el noroeste. Todo abierto, todo lleno. Reserva con 3–6 meses de antelación en julio y agosto.</p>
+      </div>
+      <div class="season-card">
+        <span class="season-months">Mayo · Sep</span>
+        <h4><i class="fa-solid fa-leaf" style="color:var(--olive);margin-right:6px;"></i>Temporada media</h4>
+        <p>El mejor equilibrio: calor suficiente para playa, mar ya caliente en septiembre, precios 20–40% más bajos y las gargantas todavía transitables sin agobio.</p>
+      </div>
+      <div class="season-card">
+        <span class="season-months">Abr · Oct</span>
+        <h4><i class="fa-solid fa-seedling" style="color:var(--aegean);margin-right:6px;"></i>Primavera / otoño</h4>
+        <p>Mejor época para senderismo y ruinas sin calor extremo. Abril trae flores silvestres; octubre, cosecha de aceituna y mar todavía nadable (22–24°C en el sur).</p>
+      </div>
+      <div class="season-card">
+        <span class="season-months">Nov — Mar</span>
+        <h4><i class="fa-solid fa-cloud-rain" style="color:var(--text-soft);margin-right:6px;"></i>Invierno</h4>
+        <p>Lluvioso y con nieve en las cumbres, pero suave en la costa. Museos vacíos, precios bajos y la Creta más auténtica y menos turística del año.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- SECTION:INICIO:END -->
+<section id="playas" class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Playas</div>
+      <h2>Del rosa de Elafonisi al turquesa de Balos</h2>
+      <p class="lede">Creta tiene más de 400 playas registradas. En vez de listarlas todas, cruzamos guías locales, foros de senderismo y miles de reseñas recientes para quedarnos con las que de verdad merecen tu tiempo — clasificadas por región para que puedas planear por zonas en lugar de cruzar la isla cada día.</p>
+    </div>
+    <div class="chip-row" id="beachFilters">
+      <button class="chip active" data-filter="all">Todas</button>
+      <button class="chip" data-filter="oeste">Oeste</button>
+      <button class="chip" data-filter="centro-sur">Centro sur</button>
+      <button class="chip" data-filter="este">Este</button>
+      <button class="chip" data-filter="familia">Aptas para niños</button>
+      <button class="chip" data-filter="aventura">Acceso aventurero</button>
+    </div>
+    <span class="results-count" id="beachCount"></span>
+    <div class="cards-grid" id="beachesGrid"></div>
+
+    <div class="grid grid-2 mt-lg" style="align-items:start;">
+      <div>
+        <h3 style="font-size:22px;margin-bottom:12px;"><i class="fa-solid fa-umbrella-beach" style="color:var(--oxblood);margin-right:8px;"></i>Cómo elegir sin perder el día</h3>
+        <p style="color:var(--text-soft);font-size:14.5px;line-height:1.7;">La regla de oro que repiten todas las guías locales: <strong>ve pronto o ve tarde</strong>. En Balos y Elafonisi, llegar antes de las 9:30 significa aparcamiento fácil y la playa casi para ti; después de las 11:00 llegan los autobuses de excursión. Alquila un coche si puedes — tres cuartas partes de esta lista son un suplicio en transporte público, aunque KTEL cubre las rutas principales en temporada alta.</p>
+        <p style="color:var(--text-soft);font-size:14.5px;line-height:1.7;margin-top:12px;">Ten en cuenta los cambios recientes de acceso: en Balos ya no se puede bajar en coche hasta la playa (pista cerrada, aparcamiento arriba + 20 min a pie), y en Elafonisi el aparcamiento está ahora a 650 m de la arena por la protección Natura 2000 de la zona.</p>
+      </div>
+      <div class="overview-map-wrap">
+        <iframe src="https://www.google.com/maps?q=Elafonissi+Beach+Crete&z=10&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de playas del suroeste de Creta" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="meander-divider"></div></div>
+
+<section id="gastronomia" class="section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Gastronomía</div>
+      <h2>La dieta que estudiaron los científicos</h2>
+      <p class="lede">La cocina cretense es la matriz original de la "dieta mediterránea" que hizo famosa el Estudio de los Siete Países en los años 60. Aceite de oliva en cada plato, verduras silvestres, queso de oveja y muy poca carne salvo en fiestas — y el raki cerrando cada comida, quieras o no.</p>
+    </div>
+
+    <h3 style="font-size:22px;margin-bottom:18px;"><i class="fa-solid fa-plate-wheat" style="color:var(--oxblood);margin-right:8px;"></i>Platos imprescindibles</h3>
+    <div class="grid grid-4" id="dishesGrid" style="margin-bottom:60px;"></div>
+
+    <h3 style="font-size:22px;margin-bottom:6px;"><i class="fa-solid fa-utensils" style="color:var(--oxblood);margin-right:8px;"></i>Dónde comer</h3>
+    <p style="color:var(--text-soft);font-size:14.5px;margin-bottom:20px;max-width:70ch;">Una aclaración honesta antes de la lista: la Guía Michelin todavía <strong>no evalúa Creta</strong> — su cobertura griega se limita a Atenas, y en 2026 se amplía a Santorini y Tesalónica, no a esta isla. Así que ningún restaurante cretense tiene estrella oficial, pase lo que diga el cartel de la entrada. La excepción curiosa es el resort Daios Cove, en Lasithi, que cada verano invita a cocineros con estrella de toda Europa a cocinar por temporadas — mérito del hotel, no del restaurante local.</p>
+    <div class="chip-row" id="foodFilters">
+      <button class="chip active" data-filter="all">Todos</button>
+      <button class="chip" data-filter="chania">Chania</button>
+      <button class="chip" data-filter="rethymno">Rétino</button>
+      <button class="chip" data-filter="heraklion">Heraclión</button>
+      <button class="chip" data-filter="marisco">Marisco</button>
+      <button class="chip" data-filter="economico">Económico</button>
+    </div>
+    <div class="cards-grid" id="foodGrid"></div>
+
+    <div class="grid grid-3 mt-lg">
+      <div class="tag-card">
+        <div class="tc-label">Raki / Tsikoudia</div>
+        <div class="tc-value" style="font-size:15px;line-height:1.5;font-family:var(--font-body);font-weight:600;">Aguardiente de orujo de uva, se sirve gratis al final de la comida — casi nunca es opcional.</div>
+      </div>
+      <div class="tag-card">
+        <div class="tc-label">Vino local</div>
+        <div class="tc-value" style="font-size:15px;line-height:1.5;font-family:var(--font-body);font-weight:600;">Variedades autóctonas: Vidiano y Vilana (blancos), Liatiko, Kotsifali y Mandilaria (tintos). Denominaciones de Archanes y Peza, cerca de Heraclión.</div>
+      </div>
+      <div class="tag-card">
+        <div class="tc-label">Aceite de oliva</div>
+        <div class="tc-value" style="font-size:15px;line-height:1.5;font-family:var(--font-body);font-weight:600;">Creta tiene más olivos que habitantes. Pregunta siempre por el aceite de la casa — muchas tabernas producen el suyo.</div>
+      </div>
+    </div>
+
+    <div class="grid grid-2 mt-lg" style="align-items:start;">
+      <div class="data-card" style="padding:24px;">
+        <h4 style="font-size:18px;margin-bottom:10px;"><i class="fa-solid fa-mug-hot" style="color:var(--ochre);margin-right:8px;"></i>Desayuno y dulces</h4>
+        <p style="font-size:13.8px;color:var(--text-soft);line-height:1.65;">Empieza el día como un cretense: <strong>bougatsa</strong> (hojaldre relleno de crema de sémola, espolvoreado con azúcar y canela) recién salida del horno — en Chania, la panadería Iordanis es la referencia histórica que todo el mundo recomienda. Para algo salado, <strong>kalitsounia</strong> de queso mizithra o de hierbas silvestres, y para el postre de después de cenar, <strong>xerotigana</strong> (espirales fritas bañadas en miel y canela) o <strong>lichnarakia</strong>, la versión dulce navideña/pascual de las kalitsounia.</p>
+      </div>
+      <div class="data-card" style="padding:24px;">
+        <h4 style="font-size:18px;margin-bottom:10px;"><i class="fa-solid fa-leaf" style="color:var(--olive);margin-right:8px;"></i>Vegetariano y vegano</h4>
+        <p style="font-size:13.8px;color:var(--text-soft);line-height:1.65;">Más fácil de lo que parece en una cocina tan cárnica: <strong>horta</strong> (verduras silvestres hervidas con aceite y limón), <strong>dakos</strong>, <strong>fava</strong> (puré de guisantes amarillos), berenjenas y calabacines rellenos, y la ensalada horiatiki de siempre. Para vegano estricto, la frase útil es "δεν τρώω κρέας, γαλακτικά ή αυγά" (no como carne, lácteos ni huevos) — muchas tabernas familiares se adaptan si lo explicas con calma.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="meander-divider"></div></div>
+
+<section id="aventura" class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Aventura</div>
+      <h2>Montaña, garganta y mar en el mismo día</h2>
+      <p class="lede">Con tres cordilleras y 1.046 km de costa, Creta es de los pocos sitios de Europa donde puedes hacer trail en la montaña por la mañana y nadar al atardecer. Esta sección cubre qué hacer, dónde caminar, dónde correr y dónde practicar deporte.</p>
+    </div>
+
+    <div class="subtabs" id="aventuraTabs">
+      <button class="subtab-btn active" data-panel="que-hacer"><i class="fa-solid fa-compass"></i>Qué hacer</button>
+      <button class="subtab-btn" data-panel="senderismo"><i class="fa-solid fa-person-hiking"></i>Senderismo</button>
+      <button class="subtab-btn" data-panel="running"><i class="fa-solid fa-person-running"></i>Running</button>
+      <button class="subtab-btn" data-panel="deportes"><i class="fa-solid fa-dumbbell"></i>Deportes</button>
+    </div>
+
+    <div class="subpanel active" id="panel-que-hacer">
+      <div class="chip-row" id="activityFilters">
+        <button class="chip active" data-filter="all">Todo</button>
+        <button class="chip" data-filter="naturaleza">Naturaleza</button>
+        <button class="chip" data-filter="familia">Familias</button>
+        <button class="chip" data-filter="pareja">Parejas</button>
+        <button class="chip" data-filter="agua">Deportes de agua</button>
+        <button class="chip" data-filter="cultura">Cultura</button>
+        <button class="chip" data-filter="lluvia">Días de lluvia</button>
+      </div>
+      <div class="grid grid-4" id="activitiesGrid"></div>
+    </div>
+
+    <div class="subpanel" id="panel-senderismo">
+      <p style="color:var(--text-soft);font-size:14.5px;margin-bottom:22px;max-width:70ch;">Creta tiene más de 20 gargantas transitables, además del tramo europeo del sendero <strong>E4</strong> cruzando la isla de punta a punta. Camina siempre en temporada (mayo–octubre para las gargantas altas), lleva agua de sobra y consulta el estado del sendero — el clima cambia estos horarios cada año.</p>
+      <div class="spec-table-wrap">
+        <table class="spec-table" id="hikesTable">
+          <thead><tr><th>Ruta</th><th>Distancia</th><th>Desnivel</th><th>Duración</th><th>Dificultad</th><th>Mapa</th></tr></thead>
+          <tbody id="hikesTableBody"></tbody>
+        </table>
+      </div>
+      <div class="overview-map-wrap" style="margin-top:24px;">
+        <iframe src="https://www.google.com/maps?q=Xyloskalo+Samaria+Gorge+entrance&z=10&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de la entrada norte de la Garganta de Samaria" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div class="subpanel" id="panel-running">
+      <p style="color:var(--text-soft);font-size:14.5px;margin-bottom:22px;max-width:70ch;">Corredores: el reto no es encontrar ruta, es evitar el calor. De junio a agosto sal antes de las 7:30 o después de las 19:30. En invierno el paseo marítimo de cualquier ciudad costera está perfecto a cualquier hora.</p>
+      <div class="spec-table-wrap">
+        <table class="spec-table" id="runningTable">
+          <thead><tr><th>Ruta</th><th>Distancia</th><th>Superficie</th><th>Desnivel</th><th>Dificultad</th><th>Mapa</th></tr></thead>
+          <tbody id="runningTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="subpanel" id="panel-deportes">
+      <div class="grid grid-3" id="sportsGrid"></div>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="meander-divider"></div></div>
+
+<section id="vida-nocturna" class="section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Vida nocturna</div>
+      <h2>De la copa de vino al amanecer bailando</h2>
+      <p class="lede">Creta tiene registros de noche muy distintos según dónde caigas: Chania y Rétino son para copas con vistas al puerto veneciano; Malia y Hersonisos son la fiesta joven sin filtro; Agios Nikolaos es la versión elegante y tranquila.</p>
+    </div>
+    <div class="chip-row" id="nightlifeFilters">
+      <button class="chip active" data-filter="all">Todas las zonas</button>
+      <button class="chip" data-filter="chania">Chania</button>
+      <button class="chip" data-filter="rethymno">Rétino</button>
+      <button class="chip" data-filter="malia">Malia / Hersonisos</button>
+      <button class="chip" data-filter="agios-nikolaos">Agios Nikolaos</button>
+    </div>
+    <div class="cards-grid" id="nightlifeGrid"></div>
+    <div class="tag-card mt-lg" style="max-width:640px;">
+      <div class="tc-label"><i class="fa-solid fa-triangle-exclamation"></i> Una nota práctica</div>
+      <div class="tc-value" style="font-size:14.5px;line-height:1.6;font-family:var(--font-body);font-weight:600;">Malia y la zona de Beach Road son conocidas por el turismo de fiesta joven (mayoritariamente británico) — está bien si es lo que buscas, pero no esperes la Creta tranquila de postal. Usa siempre transporte concertado de vuelta y vigila tu bebida, como en cualquier zona de ambiente intenso.</div>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="meander-divider"></div></div>
+
+<section id="cultura" class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Cultura</div>
+      <h2>5.000 años de capas superpuestas</h2>
+      <p class="lede">Minoicos, micénicos, romanos, bizantinos, venecianos, otomanos y griegos modernos — cada uno dejó huella sin borrar del todo la anterior. Por eso en el mismo pueblo puedes ver un fresco de 3.500 años, una fuente veneciana y un minarete otomano en la misma plaza.</p>
+    </div>
+
+    <div class="subtabs" id="culturaTabs">
+      <button class="subtab-btn active" data-panel="historia"><i class="fa-solid fa-scroll"></i>Historia</button>
+      <button class="subtab-btn" data-panel="tradiciones"><i class="fa-solid fa-masks-theater"></i>Tradiciones</button>
+      <button class="subtab-btn" data-panel="rincones"><i class="fa-solid fa-map-location-dot"></i>Rincones ocultos</button>
+      <button class="subtab-btn" data-panel="fotografia"><i class="fa-solid fa-camera-retro"></i>Fotografía</button>
+    </div>
+
+    <div class="subpanel active" id="panel-historia">
+      <div class="timeline" id="historyTimeline"></div>
+
+      <h3 style="font-size:22px;margin:50px 0 20px;"><i class="fa-solid fa-landmark-dome" style="color:var(--oxblood);margin-right:8px;"></i>Patrimonio UNESCO en Creta</h3>
+      <p style="color:var(--text-soft);font-size:14px;max-width:70ch;margin-bottom:20px;">Cifra que sorprende a casi todo el mundo: en julio de 2025, seis centros palaciales minoicos de Creta fueron inscritos oficialmente en la Lista del Patrimonio Mundial de la UNESCO. Es reciente — muchas guías impresas todavía no lo reflejan.</p>
+      <div class="grid grid-2" id="unescoGrid"></div>
+    </div>
+
+    <div class="subpanel" id="panel-tradiciones">
+      <div class="grid grid-2" style="align-items:start;gap:40px;">
+        <div>
+          <h4 style="font-size:19px;margin-bottom:10px;"><i class="fa-solid fa-guitar" style="color:var(--oxblood);margin-right:8px;"></i>Música y danza</h4>
+          <p style="font-size:14px;color:var(--text-soft);line-height:1.7;">La lira cretense (de tres cuerdas, tocada con arco) es el corazón de la música tradicional, acompañada por el laúd. Los bailes más conocidos son el <strong>pentozali</strong> (rápido, guerrero, en corro) y el <strong>syrtos</strong> chaniotikos. Las <strong>mantinades</strong> — coplas improvisadas de 15 sílabas, a menudo con doble sentido o filosofía de vida — se cantan en bodas, bautizos y también en funerales.</p>
+          <h4 style="font-size:19px;margin:28px 0 10px;"><i class="fa-solid fa-mountain-sun" style="color:var(--oxblood);margin-right:8px;"></i>Mitología</h4>
+          <p style="font-size:14px;color:var(--text-soft);line-height:1.7;">Según la tradición griega, Zeus nació escondido en una cueva de Creta — la cueva de Psychro (Dikteon) en la meseta de Lasithi y la cueva del Ida se disputan el honor. Cnosos es el escenario del mito del Minotauro y el Laberinto de Dédalo, y de la huida con alas de cera de Ícaro y su padre.</p>
+        </div>
+        <div>
+          <h4 style="font-size:19px;margin-bottom:10px;"><i class="fa-solid fa-star" style="color:var(--oxblood);margin-right:8px;"></i>Cretenses célebres</h4>
+          <p style="font-size:14px;color:var(--text-soft);line-height:1.7;"><strong>Nikos Kazantzakis</strong> (Heraclión, 1883–1957), autor de "Zorba el griego" y "La última tentación de Cristo" — su tumba, en las murallas de Heraclión, lleva el epitafio "No espero nada, no temo nada, soy libre". <strong>Domenikos Theotokopoulos</strong> — "El Greco" — nació en Creta en 1541 antes de formarse en Venecia y triunfar en Toledo.</p>
+          <h4 style="font-size:19px;margin:28px 0 10px;"><i class="fa-solid fa-place-of-worship" style="color:var(--oxblood);margin-right:8px;"></i>Religión y fiestas</h4>
+          <p style="font-size:14px;color:var(--text-soft);line-height:1.7;">Cristianismo ortodoxo, muy vivido: la Semana Santa ortodoxa (fecha distinta a la católica la mayoría de años) trae procesiones, la quema simbólica de Judas y el banquete de cordero del Domingo de Pascua. El 15 de agosto (Dormición de la Virgen) y las fiestas patronales de cada pueblo (paniyiria) llenan las plazas de mesas largas, vino y baile hasta el amanecer.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="subpanel" id="panel-rincones">
+      <p style="color:var(--text-soft);font-size:14.5px;margin-bottom:24px;max-width:70ch;">Sitios que la mayoría de visitantes se salta por pura falta de tiempo — y que suelen ser lo primero que recomienda alguien que vive en la isla.</p>
+      <div class="grid grid-3" id="hiddenGemsGrid"></div>
+    </div>
+
+    <div class="subpanel" id="panel-fotografia">
+      <div class="tag-card" style="margin-bottom:28px;max-width:720px;border-color:var(--oxblood);">
+        <div class="tc-label"><i class="fa-solid fa-drone" style="color:var(--oxblood);"></i> Antes de sacar el dron</div>
+        <div class="tc-value" style="font-size:14px;line-height:1.65;font-family:var(--font-body);font-weight:600;">
+          Grecia exige registro de operador y examen A1/A3 para casi cualquier dron con cámara, altura máxima 120 m y comprobación previa en la app <strong>DAGR</strong> (dagr.hasp.gov.gr). Sobrevolar yacimientos arqueológicos como Cnosos sin permiso del Ministerio de Cultura puede acarrear multas de hasta 250.000 €. Y evita por completo la zona de la base naval de Suda (cerca de Chania): en los últimos dos años ha habido detenciones reales de turistas por fotografiar instalaciones militares en esa bahía. No es una exageración legal — es un área activa de la OTAN.
+        </div>
+      </div>
+      <h4 style="font-size:19px;margin-bottom:6px;">Mejores puntos y su hora dorada</h4>
+      <div id="photoSpotsList"></div>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="meander-divider"></div></div>
+
+<section id="guia-practica" class="section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Guía práctica</div>
+      <h2>Todo lo que preguntarías a un amigo que vive allí</h2>
+      <p class="lede">SIM, conducción, farmacias, ferris, compras y el clima mes a mes, con calculadora de presupuesto incluida.</p>
+    </div>
+
+    <div class="subtabs" id="practicaTabs">
+      <button class="subtab-btn active" data-panel="practica"><i class="fa-solid fa-circle-info"></i>Práctica</button>
+      <button class="subtab-btn" data-panel="compras"><i class="fa-solid fa-bag-shopping"></i>Compras</button>
+      <button class="subtab-btn" data-panel="clima"><i class="fa-solid fa-cloud-sun"></i>Clima</button>
+      <button class="subtab-btn" data-panel="presupuesto"><i class="fa-solid fa-euro-sign"></i>Presupuesto</button>
+    </div>
+
+    <div class="subpanel active" id="panel-practica">
+      <div class="grid grid-3" id="practicalGrid"></div>
+
+      <div class="grid grid-2 mt-lg" style="align-items:start;">
+        <div class="data-card" style="padding:24px;">
+          <h4 style="font-size:17px;margin-bottom:10px;"><i class="fa-solid fa-plane" style="color:var(--oxblood);margin-right:8px;"></i>Aeropuertos y el nuevo Kastelli</h4>
+          <p style="font-size:13.5px;color:var(--text-soft);line-height:1.65;">Creta tiene hoy dos aeropuertos internacionales: <strong>Heraclión "Nikos Kazantzakis" (HER)</strong> y <strong>Chania (CHQ)</strong>. Hay un tercero en construcción desde hace años en Kastelli, pensado para sustituir al saturado aeropuerto de Heraclión — a fecha de esta guía sigue en obras, con fecha de apertura estimada entre 2027 y 2028 según la fuente. Verifica el aeropuerto exacto de tu vuelo antes de reservar coche u hotel.</p>
+        </div>
+        <div class="data-card" style="padding:24px;">
+          <h4 style="font-size:17px;margin-bottom:10px;"><i class="fa-solid fa-ferry" style="color:var(--oxblood);margin-right:8px;"></i>Ferris desde el Pireo</h4>
+          <p style="font-size:13.5px;color:var(--text-soft);line-height:1.65;">ANEK-Superfast, Minoan Lines y Blue Star Ferries cubren la ruta nocturna Pireo–Heraclión/Chania (unas 9 h). Los puertos principales de la isla son Souda (Chania), Heraclión, Rétino, Agios Nikolaos y Sitia. También hay ferris de temporada entre Creta y otras islas (Santorini, Cícladas).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="subpanel" id="panel-compras">
+      <div class="grid grid-3" id="shoppingGrid"></div>
+    </div>
+
+    <div class="subpanel" id="panel-clima">
+      <div class="chart-wrap">
+        <div class="chart-legend">
+          <span><i style="background:var(--ochre);"></i> Temperatura del aire (°C, máx.)</span>
+          <span><i style="background:var(--aegean);"></i> Temperatura del mar (°C)</span>
+        </div>
+        <div class="bar-chart" id="weatherChart"></div>
+      </div>
+      <h4 style="font-size:17px;margin:32px 0 12px;">Afluencia turística por mes</h4>
+      <div id="crowdChart"></div>
+      <p style="font-size:12px;color:var(--text-soft);margin-top:18px;">Datos orientativos combinando promedios climáticos históricos y estimaciones de temporada — la variación año a año puede ser de 1–2°C.</p>
+    </div>
+
+    <div class="subpanel" id="panel-presupuesto">
+      <div class="budget-calc">
+        <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:8px;">Elige un nivel para cada categoría y mira el total diario por persona en tiempo real.</p>
+        <div class="budget-row">
+          <label><i class="fa-solid fa-bed"></i>Alojamiento</label>
+          <div class="tier-toggle" data-category="alojamiento">
+            <button data-value="25" class="active">Bajo</button><button data-value="70">Medio</button><button data-value="180">Alto</button>
+          </div>
+          <div class="budget-amount" data-amount="alojamiento">25 €</div>
+        </div>
+        <div class="budget-row">
+          <label><i class="fa-solid fa-utensils"></i>Comida</label>
+          <div class="tier-toggle" data-category="comida">
+            <button data-value="18" class="active">Bajo</button><button data-value="35">Medio</button><button data-value="75">Alto</button>
+          </div>
+          <div class="budget-amount" data-amount="comida">18 €</div>
+        </div>
+        <div class="budget-row">
+          <label><i class="fa-solid fa-person-hiking"></i>Actividades</label>
+          <div class="tier-toggle" data-category="actividades">
+            <button data-value="8" class="active">Bajo</button><button data-value="25">Medio</button><button data-value="60">Alto</button>
+          </div>
+          <div class="budget-amount" data-amount="actividades">8 €</div>
+        </div>
+        <div class="budget-row">
+          <label><i class="fa-solid fa-car"></i>Transporte</label>
+          <div class="tier-toggle" data-category="transporte">
+            <button data-value="12" class="active">Bajo</button><button data-value="28">Medio</button><button data-value="55">Alto</button>
+          </div>
+          <div class="budget-amount" data-amount="transporte">12 €</div>
+        </div>
+        <div class="budget-total">
+          <span class="bt-label">Total por persona / día</span>
+          <span class="bt-value" id="budgetTotal">63 €</span>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--text-soft);margin-top:14px;">Referencias: tumbona + sombrilla 8–20 €, entrada Cnosos 20 € (mitad de precio con pasaporte UE), garganta de Samaria 5–10 €, menú de taberna 12–20 € por persona, coche de alquiler económico 30–55 €/día en temporada alta.</p>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="meander-divider"></div></div>
+
+<section id="idioma" class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Idioma</div>
+      <h2>Griego de supervivencia</h2>
+      <p class="lede">El griego usa su propio alfabeto, pero en zonas turísticas casi todo el mundo habla inglés. Aun así, decir "¡kalimera!" al entrar en una taberna de pueblo cambia la cara de quien te atiende. Pulsa <i class="fa-solid fa-volume-high"></i> para escuchar la pronunciación (usa la voz griega del navegador, si está disponible).</p>
+    </div>
+
+    <div class="alphabet-strip" id="alphabetStrip"></div>
+
+    <div id="phraseCategories"></div>
+
+    <div class="tag-card" style="max-width:640px;">
+      <div class="tc-label"><i class="fa-solid fa-lightbulb"></i> Un gesto que confunde a todo el mundo</div>
+      <div class="tc-value" style="font-size:14px;line-height:1.6;font-family:var(--font-body);font-weight:600;">En Grecia, un movimiento de cabeza <em>hacia arriba</em> (o subir las cejas) significa "no" — y un ligero movimiento hacia un lado puede significar "sí". Es el gesto que más malentendidos causa a los recién llegados.</div>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="meander-divider"></div></div>
+
+<section id="itinerarios" class="section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Itinerarios</div>
+      <h2>Cuánto puedes ver según los días que tengas</h2>
+      <p class="lede">Creta es más grande de lo que parece en el mapa — cruzarla de punta a punta son 5 horas de coche. Elige duración y adapta con las notas por tipo de viaje de más abajo.</p>
+    </div>
+    <div class="itin-tabs" id="itinTabs">
+      <button class="itin-tab-btn active" data-days="3">3 días</button>
+      <button class="itin-tab-btn" data-days="5">5 días</button>
+      <button class="itin-tab-btn" data-days="7">7 días</button>
+      <button class="itin-tab-btn" data-days="10">10 días</button>
+    </div>
+    <div id="itinDaysContainer"></div>
+
+    <h3 style="font-size:20px;margin:44px 0 6px;">Cómo adaptar según tu estilo de viaje</h3>
+    <p style="color:var(--text-soft);font-size:13.5px;margin-bottom:16px;">En vez de escribir un itinerario distinto para cada combinación de días y perfil, ajusta cualquiera de los planes de arriba con estas prioridades:</p>
+    <div id="travelerNotes"></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Κρ Creta — Guía Definitiva</div>
+        <p class="footer-brand-desc">Una guía de viaje independiente escrita en español, construida cruzando decenas de fuentes en vez de copiar una sola. Sin anuncios, sin afiliados ocultos.</p>
+      </div>
+      <div>
+        <h4>Secciones</h4>
+        <ul>
+          <li><a href="#playas">Playas</a></li>
+          <li><a href="#gastronomia">Gastronomía</a></li>
+          <li><a href="#aventura">Aventura</a></li>
+          <li><a href="#cultura">Cultura</a></li>
+          <li><a href="#itinerarios">Itinerarios</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Recursos oficiales</h4>
+        <ul id="footerResources"></ul>
+      </div>
+      <div>
+        <h4>Última actualización</h4>
+        <ul>
+          <li id="lastUpdated">Julio de 2026</li>
+          <li>Creado con investigación cruzada de fuentes públicas y datos de Google Places.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="padding-top:36px;">
+      <h4>Bibliografía y fuentes de datos</h4>
+      <p style="font-size:12.5px;color:#8F8570;line-height:1.8;max-width:900px;">
+        Visit Greece · Explore Crete · Crete Travel · West Crete · Discover Greece · Wikivoyage · UNESCO World Heritage Centre y Programa MAB · Hellenic Civil Aviation Authority (HCAA) · Samaria National Park / OFYPEKA · The MICHELIN Guide Greece · Rental Center Crete · Balos-Travel · Santorini Dave · 22places · Sunheron · Crete Insider · Routinely Nomadic · Our Wanders · Tristan Balme · Greece Moments · Natania Travel · Kastanofolia Taverna · The Greek Foodie · The National Herald · foros y comunidades de r/Crete y r/Greece de Reddit · reseñas agregadas de Google Places · TripAdvisor · Travel & Tour World · Kolymbari Courier · Kasteli Airport (Wikipedia) · GTP Headlines. Toda la redacción es original: los datos se contrastaron entre varias fuentes independientes en vez de copiarse de una sola.
+      </p>
+      <div class="disclaimer-box mt-lg">
+        <strong>Aviso importante:</strong> los horarios, precios, normas de acceso y fechas de apertura (gargantas, museos, aeropuertos, transporte) cambian con frecuencia y algunos, como la Garganta de Samaria, han tenido cierres imprevistos en 2026 por daños del temporal. Verifica siempre la información crítica en la fuente oficial antes de viajar. Esta guía se ofrece con fines informativos y no sustituye la comprobación directa con proveedores, parques nacionales y autoridades locales.
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Guía Definitiva de Creta — proyecto personal sin fines comerciales. Créditos: investigación, diseño y desarrollo con asistencia de IA (Claude, Anthropic) sobre fuentes públicas verificadas.</span>
+      <span>Hecho con <i class="fa-solid fa-heart" style="color:#9C2E1B;"></i> para quien está a punto de coger un vuelo a Creta.</span>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Volver arriba"><i class="fa-solid fa-arrow-up"></i></button>
+<div class="scrim" id="scrim"></div>
+<div class="fav-drawer" id="favDrawer">
+  <div class="fav-drawer-head">
+    <h3><i class="fa-solid fa-heart" style="color:var(--oxblood);margin-right:8px;"></i>Favoritos</h3>
+    <button class="fav-drawer-close" id="favDrawerClose"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div id="favDrawerContent"></div>
+</div>
+
+
+<script>
+const CRETE_DATA = {
+
+beaches: [
+  {id:"elafonissi",name:"Elafonissi",region:"oeste",tags:["familia","esnorquel","puestasol"],score:9.3,
+   desc:"La postal más repetida de Creta: una laguna de arena rosada (de coral molido, no es filtro) con agua a la altura de la rodilla durante cientos de metros. Zona protegida Natura 2000, así que ya no se llega en coche hasta la orilla.",
+   lat:35.2712,lng:23.5413,dificultad:"Fácil",aparcamiento:"Elafonisi Mega Parking, 5€/día, a 650 m andando",
+   gente:"Muy alta en julio-agosto, tranquila en mayo y octubre",instalaciones:"Dos beach bars, duchas, sombrillas y tumbonas (20€ el set)",
+   familiaApta:"Sí, ideal para niños pequeños",esnorquelNota:"Discreto, mejor en el lado del islote",
+   mejorMes:"Mayo o finales de septiembre",tiempoVisita:"3–4 horas",agua:"Turquesa a rosado pálido"},
+  {id:"balos",name:"Balos",region:"oeste",tags:["aventura","puestasol"],score:9.5,
+   desc:"La laguna más fotografiada de Grecia, en la remota península de Gramvousa. El acceso en coche ya no llega hasta la arena: se deja el vehículo arriba y se baja 20 minutos a pie, o se llega en barco desde Kissamos o Chania.",
+   lat:35.5793,lng:23.5887,dificultad:"Moderada (acceso)",aparcamiento:"Pista de tierra + aparcamiento superior, 3€; entrada a la zona protegida 1€",
+   gente:"Alta a mediodía con los barcos turísticos; vacía al amanecer",instalaciones:"Un pequeño quiosco, sin sombra",
+   familiaApta:"Con reservas por el camino y el sol sin sombra",esnorquelNota:"Bueno cerca de las rocas de Cabo Tigani",
+   mejorMes:"Junio o septiembre",tiempoVisita:"Medio día completo",agua:"Turquesa, verde y azul intenso en franjas"},
+  {id:"falassarna",name:"Falassarna",region:"oeste",tags:["familia","puestasol"],score:9.0,
+   desc:"Una playa larga y abierta — en realidad cinco calas consecutivas — con el horizonte occidental despejado. Considerada por muchos el mejor atardecer de la isla, y mucho más accesible que sus vecinas Balos y Elafonisi.",
+   lat:35.4920,lng:23.5807,dificultad:"Fácil",aparcamiento:"Aparcamiento gratuito pequeño + uno grande de pago junto a la arena",
+   gente:"Alta en temporada, pero la playa es larga y se reparte bien",instalaciones:"Varios beach bars, duchas, alquiler de tumbonas",
+   familiaApta:"Sí",esnorquelNota:"Discreto, más recomendable el paseo y el atardecer",
+   mejorMes:"Cualquier mes de verano",tiempoVisita:"Medio día",agua:"Turquesa muy transparente"},
+  {id:"seitan",name:"Seitan Limania",region:"oeste",tags:["aventura"],score:9.1,
+   desc:"Una cala en zigzag encajada entre acantilados blancos en la península de Akrotiri, a 35 minutos de Chania. El descenso es corto pero exigente sobre roca suelta; a cambio, el agua es de un azul casi irreal para saltar y bucear.",
+   lat:35.5518,lng:24.1934,dificultad:"Difícil (sendero pedregoso)",aparcamiento:"Explanada de grava al final de la carretera, limitado",
+   gente:"Se llena rápido — llegar antes de las 9:00",instalaciones:"Cantina en lo alto del camino, ninguna en la playa",
+   familiaApta:"No recomendable con niños pequeños (agua profunda enseguida)",esnorquelNota:"Excelente en la boca del cañón",
+   mejorMes:"Mayo, junio o septiembre",tiempoVisita:"3 horas",agua:"Azul eléctrico sobre guijarros blancos"},
+  {id:"vai",name:"Vai",region:"este",tags:["familia","esnorquel"],score:8.9,
+   desc:"El mayor palmeral de Europa (palmera cretense endémica, Phoenix theophrasti) creciendo literalmente sobre la arena, en el extremo oriental de la isla. Bandera Azul, muy organizada, con vistas al archipiélago desde el mirador sur.",
+   lat:35.2544,lng:26.2649,dificultad:"Fácil",aparcamiento:"Aparcamiento grande junto al bosque, 3,5€/día",
+   gente:"Alta a mediodía en verano, se vacía a partir de las 17:00",instalaciones:"Restaurantes, tumbonas (15–40€ el set), deportes acuáticos",
+   familiaApta:"Sí, muy recomendable",esnorquelNota:"Buena visibilidad entre rocas y arena",
+   mejorMes:"Junio o septiembre",tiempoVisita:"3–4 horas",agua:"Turquesa clara"},
+  {id:"preveli",name:"Preveli (Palm Beach)",region:"centro-sur",tags:["aventura","familia"],score:9.0,
+   desc:"Donde el río Megalopotamos, bajando de la garganta de Kourtaliotiko, se abre paso entre un bosque de palmeras hasta el mar de Libia. Se puede nadar en las pozas de agua dulce del río o en el mar — ambiente casi norteafricano.",
+   lat:35.1526,lng:24.4739,dificultad:"Moderada (escalera + sendero)",aparcamiento:"Dos aparcamientos, el del lado oeste tiene bajada más suave",
+   gente:"Alta en temporada alta, especialmente al mediodía",instalaciones:"Sin tienda fija en la playa — lleva agua y comida",
+   familiaApta:"Sí, con calzado adecuado para el sendero",esnorquelNota:"Discreto; mejor la experiencia del río",
+   mejorMes:"Mayo o finales de septiembre",tiempoVisita:"Medio día",agua:"Turquesa en la desembocadura, más fría por el río"},
+  {id:"kedrodasos",name:"Kedrodasos",region:"oeste",tags:["aventura","esnorquel"],score:9.2,
+   desc:"La alternativa salvaje a Elafonisi, a un paseo de quince minutos por la costa o un pequeño descenso desde el aparcamiento. Bosque de enebros hasta la arena, zonas nudistas informales y muchísimas menos sombrillas.",
+   lat:35.2686,lng:23.5631,dificultad:"Moderada",aparcamiento:"Pequeño, junto a un cámping de caravanas",
+   gente:"Baja incluso en agosto comparada con su vecina",instalaciones:"Un pequeño cantina cerca del aparcamiento, sin más",
+   familiaApta:"Con supervisión — orilla rocosa en tramos",esnorquelNota:"De las mejores de la isla, agua muy transparente",
+   mejorMes:"Cualquier mes de verano",tiempoVisita:"3 horas",agua:"Cristalina, tonos turquesa y esmeralda"},
+  {id:"matala",name:"Matala",region:"centro-sur",tags:["familia","puestasol"],score:8.4,
+   desc:"Bahía resguardada famosa por las cuevas excavadas en el acantilado norte, refugio hippy en los años 70 (Joni Mitchell incluida). Hoy es una playa organizada con encanto retro y uno de los mejores atardeceres del sur de la isla.",
+   lat:34.9940,lng:24.7497,dificultad:"Fácil",aparcamiento:"Amplio, de pago en temporada",instalaciones:"Restaurantes, tumbonas, tiendas",
+   gente:"Alta pero manejable",familiaApta:"Sí",esnorquelNota:"Bueno junto a las cuevas, entrada por pasarela de madera",
+   mejorMes:"Mayo–octubre",tiempoVisita:"Medio día, incluyendo las cuevas (2€)",agua:"Azul verdoso, algo de guijarro"},
+  {id:"voulisma",name:"Voulisma",region:"este",tags:["familia"],score:8.2,
+   desc:"La playa favorita para excursiones de un día desde Agios Nikolaos: arena fina, agua muy clara y ambiente familiar. Se llena rápido en alta temporada, así que conviene llegar temprano si quieres sombra y sitio en la arena.",
+   lat:35.1253,lng:25.7444,dificultad:"Fácil",aparcamiento:"Aparcamiento junto a la playa, parada de autobús cercana",
+   instalaciones:"Tumbonas, tienda de playa, chiringuitos",gente:"Alta en julio-agosto",familiaApta:"Sí, muy recomendable",
+   esnorquelNota:"Discreto",mejorMes:"Mayo, junio o septiembre",tiempoVisita:"Medio día",agua:"Turquesa muy transparente"},
+  {id:"marathi",name:"Marathi",region:"oeste",tags:["familia"],score:8.3,
+   desc:"Playa tranquila y familiar cerca del aeropuerto de Chania, con vistas a las montañas y aguas poco profundas. Buena base para reservar excursiones en barco a Balos y Seitan Limania sin desplazarte por carretera.",
+   lat:35.5046,lng:24.1733,dificultad:"Fácil",aparcamiento:"Gratuito en la zona norte, evita el de pago más cercano al centro",
+   instalaciones:"Un par de restaurantes, tumbonas a 8€ el set",gente:"Moderada, más llena los domingos con familias locales",
+   familiaApta:"Sí, muy recomendable",esnorquelNota:"Suave, apto para principiantes",mejorMes:"Cualquier mes de verano",
+   tiempoVisita:"Medio día",agua:"Cristalina, fondo de arena"},
+  {id:"xerokampos",name:"Xerokampos",region:"este",tags:["aventura"],score:8.6,
+   desc:"El fin del mundo cretense: una sucesión de calas de arena en el extremo sureste, al final de una carretera de montaña espectacular desde Ziros que atraviesa la garganta de Lamnoni. Muy poco masificado incluso en agosto.",
+   lat:35.0491,lng:26.2330,dificultad:"Fácil una vez allí (llegar es lo difícil)",aparcamiento:"Informal junto a cada cala",
+   instalaciones:"Un par de tabernas familiares, poco más",gente:"Baja todo el año",familiaApta:"Sí",
+   esnorquelNota:"Muy buena, aguas vírgenes",mejorMes:"Junio–septiembre",tiempoVisita:"Día completo (por la distancia)",
+   agua:"Turquesa, muy limpia"},
+  {id:"triopetra",name:"Triopetra",region:"centro-sur",tags:["puestasol"],score:8.7,
+   desc:"Playa larga y salvaje en la costa sur de Rétino, llamada así por las tres rocas que emergen del mar. Popular entre surfistas de yoga y buscadores de atardecer — hay una zona nudista informal junto a las rocas.",
+   lat:35.1186,lng:24.5467,dificultad:"Fácil",aparcamiento:"Amplio y gratuito, acceso directo en coche",
+   instalaciones:"Dos tabernas grandes en la arena, tumbonas a 10€",gente:"Baja–moderada",familiaApta:"Sí",
+   esnorquelNota:"Discreto por el oleaje del sur",mejorMes:"Mayo–octubre",tiempoVisita:"Medio día",agua:"Azul profundo, algo de oleaje"}
+],
+
+dishes: [
+  {name:"Dakos",icon:"fa-bowl-food",desc:"Galleta de cebada humedecida con tomate rallado, mizithra y orégano. El meze cretense por excelencia."},
+  {name:"Kalitsounia",icon:"fa-cookie",desc:"Empanadillas de queso mizithra (saladas) o con miel y canela (dulces, lichnarakia)."},
+  {name:"Chaniotiko boureki",icon:"fa-layer-group",desc:"Capas de calabacín, patata y mizithra al horno — especialidad exclusiva de Chania."},
+  {name:"Antikristo",icon:"fa-fire",desc:"Cordero asado lentamente en espetones verticales alrededor de una hoguera, técnica pastoril ancestral."},
+  {name:"Gamopilafo",icon:"fa-utensils",desc:"Arroz de boda cocinado en caldo de cordero o cabra con staka — se sirve en celebraciones."},
+  {name:"Staka",icon:"fa-mortar-pestle",desc:"Nata clarificada de leche de oveja o cabra, servida con huevos o patatas."},
+  {name:"Apaki",icon:"fa-bacon",desc:"Cerdo curado y ahumado con vinagre y hierbas — el equivalente cretense al beicon gourmet."},
+  {name:"Chochlioi boubouristi",icon:"fa-shrimp",desc:"Caracoles fritos en aceite de oliva con romero, un clásico tras las primeras lluvias."},
+  {name:"Stamnagathi",icon:"fa-seedling",desc:"Verdura silvestre amarga de montaña, hervida y aliñada con aceite y limón."},
+  {name:"Bougatsa",icon:"fa-slice",desc:"Hojaldre relleno de crema de sémola, espolvoreado con azúcar y canela — desayuno de Chania."},
+  {name:"Kserotigana",icon:"fa-swirl",desc:"Espirales de masa frita bañadas en miel y canela, típicas de bodas y fiestas."},
+  {name:"Graviera cretense",icon:"fa-cheese",desc:"Queso de oveja semicurado con Denominación de Origen — el más exportado de Grecia."}
+],
+
+food: [
+  {id:"peskesi",name:"Peskesi",region:"heraklion",tags:["tradicional"],city:"Heraclión",
+   desc:"Cocina cretense de la granja a la mesa en una casa de piedra restaurada, con aceite de oliva premiado propio y trazabilidad de kilómetros en cada plato. Reserva imprescindible.",
+   precio:"€€€",horario:"13:00–01:00, todos los días",imprescindible:"Kreokakavos, gambas saganaki, cordero local",
+   reserva:"Muy recomendable, especialmente en verano",michelin:"Sin estrella (Creta aún no está en la Guía Michelin), pero de los más citados por críticos gastronómicos"},
+  {id:"tamam",name:"Tamam",region:"chania",tags:["tradicional"],city:"Chania, Casco Antiguo",
+   desc:"Instalado en unos antiguos baños turcos, mezcla influencias venecianas, otomanas y egipcias con base cretense. Ambiente con mucho carácter en callejones del casco histórico.",
+   precio:"€€",horario:"Comidas y cenas",imprescindible:"Beyendi de pollo, dip de aguacate especiado",reserva:"Recomendable en temporada alta",michelin:"—"},
+  {id:"chrisostomos",name:"Chrisostomos",region:"chania",tags:["tradicional","economico"],city:"Chania, puerto viejo (lado este)",
+   desc:"Taberna tradicional muy popular entre locales, lejos del bullicio turístico del puerto. Cocina cretense sin artificios y buena relación calidad-precio.",
+   precio:"€€",horario:"Comidas y cenas",imprescindible:"Platos del día de pizarra, cordero al horno",reserva:"No suele ser necesario",michelin:"—"},
+  {id:"ela",name:"Ela",region:"chania",tags:["tradicional"],city:"Chania, Casco Antiguo",
+   desc:"Restaurante en un edificio del siglo XIV con música tradicional en directo las noches de verano. Especialidades cretenses en un patio con mucho ambiente.",
+   precio:"€€€",horario:"Cenas, música desde las 21:00 aprox.",imprescindible:"Meze mixto, cordero antikristo",reserva:"Sí, especialmente si hay música",michelin:"—"},
+  {id:"akrogiali",name:"Akrogiali",region:"chania",tags:["marisco"],city:"Chania, Nea Chora",
+   desc:"Marisquería frente a la playa de Nea Chora, considerada por muchos locales de las mejores de la ciudad para pescado fresco. Vistas privilegiadas al atardecer.",
+   precio:"€€€",horario:"Comidas y cenas",imprescindible:"Pescado del día a la parrilla, gambas",reserva:"Recomendable al atardecer",michelin:"—"},
+  {id:"dounias",name:"Taverna Dounias",region:"chania",tags:["tradicional","economico"],city:"Drakona, cerca de la garganta de Theriso",
+   desc:"Cocina de fuego abierto con ingredientes cultivados por el propio Stelios en la finca. Sin carta fija: se entra en la cocina, se ve qué hay y se pide. Una parada perfecta combinada con la garganta de Theriso.",
+   precio:"€€",horario:"Solo comidas, variable — mejor confirmar por teléfono",imprescindible:"Lo que esté en el fuego ese día",reserva:"Muy recomendable, aforo pequeño",michelin:"—"},
+  {id:"avli",name:"Avli",region:"rethymno",tags:["tradicional"],city:"Rétino, Casco Antiguo",
+   desc:"Posiblemente el jardín más bonito del casco antiguo de Rétino. Cocina cretense refinada con producto local y una carta de vinos cuidada.",
+   precio:"€€€",horario:"Comidas y cenas",imprescindible:"Cordero con miel local, quesos cretenses",reserva:"Sí",michelin:"—"},
+  {id:"rakibaraki",name:"Raki Ba Raki",region:"rethymno",tags:["tradicional","economico"],city:"Rétino, junto a la mezquita de Neratze",
+   desc:"Bar de meze informal en un callejón del casco antiguo — raciones generosas pensadas para compartir y acompañar con raki. Ambiente animado por la noche.",
+   precio:"€€",horario:"Cenas",imprescindible:"Tabla de meze mixta, rakomelo",reserva:"Recomendable en temporada alta",michelin:"—"},
+  {id:"stellas",name:"Stella's Kitchen",region:"rethymno",tags:["tradicional","economico"],city:"Rétino",
+   desc:"Cocina casera cretense solo al mediodía — cierra cuando se acaba la comida del día, normalmente sobre las 14:30–15:00. Muy popular entre locales, incluye buen desayuno griego.",
+   precio:"€€",horario:"Solo comidas, hasta agotar existencias",imprescindible:"El plato del día, sea cual sea",reserva:"No admite — llega temprano",michelin:"—"},
+  {id:"kouzinaepe",name:"Kouzina E.P.E.",region:"chania",tags:["economico"],city:"Chania",
+   desc:"Cooperativa de comida casera a precio bajo: levantan las tapas de las ollas para que elijas directamente. Ideal para comer bien y barato sin turismo alrededor.",
+   precio:"€",horario:"Solo comidas",imprescindible:"Guiso del día",reserva:"No necesaria",michelin:"—"},
+  {id:"iordanis",name:"Bougatsa Iordanis",region:"chania",tags:["economico"],city:"Chania",
+   desc:"La referencia histórica de bougatsa en Chania — solo venden eso, recién hecho toda la mañana. Desayuno de pie, con azúcar y canela, junto a clientela de todas las edades.",
+   precio:"€",horario:"Mañanas",imprescindible:"Bougatsa clásica de crema",reserva:"No aplica",michelin:"—"},
+  {id:"gramboussa",name:"Taverna Gramboussa",region:"chania",tags:["tradicional","economico"],city:"Kaliviani, camino a Balos/Falassarna",
+   desc:"Parada obligatoria de vuelta de Balos o Falassarna: cocina casera sencilla en un pueblo diminuto del extremo noroeste.",
+   precio:"€€",horario:"Comidas y cenas en temporada",imprescindible:"Cordero, verduras de la huerta",reserva:"No suele ser necesaria",michelin:"—"},
+  {id:"todichalo",name:"To Dichalo",region:"chania",tags:["tradicional","economico"],city:"Afueras de Chania",
+   desc:"Terraza con sombra en las afueras de la ciudad, muy recomendada específicamente por su dakos y el trato cercano.",
+   precio:"€€",horario:"Comidas y cenas",imprescindible:"Dakos, queso a la parrilla",reserva:"Recomendable fines de semana",michelin:"—"}
+],
+
+activities: [
+  {name:"Cnosos y el mito del Minotauro",cat:["cultura"],icon:"fa-landmark",desc:"El palacio minoico más visitado de Europa, con los frescos restaurados del Príncipe de los Lirios y la sala del trono."},
+  {name:"Barco a Spinalonga",cat:["familia","cultura"],icon:"fa-ship",desc:"Isla-fortaleza veneciana que fue el último leprosario de Europa hasta 1957. Salidas en barco desde Elounda o Plaka."},
+  {name:"Buceo en la costa de Chania",cat:["agua"],icon:"fa-person-swimming",desc:"Pecios, cuevas y paredes rocosas frente a Akrotiri, con centros de buceo certificados para todos los niveles."},
+  {name:"Cata de vinos en Archanes",cat:["pareja","cultura"],icon:"fa-wine-glass",desc:"Bodegas familiares en las denominaciones de Archanes y Peza, con variedades autóctonas como Kotsifali y Vilana."},
+  {name:"Clase de cocina cretense",cat:["pareja","lluvia"],icon:"fa-kitchen-set",desc:"Aprende a hacer dakos y kalitsounia con productoras locales — buena opción de plan B si llueve."},
+  {name:"Museo Arqueológico de Heraclión",cat:["cultura","lluvia"],icon:"fa-vase-ampora",desc:"La colección minoica más completa del mundo: el disco de Festo, frescos originales, sellos y joyas."},
+  {name:"Palacio de Malia",cat:["familia","cultura"],icon:"fa-chess-rook",desc:"El tercer palacio minoico en tamaño, mucho menos concurrido que Cnosos y con acceso directo entre las ruinas."},
+  {name:"Molinos de la meseta de Lasithi",cat:["naturaleza","familia"],icon:"fa-wind",desc:"Miles de antiguos molinos de viento de lona blanca salpican esta meseta agrícola a 800 m de altitud."},
+  {name:"Snorkel en Kedrodasos",cat:["agua","naturaleza"],icon:"fa-fish",desc:"Aguas cristalinas y fondo rocoso rico en vida marina, sin las masas de Elafonisi."},
+  {name:"Visita a una almazara",cat:["familia","lluvia"],icon:"fa-jar",desc:"Cata guiada de aceites de oliva premiados — Creta produce algunos de los mejores AOVE del Mediterráneo."},
+  {name:"SUP al amanecer en Elounda",cat:["agua","pareja"],icon:"fa-water",desc:"Aguas resguardadas frente a hoteles de lujo, perfectas para remo suave antes de que aprieta el calor."},
+  {name:"Mercado municipal de Chania",cat:["familia","lluvia"],icon:"fa-store",desc:"Mercado cubierto en cruz de 1913: quesos, especias, cuchillos cretenses y productos locales bajo un mismo techo."},
+  {name:"MTB por Zaros y el Psiloritis",cat:["naturaleza"],icon:"fa-person-biking",desc:"Pistas forestales entre manantiales, truchas de piscifactoría y vistas al monte más alto de Creta."},
+  {name:"Kayak en las cuevas de Matala",cat:["agua"],icon:"fa-anchor",desc:"Remo tranquilo desde la bahía hasta calas vecinas solo accesibles por mar."},
+  {name:"Monasterio de Arkadi",cat:["cultura","lluvia"],icon:"fa-church",desc:"Símbolo de la resistencia cretense contra los otomanos en 1866, con una fachada renacentista notable."},
+  {name:"Piscinas naturales de Kourtaliotiko",cat:["naturaleza","familia"],icon:"fa-droplet",desc:"Pozas de agua dulce en la garganta que baja hacia Preveli, ideales para refrescarse antes de la playa."},
+  {name:"Noche de lira y mantinades",cat:["cultura","pareja"],icon:"fa-music",desc:"Tabernas de pueblo con música tradicional en directo — pregunta en Anogeia o en el interior de Rétino."},
+  {name:"Ruta en globo o parapente, costa sur",cat:["naturaleza"],icon:"fa-paper-plane",desc:"Vuelos con operadores certificados sobre los acantilados de Plakias e Ierapetra en días de viento suave."},
+  {name:"Excursión de senderismo con guía local",cat:["naturaleza","familia"],icon:"fa-map",desc:"Alternativa a Samaria cuando está cerrada o llena: gargantas menos conocidas con guías certificados."},
+  {name:"Baño nocturno con plancton bioluminiscente",cat:["pareja","agua"],icon:"fa-star",desc:"En noches sin luna de finales de verano, algunas calas tranquilas del sur brillan al remover el agua."}
+],
+
+hikes: [
+  {name:"Garganta de Samaria",dist:"16 km (13 km parque + 3 km hasta la playa)",desnivel:"−1.230 m",dur:"5–7 h",dif:"moderada",
+   tip:"La más famosa de Europa — y la que más cambia de estado según el año. Cierra por lluvias o calor extremo; comprueba siempre el estado antes de ir.",
+   maps:"Xyloskalo Samaria Gorge entrance Crete"},
+  {name:"Garganta de Imbros",dist:"8 km",desnivel:"−600 m",dur:"2,5–3 h",dif:"facil",
+   tip:"La alternativa lógica cuando Samaria está cerrada o llena — mismo paisaje de paredes estrechas, mucha menos gente.",
+   maps:"Imbros Gorge entrance Crete"},
+  {name:"Garganta de Agia Irini",dist:"7,5 km",desnivel:"−600 m",dur:"2,5–3 h",dif:"facil",
+   tip:"Más sombreada que Samaria gracias a su denso bosque, con un pequeño centro de información en la entrada.",
+   maps:"Agia Irini Gorge Crete"},
+  {name:"Garganta de Richtis + cascada",dist:"4 km",desnivel:"−300 m",dur:"2 h",dif:"facil",
+   tip:"En el este de la isla, termina en una cascada y una cala solitaria — ideal para combinar con las playas de Sitia.",
+   maps:"Richtis Gorge waterfall Crete"},
+  {name:"Garganta de Aradena + puente",dist:"6 km",desnivel:"−450 m",dur:"3 h",dif:"dificil",
+   tip:"Cruza bajo un puente usado para bungee jumping y desemboca en la aislada Marmara, junto al mar de Libia.",
+   maps:"Aradena Gorge bridge Crete"},
+  {name:"Sendero E4 (tramo Lefka Ori)",dist:"Variable, 20–30+ km por tramo",desnivel:"Alto, terreno de alta montaña",dur:"1–3 días",dif:"dificil",
+   tip:"El tramo cretense del gran sendero europeo E4 cruza las Montañas Blancas — solo para excursionistas con experiencia en montaña y buen equipo.",
+   maps:"E4 trail Lefka Ori Crete"}
+],
+
+running: [
+  {name:"Puerto veneciano de Chania",dist:"6 km ida y vuelta",surf:"Paseo pavimentado",desnivel:"Llano",dif:"facil",maps:"Old Venetian Harbour Chania"},
+  {name:"Malecón de Rétino (Fortezza–playa)",dist:"5 km ida y vuelta",surf:"Paseo marítimo",desnivel:"Llano",dif:"facil",maps:"Rethymno Fortezza waterfront"},
+  {name:"Frente marítimo de Heraclión",dist:"8 km ida y vuelta",surf:"Asfalto / paseo",desnivel:"Llano",dif:"facil",maps:"Heraklion waterfront Koules fortress"},
+  {name:"Costero Elafonissi–Kedrodasos",dist:"4 km ida",surf:"Sendero de tierra",desnivel:"Suave, irregular",dif:"moderada",maps:"Elafonissi to Kedrodasos coastal path"},
+  {name:"Trail en los contrafuertes de Lefka Ori",dist:"~10 km",surf:"Sendero de montaña",desnivel:"Notable",dif:"dificil",maps:"Omalos plateau Crete"}
+],
+
+sports: [
+  {name:"Buceo y freediving",icon:"fa-person-swimming",desc:"Centros certificados PADI en Chania, Rétino, Elounda y Plakias."},
+  {name:"Kitesurf y windsurf",icon:"fa-wind",desc:"Kouremenos (este) y Almyrida son los spots de viento más consistentes."},
+  {name:"Vela",icon:"fa-sailboat",desc:"Alquiler y escuelas en los puertos de Chania, Rétino, Agios Nikolaos y Elounda."},
+  {name:"Ciclismo de carretera y MTB",icon:"fa-person-biking",desc:"Carreteras de montaña espectaculares — y muy exigentes por el desnivel constante."},
+  {name:"Pádel y tenis",icon:"fa-table-tennis-paddle-ball",desc:"Clubes en crecimiento en Heraclión, Chania y varios resorts de la costa norte."},
+  {name:"Gimnasios y CrossFit",icon:"fa-dumbbell",desc:"Boxes de CrossFit afiliados en las cuatro capitales de prefectura, muchos con clase drop-in."},
+  {name:"Natación en piscina",icon:"fa-water-ladder",desc:"Piscinas municipales en Heraclión y Chania para nadadores de aguas abiertas que quieran series controladas."},
+  {name:"Fútbol",icon:"fa-futbol",desc:"El OFI Creta y el Ergotelis (Heraclión) son los clubes históricos de la isla, con partidos accesibles al público."},
+  {name:"Senderismo y trail running",icon:"fa-person-running",desc:"Ver secciones dedicadas más arriba — la combinación estrella de la isla."}
+],
+
+nightlife: [
+  {name:"Sinagogi",region:"chania",city:"Chania, Casco Antiguo",desc:"Cóctelería escondida en unas ruinas con techo de jazmín — de las más citadas por su ambiente íntimo y cócteles cuidados."},
+  {name:"Ta Chalkina",region:"chania",city:"Chania, puerto viejo",desc:"Cena con música en directo casi todas las noches, frente al agua del puerto veneciano."},
+  {name:"Mylos (Platanias)",region:"chania",city:"Platanias, cerca de Chania",desc:"Uno de los clubes más populares de la zona, muy activo en los meses de verano."},
+  {name:"Villa Mercedes",region:"chania",city:"Agia Marina, cerca de Chania",desc:"El club más exclusivo de la costa oeste, ambiente cuidado y clientela más selecta."},
+  {name:"Zona de la Fortezza",region:"rethymno",city:"Rétino, Casco Antiguo",desc:"Bares de vino y cócteles alrededor de la fortaleza veneciana, ambiente más tranquilo que otras zonas."},
+  {name:"Raki Ba Raki",region:"rethymno",city:"Rétino, Casco Antiguo",desc:"Meze y raki hasta tarde en un callejón junto a la mezquita de Neratze."},
+  {name:"Camelot Castle",region:"malia",city:"Malia, Beach Road",desc:"El club más grande de Malia, con torretas de castillo y varias pistas de baile — fiesta joven sin filtros."},
+  {name:"Beach Road (Malia)",region:"malia",city:"Malia",desc:"La calle de bares y clubes que define la reputación festiva de Malia, abierta hasta el amanecer."},
+  {name:"Koutouloufari y Piskopiano",region:"malia",city:"Colinas sobre Hersonisos",desc:"La alternativa tranquila a la fiesta de la costa: tabernas de pueblo con vistas a la bahía."},
+  {name:"Molo Club",region:"agios-nikolaos",city:"Agios Nikolaos",desc:"Agios Nikolaos apuesta por clubes elegantes junto al lago Voulismeni en lugar de discotecas masivas."}
+],
+
+historyTimeline: [
+  {period:"~7000 a.C.",title:"Primeros asentamientos neolíticos",text:"Comunidades agrícolas se instalan en lo que luego sería Cnosos, entre las más antiguas de Europa."},
+  {period:"~3000–1450 a.C.",title:"Civilización minoica",text:"La primera gran civilización europea de la Edad del Bronce: palacios sin murallas en Cnosos, Festos, Malia y Zakros, frescos vívidos y la escritura Lineal A, aún no descifrada del todo."},
+  {period:"~1450–67 a.C.",title:"Micénicos y Creta dórica",text:"Tras una crisis (posiblemente ligada a la erupción de Thera/Santorini), llegan los griegos micénicos y, más tarde, los dorios, que fragmentan la isla en ciudades-estado rivales."},
+  {period:"67 a.C.–1204 d.C.",title:"Roma y Bizancio",text:"Provincia romana y después bizantina durante más de un milenio, con la llegada del cristianismo y cientos de basílicas e iglesias que aún salpican la isla."},
+  {period:"1204–1669",title:"República de Venecia",text:"Venecia gobierna Creta ('Regno di Candia') durante más de 450 años: fortalezas, los puertos de Chania y Rétino, y el asedio de Candia (Heraclión), uno de los más largos de la historia (1648–1669)."},
+  {period:"1669–1898",title:"Dominio otomano",text:"Casi 230 años de gobierno turco, con mezquitas, hamams y sucesivas revueltas cretenses — la más famosa acabó en la explosión del monasterio de Arkadi en 1866."},
+  {period:"1898–1913",title:"Estado cretense autónomo y unión con Grecia",text:"Tras la intervención de las potencias europeas, Creta gana autonomía en 1898 y se une oficialmente al Reino de Grecia en 1913."},
+  {period:"1941–1945",title:"Batalla de Creta y ocupación",text:"La mayor invasión aerotransportada de la historia hasta entonces; la feroz resistencia civil cretense —incluida la Resistencia armada en las montañas— marcó profundamente la memoria de la isla."},
+  {period:"Hoy",title:"Creta contemporánea",text:"Economía basada en el turismo, la agricultura (aceite, vino) y una universidad tecnológica en expansión, sin perder su identidad rural y montañesa."}
+],
+
+unesco: [
+  {name:"Seis centros palaciales minoicos",year:"Inscrito en 2025",desc:"Cnosos, Festos, Malia, Zakros y otros yacimientos palaciales, reconocidos como Patrimonio Mundial de la Humanidad — la novedad UNESCO más reciente de la isla."},
+  {name:"Reserva de la Biosfera de la Garganta de Samaria",year:"Programa MAB, 1981",desc:"Ojo con la confusión habitual: es Reserva de la Biosfera, no Patrimonio Mundial — está en la Lista Indicativa a la espera de esa distinción."},
+  {name:"Geoparque Global de Psiloritis",year:"2015",desc:"En torno al monte más alto de Creta (2.456 m), con la Cueva Ideo donde la mitología sitúa la infancia de Zeus."},
+  {name:"Geoparque Global de Sitia",year:"2015",desc:"Este de la isla: el palmeral de Vai, yacimientos fósiles y el monasterio de Toplou."},
+  {name:"Reserva de la Biosfera de Asterousia",year:"2020",desc:"Las montañas más al sur de Europa continental, con ermitas bizantinas dispersas por barrancos casi inaccesibles."}
+],
+
+hiddenGems: [
+  {name:"Anogeia",icon:"fa-mountain",desc:"Pueblo de montaña reconstruido tras ser arrasado en la Segunda Guerra Mundial, cuna de músicos de lira y quesos de pastor."},
+  {name:"Loutro",icon:"fa-ship",desc:"Pueblo costero sin carretera de acceso — solo se llega en barco o a pie por el sendero de la costa sur."},
+  {name:"Zaros",icon:"fa-droplet",desc:"Manantiales, truchas de piscifactoría y el lago Votomos, a los pies del Psiloritis."},
+  {name:"Archanes",icon:"fa-wine-bottle",desc:"Pueblo vinícola de casas restauradas con mucho mimo, a un paso de Cnosos pero sin las multitudes."},
+  {name:"Kritsa y Panagia Kera",icon:"fa-church",desc:"Callejuelas de artesanía textil y una pequeña iglesia bizantina con algunos de los frescos mejor conservados de Creta."},
+  {name:"Milia",icon:"fa-house",desc:"Aldea abandonada reconstruida como eco-proyecto de turismo sostenible, sin electricidad de red — todo con energía solar."},
+  {name:"Meseta de Lasithi y Cueva Dikteon",icon:"fa-wind",desc:"Molinos de lona blanca y la cueva donde la mitología sitúa el nacimiento de Zeus, accesible en un paseo corto."},
+  {name:"Elos y los pueblos del castaño",icon:"fa-tree",desc:"Región montañosa del oeste con bosques de castaños que en Creta resultan casi una sorpresa geográfica."},
+  {name:"Garganta de Theriso",icon:"fa-road",desc:"Ruta de coche corta y espectacular desde Chania, cuna del movimiento revolucionario cretense de 1905."}
+],
+
+photoSpots: [
+  {name:"Mirador de Balos",tip:"Sube al primer promontorio antes de bajar a la playa — la vista aérea de la laguna solo se ve desde ahí.",time:"Amanecer"},
+  {name:"Islote de Elafonisi",tip:"Cruza el vado a pie hasta el islote para fotografiar el color del agua sin gente en primer plano.",time:"Atardecer"},
+  {name:"Faro del puerto de Chania",tip:"La hora azul, justo después de la puesta de sol, es cuando se enciende toda la fachada del puerto.",time:"Hora azul"},
+  {name:"Mirador de Preveli",tip:"Desde el sendero antes de bajar la escalera, se ve el río, la palmera y el mar en una sola toma.",time:"Media mañana"},
+  {name:"Puertas de Hierro, Samaria",tip:"La luz entra directa al mediodía en este punto de 4 metros de ancho — evita ir muy temprano si buscas esta foto.",time:"Mediodía"},
+  {name:"Puente de Aradena",tip:"Funciona a cualquier hora por la escala del barranco, pero el atardecer lateral marca mejor la profundidad.",time:"Atardecer"},
+  {name:"Molinos de Lasithi",tip:"La luz rasante de última hora ilumina las lonas blancas contra el verde de la meseta.",time:"Atardecer"}
+],
+
+practical: [
+  {icon:"fa-sim-card",title:"SIM y eSIM",text:"Cosmote, Vodafone Greece y Nova tienen la mejor cobertura rural. Para eSIM sin ir a tienda: Airalo o Holafly funcionan bien en toda la isla."},
+  {icon:"fa-credit-card",title:"Cajeros y pagos",text:"Tarjeta aceptada en casi todo, pero lleva efectivo para tabernas de pueblo, playas sin operador y taxis pequeños."},
+  {icon:"fa-car-side",title:"Conducir en Creta",text:"Se conduce por la derecha. Carreteras de montaña estrechas con curvas cerradas — un bocinazo antes de una curva ciega es normal, no agresividad."},
+  {icon:"fa-gas-pump",title:"Gasolineras",text:"Escasas en zonas rurales del sur y el este — no dejes que el depósito baje de un cuarto en rutas de montaña."},
+  {icon:"fa-kit-medical",title:"Farmacias y hospitales",text:"Cruz verde iluminada = farmacia; suelen rotar guardias nocturnas por zona. Hospitales generales en Heraclión, Chania, Rétino y Agios Nikolaos."},
+  {icon:"fa-bus",title:"Autobuses KTEL",text:"Cubre las rutas entre las cuatro ciudades principales y las playas más famosas en temporada alta, con más frecuencia en la costa norte que en la sur."},
+  {icon:"fa-mobile-screen",title:"Apps útiles",text:"Google Maps con mapas descargados offline, Ferryhopper para barcos, Beat/FreeNow para taxi en las ciudades grandes."},
+  {icon:"fa-taxi",title:"Taxis",text:"Fiables pero sin apps de VTC generalizadas fuera de las capitales — pacta el precio antes en trayectos largos sin taxímetro claro."},
+  {icon:"fa-car",title:"Alquiler de coche",text:"Imprescindible para explorar en serio. Revisa el seguro de franquicia y confirma si el contrato permite pistas de tierra (Balos la excluye en muchos casos)."}
+],
+
+shopping: [
+  {icon:"fa-store",title:"Mercados",text:"El mercado municipal de Chania (edificio en cruz de 1913) y el mercado de la calle 1866 en Heraclión, ambos con productos locales y souvenirs."},
+  {icon:"fa-jar",title:"Aceite de oliva",text:"Compra directo en almazaras rurales o en tiendas especializadas — pide siempre la cosecha y la acidez."},
+  {icon:"fa-jug-detergent",title:"Miel de tomillo",text:"La miel de montaña cretense, muy oscura y aromática, es de las más valoradas de Grecia."},
+  {icon:"fa-wine-bottle",title:"Vino y raki",text:"Bodegas de Peza y Archanes para llevarte una botella; el raki casero se compra mejor directamente en destilerías de pueblo."},
+  {icon:"fa-cheese",title:"Queso graviera",text:"Con Denominación de Origen — busca el sello oficial si quieres el auténtico de oveja de montaña."},
+  {icon:"fa-mitten",title:"Cuero de Chania",text:"La calle de los curtidores ('Skridlof') en el casco antiguo de Chania mantiene talleres de sandalias y bolsos artesanales."}
+],
+
+weather: [
+  {m:"Ene",air:16,sea:16,crowd:20},{m:"Feb",air:16,sea:15,crowd:20},{m:"Mar",air:18,sea:16,crowd:25},
+  {m:"Abr",air:21,sea:18,crowd:38},{m:"May",air:25,sea:20,crowd:58},{m:"Jun",air:28,sea:23,crowd:80},
+  {m:"Jul",air:29,sea:25,crowd:92},{m:"Ago",air:29,sea:26,crowd:100},{m:"Sep",air:27,sea:25,crowd:85},
+  {m:"Oct",air:24,sea:23,crowd:55},{m:"Nov",air:20,sea:20,crowd:30},{m:"Dic",air:17,sea:17,crowd:20}
+],
+
+phrases: {
+  "Saludos":[
+    {es:"Hola (informal)",gr:"Γειά σου",pron:"yásu"},{es:"Hola (formal / plural)",gr:"Γειά σας",pron:"yásas"},
+    {es:"Buenos días",gr:"Καλημέρα",pron:"kaliméra"},{es:"Buenas tardes",gr:"Καλησπέρα",pron:"kalispéra"},
+    {es:"Buenas noches",gr:"Καληνύχτα",pron:"kaliníjta"},{es:"Adiós",gr:"Αντίο",pron:"antío"},
+    {es:"¿Qué tal?",gr:"Τι κάνεις;",pron:"ti kánis"},{es:"Bienvenido",gr:"Καλώς ήρθες",pron:"kalós írzes"}
+  ],
+  "Cortesía":[
+    {es:"Por favor",gr:"Παρακαλώ",pron:"parakaló"},{es:"Gracias",gr:"Ευχαριστώ",pron:"efjaristó"},
+    {es:"De nada",gr:"Παρακαλώ",pron:"parakaló"},{es:"Perdón / disculpa",gr:"Συγγνώμη",pron:"signómi"},
+    {es:"Sí",gr:"Ναι",pron:"ne"},{es:"No",gr:"Όχι",pron:"óji"}
+  ],
+  "Comer y beber":[
+    {es:"Agua",gr:"Νερό",pron:"neró"},{es:"Café griego",gr:"Ελληνικός καφές",pron:"elinikós kafés"},
+    {es:"Cerveza",gr:"Μπύρα",pron:"bíra"},{es:"Vino",gr:"Κρασί",pron:"krasí"},
+    {es:"La cuenta, por favor",gr:"Τον λογαριασμό, παρακαλώ",pron:"ton logariasmó parakaló"},
+    {es:"¿Cuánto cuesta?",gr:"Πόσο κάνει;",pron:"póso káni"},
+    {es:"Sin carne",gr:"Χωρίς κρέας",pron:"jorís kréas"},{es:"Está delicioso",gr:"Είναι νόστιμο",pron:"íne nóstimo"}
+  ],
+  "Emergencias y salud":[
+    {es:"Ayuda",gr:"Βοήθεια",pron:"voíthia"},{es:"Necesito un médico",gr:"Χρειάζομαι γιατρό",pron:"jriázome yatró"},
+    {es:"Hospital",gr:"Νοσοκομείο",pron:"nosokomío"},{es:"Farmacia",gr:"Φαρμακείο",pron:"farmakío"},
+    {es:"Policía",gr:"Αστυνομία",pron:"astinomía"},{es:"No entiendo",gr:"Δεν καταλαβαίνω",pron:"den katalavéno"}
+  ],
+  "Direcciones":[
+    {es:"¿Dónde está…?",gr:"Πού είναι…;",pron:"pu íne"},{es:"Izquierda",gr:"Αριστερά",pron:"aristerá"},
+    {es:"Derecha",gr:"Δεξιά",pron:"dexiá"},{es:"Todo recto",gr:"Ευθεία",pron:"efzía"},
+    {es:"Playa",gr:"Παραλία",pron:"paralía"},{es:"¿Puedes ayudarme?",gr:"Μπορείς να με βοηθήσεις;",pron:"borís na me voithísis"}
+  ]
+},
+
+itineraries: {
+  3:[
+    {title:"Chania y el noroeste",text:"Casco antiguo veneciano y puerto por la mañana, mercado municipal al mediodía, atardecer en Falassarna o Seitan Limania."},
+    {title:"Balos y Kissamos",text:"Día completo dedicado a la laguna — sube temprano para evitar los barcos turísticos de mediodía. Vuelta por Gramboussa a cenar."},
+    {title:"Elafonisi y Kedrodasos",text:"Combina las dos playas rosadas en un mismo día, con parada en algún pueblo de montaña como Elos de camino."}
+  ],
+  5:[
+    {title:"Chania: casco antiguo",text:"Puerto veneciano, mercado, callejones de Splantzia — ritmo lento para aclimatarte."},
+    {title:"Balos + Gramboussa",text:"Día de laguna y fortaleza veneciana en la isla vecina."},
+    {title:"Samaria o Imbros",text:"Garganta según apertura y forma física del grupo — combina con playa en Agia Roumeli o Sougia."},
+    {title:"Elafonisi y Kedrodasos",text:"Las dos playas rosadas del suroeste, con parada gastronómica en pueblo de montaña."},
+    {title:"Rétino y Arkadi",text:"Casco veneciano por la mañana, monasterio histórico por la tarde camino de Heraclión."}
+  ],
+  7:[
+    {title:"Llegada y Chania",text:"Aterrizaje, instalación y primera noche paseando el puerto veneciano al atardecer."},
+    {title:"Balos + Gramboussa",text:"Laguna, fortaleza y cena en un pueblo de pescadores."},
+    {title:"Samaria o Imbros",text:"La gran garganta del día, con recompensa de playa en la costa sur."},
+    {title:"Elafonisi y Kedrodasos",text:"Playas rosadas y ruta panorámica de vuelta por el oeste."},
+    {title:"Rétino, Arkadi y Preveli",text:"Casco histórico, monasterio y palmeral en el mismo eje de carretera."},
+    {title:"Heraclión: Cnosos y museo",text:"El corazón minoico de la isla — palacio por la mañana, museo arqueológico por la tarde."},
+    {title:"Lasithi o Zakros, y vuelo de vuelta",text:"Meseta de los molinos o gargantas del este según con qué aeropuerto vueles."}
+  ],
+  10:[
+    {title:"Llegada y Chania (2 días)",text:"Tiempo extra para perderte en Splantzia, cenar dos veces distinto y hacer una excursión en barco por la bahía."},
+    {title:"Balos + Gramboussa",text:"Día completo de laguna y fortaleza veneciana."},
+    {title:"Samaria o Imbros",text:"La garganta grande, con noche en Chania o en la costa sur (Sougia/Paleochora)."},
+    {title:"Costa suroeste: Elafonisi, Kedrodasos",text:"Las playas rosadas, sin prisa, con noche en un pueblo de montaña como Elos."},
+    {title:"Rétino, Arkadi, Preveli (2 días)",text:"Casco histórico, monasterio y palmeral — con una segunda jornada en Plakias o Triopetra."},
+    {title:"Heraclión: Cnosos, museo, Archanes",text:"El eje minoico completo, terminando en una bodega de Archanes."},
+    {title:"Lasithi, Dikteon y Kritsa",text:"Meseta de los molinos, cueva de Zeus y el pueblo de los frescos bizantinos."},
+    {title:"Este: Vai, Sitia, Zakros",text:"El palmeral más grande de Europa y el yacimiento minoico menos visitado de los cuatro grandes."}
+  ]
+},
+
+travelerNotes: [
+  {name:"Familias",icon:"fa-people-roof",text:"Prioriza Elafonisi, Vai y Voulisma; evita Seitan Limania y Balos con niños muy pequeños."},
+  {name:"Aventura",icon:"fa-person-hiking",text:"Encadena Samaria o Aradena con Seitan Limania y deja un día libre para buceo o parapente."},
+  {name:"Gastronomía",icon:"fa-utensils",text:"Añade una clase de cocina y una cata en Archanes; reserva Peskesi y Avli con antelación."},
+  {name:"Historia",icon:"fa-landmark",text:"Duplica el tiempo en Heraclión (Cnosos + museo) y añade Festos y Gortina si tienes coche."},
+  {name:"Lujo",icon:"fa-gem",text:"Basa el viaje en Elounda y combina Spinalonga con cenas de autor y spa — evita la ruta de Balos en coche propio."},
+  {name:"Road trip",icon:"fa-route",text:"No repitas carretera: entra por el oeste y sal por el este (o viceversa) en vez de volver sobre tus pasos."},
+  {name:"Solo playa",icon:"fa-umbrella-beach",text:"Quédate en la costa oeste o sur y alterna una playa famosa con una tranquila cada día."},
+  {name:"Viajero activo / running",icon:"fa-person-running",text:"Aloja en Chania o Rétino para correr por el paseo marítimo cada mañana antes del calor."}
+]
+};
+
+/* ================= UTILIDADES ================= */
+const $ = (sel,ctx=document)=>ctx.querySelector(sel);
+const $$ = (sel,ctx=document)=>Array.from(ctx.querySelectorAll(sel));
+function esc(str){return String(str).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function mapsLink(query){return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(query);}
+const GRADIENTS = [
+  "linear-gradient(135deg,var(--oxblood),var(--ochre))",
+  "linear-gradient(135deg,var(--aegean),var(--olive))",
+  "linear-gradient(135deg,var(--ochre),var(--aegean))",
+  "linear-gradient(135deg,var(--olive),var(--oxblood))",
+  "linear-gradient(135deg,var(--aegean-bright,var(--aegean)),var(--oxblood))",
+  "linear-gradient(135deg,var(--ochre-bright,var(--ochre)),var(--olive))"
+];
+function gradFor(i){return GRADIENTS[i % GRADIENTS.length];}
+const FAVORITES = new Set();
+
+/* ================= FAVORITOS ================= */
+function favToggleHtml(id,label,type){
+  return `<button class="fav-toggle" data-fav-id="${id}" data-fav-label="${esc(label)}" data-fav-type="${type}" aria-label="Guardar en favoritos" title="Guardar en favoritos"><i class="fa-regular fa-heart"></i></button>`;
+}
+function refreshFavIcons(){
+  $$(".fav-toggle").forEach(btn=>{
+    const on = FAVORITES.has(btn.dataset.favId);
+    btn.classList.toggle("saved",on);
+    btn.querySelector("i").className = on ? "fa-solid fa-heart" : "fa-regular fa-heart";
+  });
+  const count = FAVORITES.size;
+  const badge = $("#favCount");
+  badge.textContent = count;
+  badge.classList.toggle("visually-hidden", count===0);
+}
+document.addEventListener("click",e=>{
+  const btn = e.target.closest(".fav-toggle");
+  if(!btn) return;
+  const id = btn.dataset.favId;
+  if(FAVORITES.has(id)){FAVORITES.delete(id);} else {FAVORITES.add(id);}
+  refreshFavIcons();
+  renderFavDrawer();
+});
+function renderFavDrawer(){
+  const box = $("#favDrawerContent");
+  const saved = $$(".fav-toggle.saved");
+  if(FAVORITES.size===0 || saved.length===0){ box.innerHTML = `<div class="fav-drawer-empty"><i class="fa-regular fa-heart" style="font-size:26px;display:block;margin-bottom:10px;"></i>Aún no has guardado nada.<br>Toca el corazón de cualquier tarjeta.</div>`; return; }
+  let html = "";
+  saved.forEach(btn=>{
+    html += `<div class="fav-item"><div><div class="fi-name">${esc(btn.dataset.favLabel)}</div><div class="fi-type">${esc(btn.dataset.favType)}</div></div><button data-remove-fav="${btn.dataset.favId}" aria-label="Quitar"><i class="fa-solid fa-xmark"></i></button></div>`;
+  });
+  box.innerHTML = html;
+}
+document.addEventListener("click",e=>{
+  const rm = e.target.closest("[data-remove-fav]");
+  if(!rm) return;
+  FAVORITES.delete(rm.dataset.removeFav);
+  refreshFavIcons();
+  renderFavDrawer();
+});
+
+/* ================= RENDER: PLAYAS ================= */
+function beachCard(b,i){
+  return `<article class="data-card" data-region="${b.region}" data-tags="${b.tags.join(",")}">
+    <div class="dc-photo" style="background:${gradFor(i)}">
+      ${favToggleHtml("beach-"+b.id,b.name,"Playa")}
+      <i class="fa-solid fa-water dc-photo-icon"></i>
+      <span class="dc-photo-tag">${b.region.replace("-"," ")}</span>
+    </div>
+    <div class="dc-body">
+      <div class="dc-score"><i class="fa-solid fa-star"></i>${b.score}</div>
+      <h3>${b.name}</h3>
+      <p class="dc-desc">${b.desc}</p>
+      <div class="dc-specs">
+        <span><i class="fa-solid fa-gauge"></i>${b.dificultad}</span>
+        <span><i class="fa-solid fa-child-reaching"></i>${b.familiaApta && b.familiaApta.startsWith("S") ? "Ideal niños" : "Con cautela"}</span>
+        <span><i class="fa-solid fa-clock"></i>${b.tiempoVisita}</span>
+      </div>
+      <details class="dc-details">
+        <summary>Ficha completa<i class="fa-solid fa-chevron-down"></i></summary>
+        <dl class="dc-details-grid">
+          <dt>Aparcamiento</dt><dd>${b.aparcamiento}</dd>
+          <dt>Nivel de gente</dt><dd>${b.gente}</dd>
+          <dt>Instalaciones</dt><dd>${b.instalaciones}</dd>
+          <dt>Esnórquel</dt><dd>${b.esnorquelNota}</dd>
+          <dt>Mejor mes</dt><dd>${b.mejorMes}</dd>
+          <dt>Color del agua</dt><dd>${b.agua}</dd>
+        </dl>
+      </details>
+      <div class="dc-actions">
+        <a href="${mapsLink(b.name+" Crete")}" target="_blank" rel="noopener" class="btn btn-sm btn-outline"><i class="fa-solid fa-location-dot"></i> Google Maps</a>
+      </div>
+    </div>
+  </article>`;
+}
+function renderBeaches(filter="all"){
+  const grid = $("#beachesGrid");
+  let list = CRETE_DATA.beaches;
+  if(filter!=="all"){
+    list = list.filter(b=> b.region===filter || b.tags.includes(filter));
+  }
+  $("#beachCount").textContent = `${list.length} playa${list.length===1?"":"s"} ${filter==="all"?"en total":"con este filtro"}`;
+  grid.innerHTML = list.length ? list.map(beachCard).join("") : `<div class="empty-state"><i class="fa-solid fa-umbrella-beach"></i>Ninguna playa coincide con este filtro.</div>`;
+  refreshFavIcons();
+}
+$("#beachFilters").addEventListener("click",e=>{
+  const chip = e.target.closest(".chip"); if(!chip) return;
+  $$(".chip",$("#beachFilters")).forEach(c=>c.classList.remove("active"));
+  chip.classList.add("active");
+  renderBeaches(chip.dataset.filter);
+});
+
+/* ================= RENDER: PLATOS Y COMIDA ================= */
+function renderDishes(){
+  $("#dishesGrid").innerHTML = CRETE_DATA.dishes.map(d=>`
+    <div class="activity-tile">
+      <div class="at-icon"><i class="fa-solid ${d.icon}"></i></div>
+      <h4>${d.name}</h4>
+      <p>${d.desc}</p>
+    </div>`).join("");
+}
+function foodCard(f,i){
+  return `<article class="data-card" data-region="${f.region}" data-tags="${f.tags.join(",")}">
+    <div class="dc-photo" style="background:${gradFor(i+2)}">
+      ${favToggleHtml("food-"+f.id,f.name,"Restaurante")}
+      <i class="fa-solid fa-utensils dc-photo-icon"></i>
+      <span class="dc-photo-tag">${f.precio}</span>
+    </div>
+    <div class="dc-body">
+      <div class="dc-region">${f.city}</div>
+      <h3>${f.name}</h3>
+      <p class="dc-desc">${f.desc}</p>
+      <div class="dc-specs">
+        <span><i class="fa-solid fa-clock"></i>${f.horario}</span>
+      </div>
+      <details class="dc-details">
+        <summary>Ficha completa<i class="fa-solid fa-chevron-down"></i></summary>
+        <dl class="dc-details-grid">
+          <dt>Pide esto</dt><dd>${f.imprescindible}</dd>
+          <dt>Reserva</dt><dd>${f.reserva}</dd>
+          <dt class="full">Michelin</dt><dd class="full">${f.michelin}</dd>
+        </dl>
+      </details>
+      <div class="dc-actions">
+        <a href="${mapsLink(f.name+" "+f.city+" Crete")}" target="_blank" rel="noopener" class="btn btn-sm btn-outline"><i class="fa-solid fa-location-dot"></i> Google Maps</a>
+      </div>
+    </div>
+  </article>`;
+}
+function renderFood(filter="all"){
+  const grid = $("#foodGrid");
+  let list = CRETE_DATA.food;
+  if(filter!=="all") list = list.filter(f=> f.region===filter || f.tags.includes(filter));
+  grid.innerHTML = list.length ? list.map(foodCard).join("") : `<div class="empty-state"><i class="fa-solid fa-utensils"></i>Ningún restaurante coincide con este filtro.</div>`;
+  refreshFavIcons();
+}
+$("#foodFilters").addEventListener("click",e=>{
+  const chip = e.target.closest(".chip"); if(!chip) return;
+  $$(".chip",$("#foodFilters")).forEach(c=>c.classList.remove("active"));
+  chip.classList.add("active");
+  renderFood(chip.dataset.filter);
+});
+
+/* ================= RENDER: QUÉ HACER ================= */
+function renderActivities(filter="all"){
+  const grid = $("#activitiesGrid");
+  let list = CRETE_DATA.activities;
+  if(filter!=="all") list = list.filter(a=>a.cat.includes(filter));
+  grid.innerHTML = list.map(a=>`
+    <div class="activity-tile">
+      <div class="at-icon"><i class="fa-solid ${a.icon}"></i></div>
+      <span class="at-cat">${a.cat.join(" · ")}</span>
+      <h4>${a.name}</h4>
+      <p>${a.desc}</p>
+    </div>`).join("") || `<div class="empty-state"><i class="fa-solid fa-compass"></i>Nada con este filtro todavía.</div>`;
+}
+$("#activityFilters").addEventListener("click",e=>{
+  const chip = e.target.closest(".chip"); if(!chip) return;
+  $$(".chip",$("#activityFilters")).forEach(c=>c.classList.remove("active"));
+  chip.classList.add("active");
+  renderActivities(chip.dataset.filter);
+});
+
+/* ================= RENDER: SENDERISMO / RUNNING / DEPORTES ================= */
+function diffBadge(dif){
+  const map = {facil:["Fácil","diff-facil"],moderada:["Moderada","diff-moderada"],dificil:["Difícil","diff-dificil"]};
+  const pair = map[dif] || [dif,"diff-moderada"];
+  return `<span class="diff-badge ${pair[1]}">${pair[0]}</span>`;
+}
+function renderHikes(){
+  $("#hikesTableBody").innerHTML = CRETE_DATA.hikes.map(h=>`
+    <tr>
+      <td><strong>${h.name}</strong><span class="row-desc">${h.tip}</span></td>
+      <td>${h.dist}</td><td>${h.desnivel}</td><td>${h.dur}</td>
+      <td>${diffBadge(h.dif)}</td>
+      <td><a href="${mapsLink(h.maps)}" target="_blank" rel="noopener" class="btn btn-sm btn-outline"><i class="fa-solid fa-location-dot"></i></a></td>
+    </tr>`).join("");
+}
+function renderRunning(){
+  $("#runningTableBody").innerHTML = CRETE_DATA.running.map(r=>`
+    <tr>
+      <td><strong>${r.name}</strong></td>
+      <td>${r.dist}</td><td>${r.surf}</td><td>${r.desnivel}</td>
+      <td>${diffBadge(r.dif)}</td>
+      <td><a href="${mapsLink(r.maps)}" target="_blank" rel="noopener" class="btn btn-sm btn-outline"><i class="fa-solid fa-location-dot"></i></a></td>
+    </tr>`).join("");
+}
+function renderSports(){
+  $("#sportsGrid").innerHTML = CRETE_DATA.sports.map(s=>`
+    <div class="activity-tile">
+      <div class="at-icon"><i class="fa-solid ${s.icon}"></i></div>
+      <h4>${s.name}</h4><p>${s.desc}</p>
+    </div>`).join("");
+}
+/* ================= RENDER: VIDA NOCTURNA ================= */
+function nightlifeCard(n,i){
+  return `<article class="data-card" data-region="${n.region}">
+    <div class="dc-photo" style="background:${gradFor(i+4)}">
+      ${favToggleHtml("night-"+n.name.replace(/\s+/g,"-").toLowerCase(),n.name,"Vida nocturna")}
+      <i class="fa-solid fa-champagne-glasses dc-photo-icon"></i>
+    </div>
+    <div class="dc-body">
+      <div class="dc-region">${n.city}</div>
+      <h3>${n.name}</h3>
+      <p class="dc-desc">${n.desc}</p>
+      <div class="dc-actions">
+        <a href="${mapsLink(n.name+" "+n.city)}" target="_blank" rel="noopener" class="btn btn-sm btn-outline"><i class="fa-solid fa-location-dot"></i> Google Maps</a>
+      </div>
+    </div>
+  </article>`;
+}
+function renderNightlife(filter="all"){
+  let list = CRETE_DATA.nightlife;
+  if(filter!=="all") list = list.filter(n=>n.region===filter);
+  $("#nightlifeGrid").innerHTML = list.length ? list.map(nightlifeCard).join("") : `<div class="empty-state"><i class="fa-solid fa-champagne-glasses"></i>Nada con este filtro.</div>`;
+  refreshFavIcons();
+}
+$("#nightlifeFilters").addEventListener("click",e=>{
+  const chip = e.target.closest(".chip"); if(!chip) return;
+  $$(".chip",$("#nightlifeFilters")).forEach(c=>c.classList.remove("active"));
+  chip.classList.add("active");
+  renderNightlife(chip.dataset.filter);
+});
+
+/* ================= RENDER: HISTORIA Y UNESCO ================= */
+function renderHistoryTimeline(){
+  $("#historyTimeline").innerHTML = CRETE_DATA.historyTimeline.map(h=>`
+    <div class="timeline-item">
+      <div class="ti-period">${h.period}</div>
+      <h4>${h.title}</h4>
+      <p>${h.text}</p>
+    </div>`).join("");
+}
+function renderUnesco(){
+  $("#unescoGrid").innerHTML = CRETE_DATA.unesco.map(u=>`
+    <div class="gem-card">
+      <i class="fa-solid fa-landmark-flag gem-icon"></i>
+      <h4>${u.name}</h4>
+      <p><strong style="color:var(--text);">${u.year}.</strong> ${u.desc}</p>
+    </div>`).join("");
+}
+
+/* ================= RENDER: RINCONES OCULTOS Y FOTOGRAFÍA ================= */
+function renderHiddenGems(){
+  $("#hiddenGemsGrid").innerHTML = CRETE_DATA.hiddenGems.map((g,i)=>`
+    <div class="gem-card" style="position:relative;">
+      ${favToggleHtml("gem-"+g.name.replace(/\s+/g,"-").toLowerCase(),g.name,"Rincón oculto")}
+      <i class="fa-solid ${g.icon} gem-icon"></i>
+      <h4>${g.name}</h4>
+      <p>${g.desc}</p>
+    </div>`).join("");
+  refreshFavIcons();
+}
+function renderPhotoSpots(){
+  $("#photoSpotsList").innerHTML = CRETE_DATA.photoSpots.map(p=>`
+    <div class="photo-spot-row">
+      <div><div class="ps-name">${p.name}</div><div class="ps-tip">${p.tip}</div></div>
+      <div class="ps-time">${p.time}</div>
+    </div>`).join("");
+}
+
+/* ================= RENDER: PRÁCTICA Y COMPRAS ================= */
+function renderPractical(){
+  $("#practicalGrid").innerHTML = CRETE_DATA.practical.map(p=>`
+    <div class="tag-card">
+      <div class="tc-value" style="font-size:16px;"><i class="fa-solid ${p.icon}"></i>${p.title}</div>
+      <p style="font-size:13px;color:var(--text-soft);margin-top:8px;line-height:1.55;">${p.text}</p>
+    </div>`).join("");
+}
+function renderShopping(){
+  $("#shoppingGrid").innerHTML = CRETE_DATA.shopping.map(p=>`
+    <div class="tag-card">
+      <div class="tc-value" style="font-size:16px;"><i class="fa-solid ${p.icon}"></i>${p.title}</div>
+      <p style="font-size:13px;color:var(--text-soft);margin-top:8px;line-height:1.55;">${p.text}</p>
+    </div>`).join("");
+}
+/* ================= RENDER: CLIMA ================= */
+function renderWeatherChart(){
+  const maxV = 32;
+  $("#weatherChart").innerHTML = CRETE_DATA.weather.map(w=>`
+    <div class="bc-col">
+      <div class="bc-bars">
+        <div class="bc-bar air" style="height:${(w.air/maxV*100).toFixed(0)}%"><span class="bc-val">${w.air}°</span></div>
+        <div class="bc-bar sea" style="height:${(w.sea/maxV*100).toFixed(0)}%"><span class="bc-val">${w.sea}°</span></div>
+      </div>
+      <span class="bc-label">${w.m}</span>
+    </div>`).join("");
+  $("#crowdChart").innerHTML = CRETE_DATA.weather.map(w=>`
+    <div class="crowd-row">
+      <span>${w.m}</span>
+      <div class="cr-bar-bg"><div class="cr-bar-fill" style="width:${w.crowd}%"></div></div>
+    </div>`).join("");
+}
+
+/* ================= PRESUPUESTO ================= */
+function wireBudgetCalculator(){
+  $$(".tier-toggle").forEach(toggle=>{
+    toggle.addEventListener("click",e=>{
+      const btn = e.target.closest("button"); if(!btn) return;
+      $$("button",toggle).forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      const cat = toggle.dataset.category;
+      $(`[data-amount="${cat}"]`).textContent = btn.dataset.value + " €";
+      updateBudgetTotal();
+    });
+  });
+  updateBudgetTotal();
+}
+function updateBudgetTotal(){
+  let total = 0;
+  $$(".budget-amount").forEach(el=> total += parseInt(el.textContent,10) || 0);
+  $("#budgetTotal").textContent = total + " €";
+}
+
+/* ================= IDIOMA (con voz del navegador) ================= */
+const GREEK_ALPHABET = ["Α α","Β β","Γ γ","Δ δ","Ε ε","Ζ ζ","Η η","Θ θ","Ι ι","Κ κ","Λ λ","Μ μ","Ν ν","Ξ ξ","Ο ο","Π π","Ρ ρ","Σ σ","Τ τ","Υ υ","Φ φ","Χ χ","Ψ ψ","Ω ω"];
+function renderAlphabet(){
+  $("#alphabetStrip").innerHTML = GREEK_ALPHABET.map(l=>`<div class="alphabet-chip">${l.split(" ")[0]}<span>${l.split(" ")[1]}</span></div>`).join("");
+}
+function renderPhrases(){
+  let html = "";
+  Object.keys(CRETE_DATA.phrases).forEach(cat=>{
+    html += `<div class="phrase-cat"><h4 style="font-size:18px;margin:26px 0 12px;"><i class="fa-solid fa-comments" style="color:var(--oxblood);margin-right:8px;"></i>${cat}</h4><div class="phrase-grid">`;
+    CRETE_DATA.phrases[cat].forEach((p,i)=>{
+      html += `<div class="phrase-card">
+        <div><div class="ph-es">${p.es}</div><div class="ph-gr">${p.gr}</div><div class="ph-pron">/${p.pron}/</div></div>
+        <button class="ph-play" data-say="${esc(p.gr)}" aria-label="Escuchar pronunciación de ${esc(p.es)}"><i class="fa-solid fa-volume-high"></i></button>
+      </div>`;
+    });
+    html += `</div></div>`;
+  });
+  $("#phraseCategories").innerHTML = html;
+}
+function speakGreek(text,btn){
+  if(!("speechSynthesis" in window)){ return; }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "el-GR";
+  u.rate = 0.85;
+  if(btn){
+    btn.classList.add("playing");
+    u.onend = ()=>btn.classList.remove("playing");
+    u.onerror = ()=>btn.classList.remove("playing");
+  }
+  window.speechSynthesis.speak(u);
+}
+document.addEventListener("click",e=>{
+  const btn = e.target.closest(".ph-play");
+  if(!btn) return;
+  speakGreek(btn.dataset.say,btn);
+});
+
+/* ================= ITINERARIOS ================= */
+function renderItinerary(days){
+  const list = CRETE_DATA.itineraries[days] || [];
+  $("#itinDaysContainer").innerHTML = list.map((d,i)=>`
+    <div class="itin-day">
+      <div class="itin-day-num">Día<strong>${i+1}</strong></div>
+      <div><h4>${d.title}</h4><p>${d.text}</p></div>
+    </div>`).join("");
+}
+$("#itinTabs").addEventListener("click",e=>{
+  const btn = e.target.closest(".itin-tab-btn"); if(!btn) return;
+  $$(".itin-tab-btn",$("#itinTabs")).forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  renderItinerary(btn.dataset.days);
+});
+function renderTravelerNotes(){
+  $("#travelerNotes").innerHTML = CRETE_DATA.travelerNotes.map(t=>`
+    <div class="chip" style="cursor:default;white-space:normal;text-align:left;padding:12px 16px;max-width:260px;">
+      <i class="fa-solid ${t.icon}"></i>&nbsp; <strong style="text-transform:none;font-family:var(--font-body);">${t.name}:</strong> <span style="font-weight:500;text-transform:none;letter-spacing:normal;">${t.text}</span>
+    </div>`).join("");
+}
+
+/* ================= RECURSOS DEL PIE ================= */
+function renderFooterResources(){
+  const links = [
+    ["Visit Greece (oficial)","https://www.visitgreece.gr"],
+    ["Explore Crete","https://explorecrete.com"],
+    ["Parque Nacional de Samaria","https://samaria.gr"],
+    ["Wikivoyage: Creta","https://en.wikivoyage.org/wiki/Crete"],
+    ["UNESCO World Heritage Centre","https://whc.unesco.org"]
+  ];
+  $("#footerResources").innerHTML = links.map(([label,url])=>`<li><a href="${url}" target="_blank" rel="noopener">${label} <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px;"></i></a></li>`).join("");
+}
+/* ================= TEMA CLARO / OSCURO ================= */
+function initTheme(){
+  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  document.documentElement.setAttribute("data-theme", prefersDark ? "dark" : "light");
+  $("#themeToggle").addEventListener("click",()=>{
+    const cur = document.documentElement.getAttribute("data-theme");
+    document.documentElement.setAttribute("data-theme", cur==="dark" ? "light" : "dark");
+  });
+}
+
+/* ================= NAVEGACIÓN MÓVIL ================= */
+function initMobileNav(){
+  const toggle = $("#menuToggle"), nav = $("#mobileNav");
+  toggle.addEventListener("click",()=>{
+    const open = nav.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", open ? "true":"false");
+    toggle.innerHTML = open ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+  });
+  $$("#mobileNav a").forEach(a=>a.addEventListener("click",()=>{
+    nav.classList.remove("open");
+    toggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+  }));
+}
+
+/* ================= BARRA DE PROGRESO + SCROLL SPY + VOLVER ARRIBA ================= */
+function initScrollEffects(){
+  const bar = $("#progressBar");
+  const backBtn = $("#backToTop");
+  const navLinks = $$(".main-nav a");
+  const sections = navLinks.map(a=>document.querySelector(a.getAttribute("href"))).filter(Boolean);
+  function onScroll(){
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = docHeight>0 ? Math.min(100,(scrollTop/docHeight*100)).toFixed(1)+"%" : "0%";
+    backBtn.classList.toggle("visible", scrollTop > 900);
+    let currentId = sections[0] && sections[0].id;
+    sections.forEach(sec=>{ if(scrollTop >= sec.offsetTop - 140) currentId = sec.id; });
+    navLinks.forEach(a=> a.classList.toggle("active", a.getAttribute("href")==="#"+currentId));
+  }
+  window.addEventListener("scroll",onScroll,{passive:true});
+  onScroll();
+  backBtn.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+  $("#printBtn").addEventListener("click",()=>window.print());
+}
+
+/* ================= REVELADO SUAVE AL HACER SCROLL ================= */
+function initReveal(){
+  const targets = $$(".section-head, .tag-card, .data-card, .activity-tile, .gem-card, .timeline-item");
+  targets.forEach(t=>t.classList.add("reveal"));
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } });
+  },{threshold:0.08});
+  targets.forEach(t=>io.observe(t));
+}
+
+/* ================= SUBPESTAÑAS (Aventura, Cultura, Guía práctica) ================= */
+function initSubtabs(containerId){
+  const container = document.getElementById(containerId);
+  if(!container) return;
+  container.addEventListener("click",e=>{
+    const btn = e.target.closest(".subtab-btn"); if(!btn) return;
+    $$(".subtab-btn",container).forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    const section = container.closest(".section");
+    $$(".subpanel",section).forEach(p=>p.classList.remove("active"));
+    document.getElementById("panel-"+btn.dataset.panel).classList.add("active");
+  });
+}
+
+/* ================= FAVORITOS: cajón ================= */
+function initFavDrawer(){
+  const drawer = $("#favDrawer"), scrim = $("#scrim");
+  function open(){ drawer.classList.add("open"); scrim.classList.add("open"); renderFavDrawer(); }
+  function close(){ drawer.classList.remove("open"); scrim.classList.remove("open"); }
+  $("#favBtn").addEventListener("click",open);
+  $("#favDrawerClose").addEventListener("click",close);
+  scrim.addEventListener("click",close);
+}
+
+/* ================= BÚSQUEDA GLOBAL ================= */
+function buildSearchIndex(){
+  const idx = [];
+  CRETE_DATA.beaches.forEach(b=>idx.push({label:b.name,type:"Playa",desc:b.desc,href:"#playas"}));
+  CRETE_DATA.food.forEach(f=>idx.push({label:f.name,type:"Restaurante · "+f.city,desc:f.desc,href:"#gastronomia"}));
+  CRETE_DATA.activities.forEach(a=>idx.push({label:a.name,type:"Qué hacer",desc:a.desc,href:"#aventura",panel:["aventuraTabs","que-hacer"]}));
+  CRETE_DATA.hikes.forEach(h=>idx.push({label:h.name,type:"Senderismo",desc:h.tip,href:"#aventura",panel:["aventuraTabs","senderismo"]}));
+  CRETE_DATA.running.forEach(r=>idx.push({label:r.name,type:"Running",desc:r.dist,href:"#aventura",panel:["aventuraTabs","running"]}));
+  CRETE_DATA.nightlife.forEach(n=>idx.push({label:n.name,type:"Vida nocturna · "+n.city,desc:n.desc,href:"#vida-nocturna"}));
+  CRETE_DATA.hiddenGems.forEach(g=>idx.push({label:g.name,type:"Rincón oculto",desc:g.desc,href:"#cultura",panel:["culturaTabs","rincones"]}));
+  CRETE_DATA.dishes.forEach(d=>idx.push({label:d.name,type:"Plato típico",desc:d.desc,href:"#gastronomia"}));
+  return idx;
+}
+function initSearch(){
+  const index = buildSearchIndex();
+  const input = $("#searchInput"), results = $("#searchResults"), wrap = $("#searchWrap");
+  function activatePanel(panel){
+    if(!panel) return;
+    const [tabsId,panelKey] = panel;
+    const tabsEl = document.getElementById(tabsId);
+    if(!tabsEl) return;
+    $$(".subtab-btn",tabsEl).forEach(b=>b.classList.remove("active"));
+    const target = tabsEl.querySelector(`[data-panel="${panelKey}"]`);
+    if(target) target.classList.add("active");
+    const section = tabsEl.closest(".section");
+    $$(".subpanel",section).forEach(p=>p.classList.remove("active"));
+    const panelEl = document.getElementById("panel-"+panelKey);
+    if(panelEl) panelEl.classList.add("active");
+  }
+  function doSearch(q){
+    q = q.trim().toLowerCase();
+    if(q.length<2){ results.classList.remove("open"); return; }
+    const matches = index.filter(it=> it.label.toLowerCase().includes(q) || it.desc.toLowerCase().includes(q)).slice(0,8);
+    results.innerHTML = matches.length ? matches.map(m=>`
+      <a class="sr-item" href="${m.href}" data-panel-tabs="${m.panel?m.panel[0]:""}" data-panel-key="${m.panel?m.panel[1]:""}">
+        <div class="sr-tag">${m.type}</div><div class="sr-name">${m.label}</div>
+      </a>`).join("") : `<div class="sr-empty">Sin resultados para "${esc(q)}"</div>`;
+    results.classList.add("open");
+  }
+  input.addEventListener("input",()=>doSearch(input.value));
+  input.addEventListener("focus",()=>{ if(input.value.length>1) results.classList.add("open"); wrap.classList.add("active"); });
+  results.addEventListener("click",e=>{
+    const a = e.target.closest(".sr-item"); if(!a) return;
+    if(a.dataset.panelTabs) activatePanel([a.dataset.panelTabs,a.dataset.panelKey]);
+    results.classList.remove("open");
+    input.value = "";
+  });
+  document.addEventListener("click",e=>{
+    if(!wrap.contains(e.target)){ results.classList.remove("open"); }
+  });
+}
+
+/* ================= INICIALIZACIÓN ================= */
+document.addEventListener("DOMContentLoaded",()=>{
+  initTheme();
+  initMobileNav();
+  initScrollEffects();
+  initSubtabs("aventuraTabs");
+  initSubtabs("culturaTabs");
+  initSubtabs("practicaTabs");
+  initFavDrawer();
+
+  renderBeaches();
+  renderDishes();
+  renderFood();
+  renderActivities();
+  renderHikes();
+  renderRunning();
+  renderSports();
+  renderNightlife();
+  renderHistoryTimeline();
+  renderUnesco();
+  renderHiddenGems();
+  renderPhotoSpots();
+  renderPractical();
+  renderShopping();
+  renderWeatherChart();
+  renderAlphabet();
+  renderPhrases();
+  renderItinerary(3);
+  renderTravelerNotes();
+  renderFooterResources();
+  wireBudgetCalculator();
+  initSearch();
+  refreshFavIcons();
+  initReveal();
+});
+</script>
+</body>
+</html>
