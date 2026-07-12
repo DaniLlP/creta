@@ -36,9 +36,7 @@ Se guarda con `localStorage` **y**, si activas Supabase (ver abajo), también en
    ```
 6. Sube el archivo actualizado a GitHub. Listo — el botón de favoritos ahora mostrará un inicio de sesión por email (enlace mágico, sin contraseña), y una vez dentro podrás elegir un nombre de usuario, ver tu enlace para compartir (`?perfil=tu-usuario`) y buscar el diario de un amigo por su nombre de usuario en la pestaña "Amigos".
 
-**Cómo funciona el compartir:** cada reseña que guardes (probado/visitado + estrellas + comentario) se sube a la tabla `reviews`, ligada a tu cuenta. Cualquiera puede leerlas (política de solo lectura pública), pero solo tú puedes escribir las tuyas — así que compartir tu enlace o tu nombre de usuario con un amigo le deja ver tu diario sin poder editarlo.
-
-**Límites de esta versión:** no hay sistema de "solicitud de amistad" — es más simple: perfiles públicos por nombre de usuario, como un diario que enseñas a quien tenga el enlace. Si más adelante quieres perfiles privados con lista de amigos aprobados, se puede añadir una tabla `follows` y ajustar las políticas RLS para restringir la lectura a `auth.uid() = user_id or exists(select 1 from follows where...)`.
+**Cómo funciona el compartir:** perfiles públicos por nombre de usuario (para poder encontrar a alguien y enviarle una solicitud), pero las reseñas ya no son visibles para cualquiera — hace falta una amistad aceptada por las dos partes. Busca el nombre de usuario de tu amigo/a en la pestaña "Amigos", pulsa "Enviar solicitud"; cuando lo acepte, verás su diario ahí mismo. Compartir tu enlace (`?perfil=tu-usuario`) le lleva directo a la pantalla de solicitud si aún no sois amigos.
 
 
 ## Cómo verla

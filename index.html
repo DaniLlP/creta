@@ -614,6 +614,13 @@ footer.site-footer .disclaimer-box strong{color:#EFE7D3;}
   padding:20px;display:flex;flex-direction:column;box-shadow:var(--shadow);overflow:hidden;
 }
 .flip-card-front .at-icon{margin-bottom:2px;}
+.flip-front-body{padding:16px 18px 18px;display:flex;flex-direction:column;height:calc(100% - 56%);}
+.flip-photo-real{height:56%;flex-shrink:0;overflow:hidden;position:relative;}
+.flip-photo-real img{width:100%;height:100%;object-fit:cover;position:relative;z-index:1;display:block;}
+.flip-photo-fallback-icon{display:none;position:absolute;inset:0;align-items:center;justify-content:center;color:rgba(255,255,255,0.9);font-size:44px;}
+.flip-photo-real.img-failed .flip-photo-fallback-icon{display:flex;}
+.img-credit-link{font-family:var(--font-mono);font-size:9px;color:var(--text-soft);text-decoration:none;opacity:.7;margin-top:auto;padding-top:6px;display:block;}
+.img-credit-link:hover{opacity:1;text-decoration:underline;}
 .flip-card-front h4{font-size:16.5px;margin:10px 0 6px;}
 .flip-card-front p{font-size:12.5px;color:var(--text-soft);line-height:1.5;flex:1;}
 .flip-hint{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-soft);display:flex;align-items:center;gap:6px;margin-top:auto;padding-top:10px;}
@@ -1229,6 +1236,9 @@ footer.site-footer .disclaimer-box strong{color:#EFE7D3;}
       <p style="font-size:12.5px;color:#8F8570;line-height:1.8;max-width:900px;">
         Visit Greece · Explore Crete · Crete Travel · West Crete · Discover Greece · Wikivoyage · UNESCO World Heritage Centre y Programa MAB · Hellenic Civil Aviation Authority (HCAA) · Samaria National Park / OFYPEKA · The MICHELIN Guide Greece · Rental Center Crete · Balos-Travel · Santorini Dave · 22places · Sunheron · Crete Insider · Routinely Nomadic · Our Wanders · Tristan Balme · Greece Moments · Natania Travel · Kastanofolia Taverna · The Greek Foodie · The National Herald · foros y comunidades de r/Crete y r/Greece de Reddit · reseñas agregadas de Google Places · TripAdvisor · Travel & Tour World · Kolymbari Courier · Kasteli Airport (Wikipedia) · GTP Headlines. Toda la redacción es original: los datos se contrastaron entre varias fuentes independientes en vez de copiarse de una sola.
       </p>
+      <p style="font-size:12px;color:#8F8570;line-height:1.8;max-width:900px;margin-top:14px;">
+        <strong style="color:#EFE7D3;">Fotos de platos:</strong> Dakos, Bougatsa, Kalitsounia y Graviera cretense usan fotografías reales de Wikimedia Commons, de dominio libre — cada una enlaza a su archivo original y autor al voltear la tarjeta. El resto de platos y rincones ocultos usan un icono ilustrativo mientras no se ha encontrado una foto libre de derechos verificada; puedes sustituirlos por tus propias fotos añadiendo un campo <code>img</code> a la entrada correspondiente en <code>CRETE_DATA</code>.
+      </p>
       <div class="disclaimer-box mt-lg">
         <strong>Aviso importante:</strong> los horarios, precios, normas de acceso y fechas de apertura (gargantas, museos, aeropuertos, transporte) cambian con frecuencia y algunos, como la Garganta de Samaria, han tenido cierres imprevistos en 2026 por daños del temporal. Verifica siempre la información crítica en la fuente oficial antes de viajar. Esta guía se ofrece con fines informativos y no sustituye la comprobación directa con proveedores, parques nacionales y autoridades locales.
       </div>
@@ -1338,8 +1348,10 @@ beaches: [
 ],
 
 dishes: [
-  {name:"Dakos",icon:"fa-bowl-food",desc:"Galleta de cebada humedecida con tomate rallado, mizithra y orégano. El meze cretense por excelencia."},
-  {name:"Kalitsounia",icon:"fa-cookie",desc:"Empanadillas de queso mizithra (saladas) o con miel y canela (dulces, lichnarakia)."},
+  {name:"Dakos",icon:"fa-bowl-food",desc:"Galleta de cebada humedecida con tomate rallado, mizithra y orégano. El meze cretense por excelencia.",
+   img:"https://commons.wikimedia.org/wiki/Special:FilePath/Koukouvagia.jpg",imgCredit:"https://commons.wikimedia.org/wiki/File:Koukouvagia.jpg"},
+  {name:"Kalitsounia",icon:"fa-cookie",desc:"Empanadillas de queso mizithra (saladas) o con miel y canela (dulces, lichnarakia).",
+   img:"https://commons.wikimedia.org/wiki/Special:FilePath/Restaurant_Erotokritos_(Almyrida)_-_beignets.jpg",imgCredit:"https://commons.wikimedia.org/wiki/File:Restaurant_Erotokritos_(Almyrida)_-_beignets.jpg"},
   {name:"Chaniotiko boureki",icon:"fa-layer-group",desc:"Capas de calabacín, patata y mizithra al horno — especialidad exclusiva de Chania."},
   {name:"Antikristo",icon:"fa-fire",desc:"Cordero asado lentamente en espetones verticales alrededor de una hoguera, técnica pastoril ancestral."},
   {name:"Gamopilafo",icon:"fa-utensils",desc:"Arroz de boda cocinado en caldo de cordero o cabra con staka — se sirve en celebraciones."},
@@ -1347,9 +1359,11 @@ dishes: [
   {name:"Apaki",icon:"fa-bacon",desc:"Cerdo curado y ahumado con vinagre y hierbas — el equivalente cretense al beicon gourmet."},
   {name:"Chochlioi boubouristi",icon:"fa-shrimp",desc:"Caracoles fritos en aceite de oliva con romero, un clásico tras las primeras lluvias."},
   {name:"Stamnagathi",icon:"fa-seedling",desc:"Verdura silvestre amarga de montaña, hervida y aliñada con aceite y limón."},
-  {name:"Bougatsa",icon:"fa-slice",desc:"Hojaldre relleno de crema de sémola, espolvoreado con azúcar y canela — desayuno de Chania."},
+  {name:"Bougatsa",icon:"fa-slice",desc:"Hojaldre relleno de crema de sémola, espolvoreado con azúcar y canela — desayuno de Chania.",
+   img:"https://commons.wikimedia.org/wiki/Special:FilePath/Bougatsa.jpg",imgCredit:"https://commons.wikimedia.org/wiki/File:Bougatsa.jpg"},
   {name:"Kserotigana",icon:"fa-swirl",desc:"Espirales de masa frita bañadas en miel y canela, típicas de bodas y fiestas."},
-  {name:"Graviera cretense",icon:"fa-cheese",desc:"Queso de oveja semicurado con Denominación de Origen — el más exportado de Grecia."}
+  {name:"Graviera cretense",icon:"fa-cheese",desc:"Queso de oveja semicurado con Denominación de Origen — el más exportado de Grecia.",
+   img:"https://commons.wikimedia.org/wiki/Special:FilePath/Graviera_Kritis_Kraounaki_Rethymnou.jpg",imgCredit:"https://commons.wikimedia.org/wiki/File:Graviera_Kritis_Kraounaki_Rethymnou.jpg"}
 ],
 
 food: [
@@ -1792,18 +1806,27 @@ function flipCardHtml(item,type,i,extraClass){
   const review = rec ? rec.review||"" : "";
   const label = type==="probado" ? "Marcar como probado" : "Marcar como visitado";
   const doneLabel = type==="probado" ? "Probado" : "Visitado";
+  const hasImg = !!item.img;
+  const frontMedia = hasImg
+    ? `<div class="flip-photo flip-photo-real" style="background:${gradFor(i+(extraClass==='gem'?1:0))}">
+         <img src="${item.img}" alt="${esc(item.name)}" loading="lazy" onerror="this.closest('.flip-photo').classList.add('img-failed');this.remove();">
+         <i class="fa-solid ${item.icon} flip-photo-fallback-icon"></i>
+       </div>`
+    : `<div class="flip-photo" style="background:${gradFor(i+(extraClass==='gem'?1:0))}"><i class="fa-solid ${item.icon}"></i></div>`;
   return `<div class="flip-card ${done?'tracked':''}" data-track-id="${id}">
     <div class="card-done-badge"><i class="fa-solid fa-check"></i></div>
     <div class="flip-card-inner">
-      <div class="flip-card-front">
-        <div class="at-icon"><i class="fa-solid ${item.icon}"></i></div>
-        <h4>${item.name}</h4>
-        <p>${item.desc}</p>
-        <span class="flip-hint"><i class="fa-solid fa-arrows-rotate"></i> Toca para voltear</span>
+      <div class="flip-card-front" style="padding:0;">
+        ${frontMedia}
+        <div class="flip-front-body">
+          <h4>${item.name}</h4>
+          <p>${item.desc}</p>
+          <span class="flip-hint"><i class="fa-solid fa-arrows-rotate"></i> Toca para marcar y valorar</span>
+        </div>
       </div>
       <div class="flip-card-back">
-        <div class="flip-photo" style="background:${gradFor(i+(extraClass==='gem'?1:0))}"><i class="fa-solid ${item.icon}"></i></div>
-        <div class="flip-back-body">
+        <div class="flip-back-body" style="padding-top:20px;">
+          <div class="at-icon" style="margin-bottom:2px;"><i class="fa-solid ${item.icon}"></i></div>
           <h4>${item.name}</h4>
           <button class="track-toggle ${done?'done':''}" data-track-id="${id}" data-track-type="${type}" data-track-label="${esc(item.name)}">
             <i class="fa-solid ${done?'fa-check-circle':'fa-circle'}"></i> ${done?doneLabel:label}
@@ -1812,6 +1835,7 @@ function flipCardHtml(item,type,i,extraClass){
             ${[1,2,3,4,5].map(n=>`<button data-star="${n}" class="${n<=rating?'filled':''}" aria-label="${n} estrellas"><i class="fa-solid fa-star"></i></button>`).join("")}
           </div>
           <textarea class="review-box" data-review-for="${id}" placeholder="Tu reseña rápida (opcional)…">${esc(review)}</textarea>
+          ${hasImg ? `<a href="${item.imgCredit}" target="_blank" rel="noopener" class="img-credit-link">Foto: Wikimedia Commons</a>` : ""}
         </div>
       </div>
     </div>
@@ -1870,8 +1894,8 @@ document.addEventListener("input",e=>{
 /* ================= SUPABASE: cuenta, sincronización y amigos ================= */
 // Rellena estas dos constantes con los datos de tu proyecto (Settings → API en Supabase).
 // Mientras sigan con el valor "TU_..." la app funciona en modo solo local, como hasta ahora.
-const SUPABASE_URL = "https://twelmnurbonnttwtsxzk.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_8K9zKy9Xp9yPTeweQKs3nQ_W3b7cfKY";
+const SUPABASE_URL = "TU_SUPABASE_URL";
+const SUPABASE_ANON_KEY = "TU_SUPABASE_ANON_KEY";
 const SUPABASE_ENABLED = !SUPABASE_URL.startsWith("TU_") && !SUPABASE_ANON_KEY.startsWith("TU_") && !!window.supabase;
 let sb = null, sbUser = null, sbProfile = null;
 if(SUPABASE_ENABLED){ sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); }
@@ -1996,34 +2020,104 @@ async function onSignedIn(user){
   history.replaceState(null,"",window.location.pathname + (new URLSearchParams(window.location.search).get("perfil") ? "?perfil="+new URLSearchParams(window.location.search).get("perfil") : ""));
 }
 
-/* -------- Ver el diario de un amigo por su nombre de usuario -------- */
+/* -------- Amigos: solicitudes, aceptación y diario compartido -------- */
 async function renderAmigosTab(prefillUsername){
   const box = $("#favDrawerContent");
   if(!SUPABASE_ENABLED){
-    box.innerHTML = `<div class="fav-drawer-empty"><i class="fa-solid fa-user-group" style="font-size:26px;display:block;margin-bottom:10px;"></i>Activa Supabase (ver README) para ver los diarios de tus amigos.</div>`;
+    box.innerHTML = `<div class="fav-drawer-empty"><i class="fa-solid fa-user-group" style="font-size:26px;display:block;margin-bottom:10px;"></i>Activa Supabase (ver README) para añadir amigos.</div>`;
+    return;
+  }
+  if(!sbUser || !sbProfile){
+    box.innerHTML = `<div class="fav-drawer-empty"><i class="fa-solid fa-user-lock" style="font-size:26px;display:block;margin-bottom:10px;"></i>Inicia sesión y elige un nombre de usuario arriba para añadir amigos.</div>`;
     return;
   }
   box.innerHTML = `
     <div class="auth-row">
-      <input type="text" id="friendUsernameInput" placeholder="nombre de usuario de tu amigo/a" value="${esc(prefillUsername||"")}">
-      <button class="btn btn-sm btn-outline" id="friendSearchBtn">Ver</button>
+      <input type="text" id="friendUsernameInput" placeholder="nombre de usuario" value="${esc(prefillUsername||"")}">
+      <button class="btn btn-sm btn-accent" id="friendRequestBtn">Enviar solicitud</button>
     </div>
-    <div id="friendResults" style="margin-top:16px;"></div>`;
-  $("#friendSearchBtn").addEventListener("click", ()=>loadFriendProfile($("#friendUsernameInput").value.trim()));
-  if(prefillUsername) loadFriendProfile(prefillUsername);
+    <div class="auth-msg" id="friendMsg" style="display:none;"></div>
+    <div id="friendRequestsBox" style="margin-top:18px;"></div>
+    <div id="friendListBox" style="margin-top:18px;"></div>
+    <div id="friendDiaryBox" style="margin-top:18px;"></div>`;
+  $("#friendRequestBtn").addEventListener("click", ()=>sendFriendRequest($("#friendUsernameInput").value.trim()));
+  await Promise.all([loadIncomingRequests(), loadMyFriends()]);
+  if(prefillUsername) checkAndShowFriend(prefillUsername);
 }
-async function loadFriendProfile(username){
-  const results = $("#friendResults");
+function friendMsg(text,isError){
+  const el = $("#friendMsg"); if(!el) return;
+  el.style.display = "block"; el.textContent = text; el.classList.toggle("error", !!isError);
+}
+async function sendFriendRequest(username){
   if(!username){ return; }
   username = username.toLowerCase().replace(/[^a-z0-9_]/g,"");
-  results.innerHTML = `<div class="fav-drawer-empty" style="padding:20px;">Buscando…</div>`;
+  if(username === sbProfile.username){ friendMsg("Ese eres tú.",true); return; }
   const { data: profile } = await sb.from("profiles").select("*").eq("username",username).single();
-  if(!profile){ results.innerHTML = `<div class="fav-drawer-empty" style="padding:20px;">No se encontró a @${esc(username)}.</div>`; return; }
+  if(!profile){ friendMsg(`No se encontró a @${username}.`,true); return; }
+  const { error } = await sb.from("follows").insert({ follower_id: sbUser.id, followed_id: profile.id, status:"pending" });
+  if(error){ friendMsg(error.message.includes("duplicate") ? "Ya le has enviado una solicitud (o ya sois amigos)." : error.message, true); return; }
+  friendMsg(`Solicitud enviada a @${username}.`,false);
+  loadMyFriends();
+}
+async function loadIncomingRequests(){
+  const box = $("#friendRequestsBox");
+  const { data } = await sb.from("follows").select("follower_id").eq("followed_id",sbUser.id).eq("status","pending");
+  if(!data || data.length===0){ box.innerHTML = ""; return; }
+  const ids = data.map(r=>r.follower_id);
+  const { data: profiles } = await sb.from("profiles").select("id,username").in("id",ids);
+  box.innerHTML = `<div style="font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;color:var(--text-soft);margin-bottom:8px;">Solicitudes recibidas<span class="drawer-count-badge">${ids.length}</span></div>` +
+    (profiles||[]).map(p=>`
+      <div class="fav-item">
+        <div class="fi-name">@${esc(p.username)}</div>
+        <div style="display:flex;gap:6px;">
+          <button class="btn btn-sm btn-accent" data-accept-friend="${p.id}"><i class="fa-solid fa-check"></i></button>
+          <button class="btn btn-sm btn-outline" data-reject-friend="${p.id}"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>`).join("");
+}
+async function loadMyFriends(){
+  const box = $("#friendListBox");
+  const { data } = await sb.from("follows").select("follower_id,followed_id").eq("status","accepted").or(`follower_id.eq.${sbUser.id},followed_id.eq.${sbUser.id}`);
+  if(!data || data.length===0){ box.innerHTML = `<div style="font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;color:var(--text-soft);">Todavía no tienes amigos aceptados.</div>`; return; }
+  const otherIds = data.map(r=> r.follower_id===sbUser.id ? r.followed_id : r.follower_id);
+  const { data: profiles } = await sb.from("profiles").select("id,username").in("id",otherIds);
+  box.innerHTML = `<div style="font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;color:var(--text-soft);margin-bottom:8px;">Mis amigos</div>` +
+    (profiles||[]).map(p=>`<button class="chip" style="cursor:pointer;margin:0 6px 6px 0;" data-view-friend="${esc(p.username)}"><i class="fa-solid fa-book-open" style="margin-right:6px;"></i>@${esc(p.username)}</button>`).join("");
+}
+document.addEventListener("click",async e=>{
+  const acc = e.target.closest("[data-accept-friend]");
+  if(acc){
+    await sb.from("follows").update({status:"accepted"}).eq("follower_id",acc.dataset.acceptFriend).eq("followed_id",sbUser.id);
+    await loadIncomingRequests(); await loadMyFriends();
+  }
+  const rej = e.target.closest("[data-reject-friend]");
+  if(rej){
+    await sb.from("follows").delete().eq("follower_id",rej.dataset.rejectFriend).eq("followed_id",sbUser.id);
+    await loadIncomingRequests();
+  }
+  const view = e.target.closest("[data-view-friend]");
+  if(view){ loadFriendDiary(view.dataset.viewFriend); }
+});
+async function checkAndShowFriend(username){
+  username = username.toLowerCase().replace(/[^a-z0-9_]/g,"");
+  const { data: profile } = await sb.from("profiles").select("*").eq("username",username).single();
+  if(!profile){ friendMsg(`No se encontró a @${username}.`,true); return; }
+  if(profile.id === sbUser.id){ return; }
+  const { data: rel } = await sb.from("follows").select("*").or(`and(follower_id.eq.${sbUser.id},followed_id.eq.${profile.id}),and(follower_id.eq.${profile.id},followed_id.eq.${sbUser.id})`);
+  const accepted = (rel||[]).some(r=>r.status==="accepted");
+  if(accepted){ loadFriendDiary(username); }
+  else { friendMsg(`Aún no sois amigos — pulsa "Enviar solicitud" para pedírselo a @${username}.`,false); $("#friendUsernameInput").value = username; }
+}
+async function loadFriendDiary(username){
+  const box = $("#friendDiaryBox");
+  box.innerHTML = `<div class="fav-drawer-empty" style="padding:20px;">Cargando el diario de @${esc(username)}…</div>`;
+  const { data: profile } = await sb.from("profiles").select("*").eq("username",username).single();
+  if(!profile){ box.innerHTML = ""; return; }
   const { data: reviews } = await sb.from("reviews").select("*").eq("user_id",profile.id).order("updated_at",{ascending:false});
   const list = reviews || [];
-  results.innerHTML = `
-    <h4 style="font-size:16px;margin-bottom:12px;"><i class="fa-solid fa-user" style="color:var(--oxblood);margin-right:6px;"></i>@${esc(profile.username)}</h4>
-    ${list.length===0 ? `<div class="fav-drawer-empty" style="padding:20px;">Aún no ha marcado nada.</div>` :
+  box.innerHTML = `
+    <h4 style="font-size:16px;margin-bottom:12px;"><i class="fa-solid fa-user" style="color:var(--oxblood);margin-right:6px;"></i>Diario de @${esc(profile.username)}</h4>
+    ${list.length===0 ? `<div class="fav-drawer-empty" style="padding:20px;">Aún no ha marcado nada (o la política de la base de datos no os tiene como amigos aceptados).</div>` :
       list.map(r=>`
         <div class="progress-item friend-result">
           <div class="pi-top"><span class="pi-name">${esc(r.item_label)}</span><span class="pi-stars">${'★'.repeat(r.rating||0)}${'☆'.repeat(5-(r.rating||0))}</span></div>
@@ -2501,17 +2595,6 @@ document.addEventListener("DOMContentLoaded",()=>{
     setTimeout(()=>renderAmigosTab(perfilParam), SUPABASE_ENABLED ? 300 : 0);
   }
 });
-</script>
-<script type="module">
-import { supabase } from "./js/supabase.js";
-
-console.log("Supabase connected!");
-
-const {
-  data: { session }
-} = await supabase.auth.getSession();
-
-console.log(session);
 </script>
 </body>
 </html>
