@@ -7,15 +7,22 @@ Una guía de viaje interactiva de una sola página (HTML/CSS/JS puro, sin framew
 ## Qué incluye
 
 - Playas curadas con filtros por región y tipo, con mapas de Google Maps integrados
-- Guía gastronómica: platos tradicionales + restaurantes reales en Chania, Rétino y Heraclión
+- Guía gastronómica: platos tradicionales (tarjetas volteables, marcables como probados) + restaurantes reales en Chania, Rétino y Heraclión
 - Senderismo, running y deportes, con tablas de distancia/desnivel/dificultad
-- Vida nocturna por zona, cultura e historia (línea de tiempo minoica → veneciana → otomana → moderna)
+- Vida nocturna por zona, cultura e historia ampliada (línea de tiempo minoica → árabe → veneciana → otomana → moderna)
+- Rincones ocultos con tarjetas volteables marcables como visitados
+- **Seguimiento personal**: marca platos/rincones como probados o visitados, puntúa 1–5 estrellas y añade una reseña corta — guardado en tu navegador (cajón "Mi diario de Creta")
 - Patrimonio UNESCO actualizado (incluye la inscripción de julio de 2025 de los centros palaciales minoicos)
-- Rincones ocultos, guía de fotografía (incluida la normativa de drones)
+- Guía de fotografía (incluida la normativa de drones)
 - Guía práctica, compras, clima interactivo por mes y calculadora de presupuesto
 - Griego de supervivencia con pronunciación por voz del navegador (Web Speech API)
 - Itinerarios de 3/5/7/10 días
 - Modo claro/oscuro, búsqueda global, favoritos, y diseño responsive completo
+
+## Sobre el seguimiento personal (probado/visitado + valoraciones)
+
+Se guarda con `localStorage`, así que es **por navegador y dispositivo** — no sincroniza entre tu móvil y tu portátil, y no se comparte con nadie. Si algún día quieres cuentas reales con email y ver las valoraciones de tus amigos, hace falta un backend de verdad (por ejemplo Supabase, como en tu proyecto training-hub) con una tabla de reseñas y autenticación por enlace mágico — es un paso aparte, con su propio proyecto y claves.
+
 
 ## Cómo verla
 

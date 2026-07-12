@@ -597,6 +597,75 @@ footer.site-footer .disclaimer-box strong{color:#EFE7D3;}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
 .reveal.in{opacity:1;transform:translateY(0);}
 
+/* ============ Tarjetas volteables (probado / visitado) ============ */
+.flip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+@media (max-width:980px){.flip-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){.flip-grid{grid-template-columns:1fr;}}
+.flip-card{height:280px;perspective:1400px;position:relative;}
+.flip-card-inner{
+  position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.3,.7,.3,1);
+  transform-style:preserve-3d;cursor:pointer;
+}
+.flip-card.flipped .flip-card-inner{transform:rotateY(180deg);}
+.flip-card-front,.flip-card-back{
+  position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border-radius:var(--radius-m);border:1px solid var(--border);background:var(--surface);
+  padding:20px;display:flex;flex-direction:column;box-shadow:var(--shadow);overflow:hidden;
+}
+.flip-card-front .at-icon{margin-bottom:2px;}
+.flip-card-front h4{font-size:16.5px;margin:10px 0 6px;}
+.flip-card-front p{font-size:12.5px;color:var(--text-soft);line-height:1.5;flex:1;}
+.flip-hint{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-soft);display:flex;align-items:center;gap:6px;margin-top:auto;padding-top:10px;}
+.flip-hint i{font-size:11px;}
+.flip-card-back{transform:rotateY(180deg);padding:0;}
+.flip-photo{
+  height:56%;display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0;
+}
+.flip-photo i{font-size:44px;color:rgba(255,255,255,0.9);}
+.flip-back-body{padding:14px 16px;flex:1;display:flex;flex-direction:column;gap:9px;overflow-y:auto;}
+.flip-back-body h4{font-size:14.5px;}
+.track-toggle{
+  display:flex;align-items:center;justify-content:center;gap:7px;padding:9px 10px;border-radius:20px;
+  border:1.5px solid var(--border-strong);background:var(--bg-alt);color:var(--text);font-size:12px;font-weight:700;
+  transition:all .2s;
+}
+.track-toggle.done{background:var(--olive);border-color:var(--olive);color:#fff;}
+.track-toggle i{font-size:13px;}
+.star-row{display:flex;gap:4px;}
+.star-row button{background:none;border:none;font-size:16px;color:var(--border-strong);padding:2px;}
+.star-row button.filled{color:var(--ochre);}
+[data-theme="dark"] .star-row button.filled{color:var(--ochre-bright);}
+.review-box{
+  width:100%;border:1px solid var(--border);border-radius:8px;background:var(--bg-alt);color:var(--text);
+  font-family:var(--font-body);font-size:12px;padding:8px 10px;resize:none;min-height:44px;
+}
+.card-done-badge{
+  position:absolute;top:12px;right:12px;width:26px;height:26px;border-radius:50%;background:var(--olive);
+  color:#fff;display:none;align-items:center;justify-content:center;font-size:12px;z-index:2;
+}
+.flip-card.tracked .card-done-badge{display:flex;}
+
+/* ============ Cajón de progreso extendido ============ */
+.drawer-tabs{display:flex;gap:6px;margin-bottom:18px;background:var(--bg-alt);border-radius:20px;padding:3px;}
+.drawer-tabs button{flex:1;padding:8px 4px;border:none;background:none;border-radius:17px;font-size:11.5px;font-weight:700;color:var(--text-soft);}
+.drawer-tabs button.active{background:var(--oxblood);color:#fff;}
+[data-theme="dark"] .drawer-tabs button.active{background:var(--ochre-bright);color:#1a1508;}
+.drawer-name-field{display:flex;gap:8px;margin-bottom:18px;}
+.drawer-name-field input{flex:1;padding:9px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg-alt);color:var(--text);font-size:13px;}
+.progress-item{padding:12px 0;border-bottom:1px solid var(--border);}
+.progress-item .pi-top{display:flex;justify-content:space-between;align-items:center;}
+.progress-item .pi-name{font-weight:700;font-size:13.5px;}
+.progress-item .pi-stars{color:var(--ochre);font-size:11px;}
+[data-theme="dark"] .progress-item .pi-stars{color:var(--ochre-bright);}
+.progress-item .pi-review{font-size:12px;color:var(--text-soft);margin-top:4px;font-style:italic;}
+.pending-pill-list{display:flex;flex-wrap:wrap;gap:6px;}
+.pending-pill{font-size:11.5px;padding:5px 11px;border-radius:14px;background:var(--bg-alt);border:1px solid var(--border);color:var(--text-soft);}
+.drawer-count-badge{
+  font-family:var(--font-mono);font-size:10px;background:var(--oxblood);color:#fff;border-radius:10px;
+  padding:1px 7px;margin-left:6px;
+}
+[data-theme="dark"] .drawer-count-badge{background:var(--ochre-bright);color:#1a1508;}
+
 @media print{
   .site-header,.mobile-nav,.back-to-top,.progress-bar,.fav-toggle,.icon-btn,.search-wrap,.chip-row,iframe,.gallery-lightbox,video{display:none !important;}
   body{background:#fff;color:#000;}
@@ -782,7 +851,8 @@ footer.site-footer .disclaimer-box strong{color:#EFE7D3;}
     </div>
 
     <h3 style="font-size:22px;margin-bottom:18px;"><i class="fa-solid fa-plate-wheat" style="color:var(--oxblood);margin-right:8px;"></i>Platos imprescindibles</h3>
-    <div class="grid grid-4" id="dishesGrid" style="margin-bottom:60px;"></div>
+    <p style="color:var(--text-soft);font-size:13px;margin-bottom:16px;"><i class="fa-solid fa-hand-pointer" style="margin-right:6px;"></i>Toca cada plato para voltearlo y marcarlo como probado, puntuarlo y dejar una reseña rápida — se guarda en este dispositivo.</p>
+    <div class="flip-grid" id="dishesGrid" style="margin-bottom:60px;"></div>
 
     <h3 style="font-size:22px;margin-bottom:6px;"><i class="fa-solid fa-utensils" style="color:var(--oxblood);margin-right:8px;"></i>Dónde comer</h3>
     <p style="color:var(--text-soft);font-size:14.5px;margin-bottom:20px;max-width:70ch;">Una aclaración honesta antes de la lista: la Guía Michelin todavía <strong>no evalúa Creta</strong> — su cobertura griega se limita a Atenas, y en 2026 se amplía a Santorini y Tesalónica, no a esta isla. Así que ningún restaurante cretense tiene estrella oficial, pase lo que diga el cartel de la entrada. La excepción curiosa es el resort Daios Cove, en Lasithi, que cada verano invita a cocineros con estrella de toda Europa a cocinar por temporadas — mérito del hotel, no del restaurante local.</p>
@@ -951,7 +1021,8 @@ footer.site-footer .disclaimer-box strong{color:#EFE7D3;}
 
     <div class="subpanel" id="panel-rincones">
       <p style="color:var(--text-soft);font-size:14.5px;margin-bottom:24px;max-width:70ch;">Sitios que la mayoría de visitantes se salta por pura falta de tiempo — y que suelen ser lo primero que recomienda alguien que vive en la isla.</p>
-      <div class="grid grid-3" id="hiddenGemsGrid"></div>
+      <p style="color:var(--text-soft);font-size:13px;margin-bottom:16px;"><i class="fa-solid fa-hand-pointer" style="margin-right:6px;"></i>Toca para voltear y marcar como visitado, puntuar y anotar una reseña.</p>
+      <div class="flip-grid" id="hiddenGemsGrid"></div>
     </div>
 
     <div class="subpanel" id="panel-fotografia">
@@ -1144,7 +1215,7 @@ footer.site-footer .disclaimer-box strong{color:#EFE7D3;}
     </div>
 
     <div class="footer-bottom">
-      <span>© 2026 Guía Definitiva de Creta — proyecto personal sin fines comerciales. Créditos: investigación, diseño y desarrollo con asistencia de IA (Claude, Anthropic) sobre fuentes públicas verificadas.</span>
+      <span>© 2026 Dani Llorens — Guía Definitiva de Creta, proyecto personal sin fines comerciales. Investigación, diseño y desarrollo con asistencia de IA (Claude, Anthropic) sobre fuentes públicas verificadas.</span>
       <span>Hecho con <i class="fa-solid fa-heart" style="color:#9C2E1B;"></i> para quien está a punto de coger un vuelo a Creta.</span>
     </div>
   </div>
@@ -1154,8 +1225,16 @@ footer.site-footer .disclaimer-box strong{color:#EFE7D3;}
 <div class="scrim" id="scrim"></div>
 <div class="fav-drawer" id="favDrawer">
   <div class="fav-drawer-head">
-    <h3><i class="fa-solid fa-heart" style="color:var(--oxblood);margin-right:8px;"></i>Favoritos</h3>
+    <h3><i class="fa-solid fa-book-bookmark" style="color:var(--oxblood);margin-right:8px;"></i>Mi diario de Creta</h3>
     <button class="fav-drawer-close" id="favDrawerClose"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="drawer-name-field">
+    <input type="text" id="drawerNameInput" placeholder="Tu nombre (para tus reseñas)" maxlength="40">
+  </div>
+  <div class="drawer-tabs" id="drawerTabs">
+    <button class="active" data-tab="favoritos">Favoritos</button>
+    <button data-tab="probado">Probado/visitado</button>
+    <button data-tab="pendiente">Pendiente</button>
   </div>
   <div id="favDrawerContent"></div>
 </div>
@@ -1372,15 +1451,23 @@ nightlife: [
 ],
 
 historyTimeline: [
-  {period:"~7000 a.C.",title:"Primeros asentamientos neolíticos",text:"Comunidades agrícolas se instalan en lo que luego sería Cnosos, entre las más antiguas de Europa."},
-  {period:"~3000–1450 a.C.",title:"Civilización minoica",text:"La primera gran civilización europea de la Edad del Bronce: palacios sin murallas en Cnosos, Festos, Malia y Zakros, frescos vívidos y la escritura Lineal A, aún no descifrada del todo."},
-  {period:"~1450–67 a.C.",title:"Micénicos y Creta dórica",text:"Tras una crisis (posiblemente ligada a la erupción de Thera/Santorini), llegan los griegos micénicos y, más tarde, los dorios, que fragmentan la isla en ciudades-estado rivales."},
-  {period:"67 a.C.–1204 d.C.",title:"Roma y Bizancio",text:"Provincia romana y después bizantina durante más de un milenio, con la llegada del cristianismo y cientos de basílicas e iglesias que aún salpican la isla."},
-  {period:"1204–1669",title:"República de Venecia",text:"Venecia gobierna Creta ('Regno di Candia') durante más de 450 años: fortalezas, los puertos de Chania y Rétino, y el asedio de Candia (Heraclión), uno de los más largos de la historia (1648–1669)."},
-  {period:"1669–1898",title:"Dominio otomano",text:"Casi 230 años de gobierno turco, con mezquitas, hamams y sucesivas revueltas cretenses — la más famosa acabó en la explosión del monasterio de Arkadi en 1866."},
-  {period:"1898–1913",title:"Estado cretense autónomo y unión con Grecia",text:"Tras la intervención de las potencias europeas, Creta gana autonomía en 1898 y se une oficialmente al Reino de Grecia en 1913."},
-  {period:"1941–1945",title:"Batalla de Creta y ocupación",text:"La mayor invasión aerotransportada de la historia hasta entonces; la feroz resistencia civil cretense —incluida la Resistencia armada en las montañas— marcó profundamente la memoria de la isla."},
-  {period:"Hoy",title:"Creta contemporánea",text:"Economía basada en el turismo, la agricultura (aceite, vino) y una universidad tecnológica en expansión, sin perder su identidad rural y montañesa."}
+  {period:"~130.000 a.C. (debatido)",title:"Posibles rastros preneolíticos",text:"Herramientas de piedra halladas en 2010 cerca de Plakias sugieren, de forma controvertida, presencia de homínidos mucho antes de lo asumido — la primera prueba de que el Mediterráneo se cruzó a pie o en algún tipo de embarcación primitiva. Sigue siendo objeto de debate académico."},
+  {period:"~7000 a.C.",title:"Primeros asentamientos neolíticos",text:"Colonos agrícolas llegados probablemente desde Anatolia se instalan en lo que luego sería Cnosos — uno de los asentamientos continuos más antiguos de Europa, con más de 7 metros de estratos acumulados bajo el palacio minoico."},
+  {period:"~3000–1900 a.C.",title:"Prepalacial: la Edad del Bronce temprana",text:"Comunidades agrícolas y metalúrgicas crecen en toda la isla, con necrópolis circulares como las de Mesara. Sientan las bases materiales — comercio, artesanía, jerarquía social — de lo que se convertirá en la civilización minoica."},
+  {period:"~1900–1700 a.C.",title:"Primeros palacios minoicos",text:"Se levantan los primeros grandes complejos palaciales de Cnosos, Festos y Malia, centros administrativos y religiosos sin murallas defensivas — una rareza en el Mediterráneo de la época. Un terremoto los destruye hacia 1700 a.C."},
+  {period:"~1700–1450 a.C.",title:"Segundos palacios: el apogeo minoico",text:"Reconstruidos a mayor escala, los palacios alcanzan su esplendor: frescos vívidos de toros y delfines, la escritura Lineal A (aún no descifrada), fontanería con agua corriente y la primera red comercial marítima de Europa, con rutas hasta Egipto y el Levante."},
+  {period:"~1600 a.C. (fecha debatida)",title:"La erupción de Thera",text:"La catastrófica erupción volcánica de la vecina isla de Santorini genera tsunamis y ceniza que probablemente dañan la flota y la agricultura minoicas — uno de los factores, junto a posibles terremotos e invasiones, que inician el declive de la civilización."},
+  {period:"~1450–1100 a.C.",title:"Dominio micénico",text:"Guerreros griegos micénicos, llegados del Peloponeso, toman el control de Cnosos y adaptan la escritura minoica al griego arcaico: nace el Lineal B, la forma más antigua conocida de lengua griega escrita."},
+  {period:"~1100–67 a.C.",title:"Edad oscura y Creta dórica",text:"Tras el colapso de la civilización micénica, colonos dorios fragmentan la isla en más de 40 ciudades-estado rivales, con Gortina, Cnosos y Cidonia (la actual Chania) entre las más poderosas — la Creta de las leyes escritas más antiguas de Grecia, el Código de Gortina."},
+  {period:"67 a.C.–395 d.C.",title:"Provincia romana",text:"Roma conquista la isla y la convierte en provincia junto con Cirenaica, en el norte de África. Gortina se convierte en la capital administrativa, con un anfiteatro y una basílica cristiana entre las más grandes de la región."},
+  {period:"395–824",title:"Primer período bizantino",text:"Con la división del Imperio Romano, Creta pasa al Imperio Bizantino de Oriente. Se extiende el cristianismo ortodoxo y se construyen las primeras grandes basílicas de la isla."},
+  {period:"824–961",title:"Emirato árabe de Creta",text:"Un capítulo poco conocido: colonos andalusíes conquistan la isla y fundan Chandax (la actual Heraclión, cuyo nombre deriva del árabe 'foso') como base de una flota que domina el Egeo durante 137 años. Los bizantinos la reconquistan en 961 tras un asedio brutal liderado por el futuro emperador Nicéforo Focas."},
+  {period:"961–1204",title:"Segundo período bizantino",text:"Restaurado el control bizantino, la isla se repuebla con familias nobles de Constantinopla — el origen de muchos apellidos cretenses actuales — y se refuerza la identidad ortodoxa que definiría siglos de resistencia posterior."},
+  {period:"1204–1669",title:"República de Venecia",text:"Tras la Cuarta Cruzada, Venecia compra Creta y la gobierna como el 'Regno di Candia' durante más de 450 años: construye las fortalezas y los puertos de Chania y Rétino, introduce el Renacimiento (la llamada 'Escuela cretense' de pintura de iconos, con El Greco entre sus alumnos) y resiste el asedio otomano de Candia (Heraclión) de 1648–1669, uno de los más largos de la historia militar."},
+  {period:"1669–1898",title:"Dominio otomano",text:"Casi 230 años de gobierno turco, con mezquitas, hamams y baños turcos todavía visibles en Chania y Rétino, y sucesivas revueltas cretenses — la más recordada terminó en la voladura deliberada del monasterio de Arkadi en 1866, cuando sus defensores prefirieron la explosión a la rendición."},
+  {period:"1898–1913",title:"Estado cretense autónomo y unión con Grecia",text:"Tras la intervención de las grandes potencias europeas y la revuelta de Theriso liderada por Eleftherios Venizelos (más tarde primer ministro griego), Creta gana autonomía en 1898 bajo un alto comisionado y se une oficialmente al Reino de Grecia en 1913."},
+  {period:"1941–1945",title:"Batalla de Creta y ocupación",text:"En mayo de 1941, la Alemania nazi lanza la mayor invasión aerotransportada de la historia hasta entonces. A pesar de la derrota aliada, la feroz resistencia civil cretense — pastores armados con escopetas de caza incluidos — obligó a Hitler a reforzar tanto la ocupación que se cita como uno de los factores que retrasó la invasión de la URSS. La represión posterior fue brutal, con pueblos enteros arrasados."},
+  {period:"1945–hoy",title:"Creta contemporánea",text:"Reconstrucción posguerra, éxodo rural hacia el turismo desde los años 70, y hoy una economía apoyada en el turismo, el aceite de oliva, el vino y una universidad tecnológica (en Heraclión y Chania) que atrae investigación e innovación sin diluir una identidad rural y montañesa todavía muy fuerte."}
 ],
 
 unesco: [
@@ -1555,24 +1642,57 @@ document.addEventListener("click",e=>{
   const id = btn.dataset.favId;
   if(FAVORITES.has(id)){FAVORITES.delete(id);} else {FAVORITES.add(id);}
   refreshFavIcons();
-  renderFavDrawer();
+  renderProgressDrawer();
 });
-function renderFavDrawer(){
+let activeDrawerTab = "favoritos";
+function renderProgressDrawer(){
   const box = $("#favDrawerContent");
-  const saved = $$(".fav-toggle.saved");
-  if(FAVORITES.size===0 || saved.length===0){ box.innerHTML = `<div class="fav-drawer-empty"><i class="fa-regular fa-heart" style="font-size:26px;display:block;margin-bottom:10px;"></i>Aún no has guardado nada.<br>Toca el corazón de cualquier tarjeta.</div>`; return; }
-  let html = "";
-  saved.forEach(btn=>{
-    html += `<div class="fav-item"><div><div class="fi-name">${esc(btn.dataset.favLabel)}</div><div class="fi-type">${esc(btn.dataset.favType)}</div></div><button data-remove-fav="${btn.dataset.favId}" aria-label="Quitar"><i class="fa-solid fa-xmark"></i></button></div>`;
-  });
-  box.innerHTML = html;
+  if(!box) return;
+  if(activeDrawerTab==="favoritos"){
+    const saved = $$(".fav-toggle.saved");
+    if(saved.length===0){ box.innerHTML = `<div class="fav-drawer-empty"><i class="fa-regular fa-heart" style="font-size:26px;display:block;margin-bottom:10px;"></i>Aún no has guardado nada.<br>Toca el corazón de cualquier tarjeta.</div>`; return; }
+    box.innerHTML = saved.map(btn=>`<div class="fav-item"><div><div class="fi-name">${esc(btn.dataset.favLabel)}</div><div class="fi-type">${esc(btn.dataset.favType)}</div></div><button data-remove-fav="${btn.dataset.favId}" aria-label="Quitar"><i class="fa-solid fa-xmark"></i></button></div>`).join("");
+    return;
+  }
+  if(activeDrawerTab==="probado"){
+    const entries = [...Object.entries(Progreso.probado).map(([id,r])=>({id,...r,tipo:"Probado"})),
+                      ...Object.entries(Progreso.visitado).map(([id,r])=>({id,...r,tipo:"Visitado"}))];
+    if(entries.length===0){ box.innerHTML = `<div class="fav-drawer-empty"><i class="fa-solid fa-champagne-glasses" style="font-size:26px;display:block;margin-bottom:10px;"></i>Nada marcado todavía.<br>Voltea una tarjeta de plato o rincón oculto.</div>`; return; }
+    box.innerHTML = entries.map(en=>`
+      <div class="progress-item">
+        <div class="pi-top"><span class="pi-name">${esc(en.label)}</span><span class="pi-stars">${'★'.repeat(en.rating||0)}${'☆'.repeat(5-(en.rating||0))}</span></div>
+        <div class="fi-type">${en.tipo} · ${en.date||""}</div>
+        ${en.review ? `<div class="pi-review">"${esc(en.review)}"</div>` : ""}
+      </div>`).join("");
+    return;
+  }
+  if(activeDrawerTab==="pendiente"){
+    const pendDishes = CRETE_DATA.dishes.filter(d=>!Progreso.probado["probado-"+(d.id||d.name.replace(/\s+/g,"-").toLowerCase())]);
+    const pendGems = CRETE_DATA.hiddenGems.filter(g=>!Progreso.visitado["visitado-"+(g.id||g.name.replace(/\s+/g,"-").toLowerCase())]);
+    box.innerHTML = `
+      <div style="font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;color:var(--text-soft);margin:6px 0 8px;">Platos por probar</div>
+      <div class="pending-pill-list" style="margin-bottom:20px;">${pendDishes.map(d=>`<span class="pending-pill">${d.name}</span>`).join("") || '<span class="pending-pill">¡Todos probados!</span>'}</div>
+      <div style="font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;color:var(--text-soft);margin:6px 0 8px;">Rincones por visitar</div>
+      <div class="pending-pill-list">${pendGems.map(g=>`<span class="pending-pill">${g.name}</span>`).join("") || '<span class="pending-pill">¡Todos visitados!</span>'}</div>`;
+  }
 }
 document.addEventListener("click",e=>{
   const rm = e.target.closest("[data-remove-fav]");
   if(!rm) return;
   FAVORITES.delete(rm.dataset.removeFav);
   refreshFavIcons();
-  renderFavDrawer();
+  renderProgressDrawer();
+});
+$("#drawerTabs").addEventListener("click",e=>{
+  const btn = e.target.closest("button"); if(!btn) return;
+  $$("button",$("#drawerTabs")).forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  activeDrawerTab = btn.dataset.tab;
+  renderProgressDrawer();
+});
+$("#drawerNameInput").addEventListener("input",e=>{
+  Progreso.nombre = e.target.value;
+  saveProgreso();
 });
 
 /* ================= RENDER: PLAYAS ================= */
@@ -1626,14 +1746,104 @@ $("#beachFilters").addEventListener("click",e=>{
   renderBeaches(chip.dataset.filter);
 });
 
+/* ================= SEGUIMIENTO: PROBADO / VISITADO / VALORACIONES ================= */
+const PROGRESS_KEY = "creta-guia-progreso-v1";
+let Progreso = { probado:{}, visitado:{}, nombre:"" };
+function loadProgreso(){
+  try{
+    const raw = window.localStorage && localStorage.getItem(PROGRESS_KEY);
+    if(raw) Progreso = Object.assign({probado:{},visitado:{},nombre:""}, JSON.parse(raw));
+  }catch(e){
+    // localStorage no disponible en este contexto (p. ej. la vista previa dentro de Claude).
+    // La app sigue funcionando con seguimiento solo en memoria durante la sesión.
+  }
+}
+function saveProgreso(){
+  try{ if(window.localStorage) localStorage.setItem(PROGRESS_KEY, JSON.stringify(Progreso)); }catch(e){}
+}
+function flipCardHtml(item,type,i,extraClass){
+  const id = type+"-"+item.id;
+  const rec = Progreso[type][id];
+  const done = !!rec;
+  const rating = rec ? rec.rating||0 : 0;
+  const review = rec ? rec.review||"" : "";
+  const label = type==="probado" ? "Marcar como probado" : "Marcar como visitado";
+  const doneLabel = type==="probado" ? "Probado" : "Visitado";
+  return `<div class="flip-card ${done?'tracked':''}" data-track-id="${id}">
+    <div class="card-done-badge"><i class="fa-solid fa-check"></i></div>
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <div class="at-icon"><i class="fa-solid ${item.icon}"></i></div>
+        <h4>${item.name}</h4>
+        <p>${item.desc}</p>
+        <span class="flip-hint"><i class="fa-solid fa-arrows-rotate"></i> Toca para voltear</span>
+      </div>
+      <div class="flip-card-back">
+        <div class="flip-photo" style="background:${gradFor(i+(extraClass==='gem'?1:0))}"><i class="fa-solid ${item.icon}"></i></div>
+        <div class="flip-back-body">
+          <h4>${item.name}</h4>
+          <button class="track-toggle ${done?'done':''}" data-track-id="${id}" data-track-type="${type}" data-track-label="${esc(item.name)}">
+            <i class="fa-solid ${done?'fa-check-circle':'fa-circle'}"></i> ${done?doneLabel:label}
+          </button>
+          <div class="star-row" data-stars-for="${id}">
+            ${[1,2,3,4,5].map(n=>`<button data-star="${n}" class="${n<=rating?'filled':''}" aria-label="${n} estrellas"><i class="fa-solid fa-star"></i></button>`).join("")}
+          </div>
+          <textarea class="review-box" data-review-for="${id}" placeholder="Tu reseña rápida (opcional)…">${esc(review)}</textarea>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+document.addEventListener("click",e=>{
+  // Voltear la tarjeta, salvo si se pulsa un control interactivo de la cara trasera
+  const card = e.target.closest(".flip-card");
+  if(card && !e.target.closest(".track-toggle") && !e.target.closest(".star-row") && !e.target.closest(".review-box")){
+    card.classList.toggle("flipped");
+    return;
+  }
+  const toggle = e.target.closest(".track-toggle");
+  if(toggle){
+    const id = toggle.dataset.trackId, type = toggle.dataset.trackType, label = toggle.dataset.trackLabel;
+    if(Progreso[type][id]){ delete Progreso[type][id]; }
+    else { Progreso[type][id] = {label, rating:0, review:"", date:new Date().toISOString().slice(0,10)}; }
+    saveProgreso();
+    document.querySelectorAll(`[data-track-id="${id}"]`).forEach(el=>{
+      if(el.classList.contains("flip-card")) el.classList.toggle("tracked", !!Progreso[type][id]);
+    });
+    toggle.classList.toggle("done", !!Progreso[type][id]);
+    toggle.innerHTML = `<i class="fa-solid ${Progreso[type][id]?'fa-check-circle':'fa-circle'}"></i> ${Progreso[type][id] ? (type==="probado"?"Probado":"Visitado") : (type==="probado"?"Marcar como probado":"Marcar como visitado")}`;
+    renderProgressDrawer();
+    return;
+  }
+  const star = e.target.closest("[data-star]");
+  if(star){
+    const row = star.closest(".star-row");
+    const id = row.dataset.starsFor;
+    const n = parseInt(star.dataset.star,10);
+    const type = id.startsWith("probado-") ? "probado" : "visitado";
+    if(!Progreso[type][id]) Progreso[type][id] = {label:"",rating:0,review:"",date:new Date().toISOString().slice(0,10)};
+    Progreso[type][id].rating = n;
+    saveProgreso();
+    $$("button",row).forEach((b,idx)=>b.classList.toggle("filled", idx<n));
+    renderProgressDrawer();
+  }
+});
+document.addEventListener("input",e=>{
+  const box = e.target.closest(".review-box");
+  if(!box) return;
+  const id = box.dataset.reviewFor;
+  const type = id.startsWith("probado-") ? "probado" : "visitado";
+  if(!Progreso[type][id]) Progreso[type][id] = {label:"",rating:0,review:"",date:new Date().toISOString().slice(0,10)};
+  Progreso[type][id].review = box.value;
+  saveProgreso();
+});
+
 /* ================= RENDER: PLATOS Y COMIDA ================= */
 function renderDishes(){
-  $("#dishesGrid").innerHTML = CRETE_DATA.dishes.map(d=>`
-    <div class="activity-tile">
-      <div class="at-icon"><i class="fa-solid ${d.icon}"></i></div>
-      <h4>${d.name}</h4>
-      <p>${d.desc}</p>
-    </div>`).join("");
+  $("#dishesGrid").innerHTML = CRETE_DATA.dishes.map((d,i)=>{
+    d.id = d.id || d.name.replace(/\s+/g,"-").toLowerCase();
+    return flipCardHtml(d,"probado",i,"dish");
+  }).join("");
 }
 function foodCard(f,i){
   return `<article class="data-card" data-region="${f.region}" data-tags="${f.tags.join(",")}">
@@ -1778,14 +1988,10 @@ function renderUnesco(){
 
 /* ================= RENDER: RINCONES OCULTOS Y FOTOGRAFÍA ================= */
 function renderHiddenGems(){
-  $("#hiddenGemsGrid").innerHTML = CRETE_DATA.hiddenGems.map((g,i)=>`
-    <div class="gem-card" style="position:relative;">
-      ${favToggleHtml("gem-"+g.name.replace(/\s+/g,"-").toLowerCase(),g.name,"Rincón oculto")}
-      <i class="fa-solid ${g.icon} gem-icon"></i>
-      <h4>${g.name}</h4>
-      <p>${g.desc}</p>
-    </div>`).join("");
-  refreshFavIcons();
+  $("#hiddenGemsGrid").innerHTML = CRETE_DATA.hiddenGems.map((g,i)=>{
+    g.id = g.id || g.name.replace(/\s+/g,"-").toLowerCase();
+    return flipCardHtml(g,"visitado",i,"gem");
+  }).join("");
 }
 function renderPhotoSpots(){
   $("#photoSpotsList").innerHTML = CRETE_DATA.photoSpots.map(p=>`
@@ -1991,7 +2197,8 @@ function initSubtabs(containerId){
 /* ================= FAVORITOS: cajón ================= */
 function initFavDrawer(){
   const drawer = $("#favDrawer"), scrim = $("#scrim");
-  function open(){ drawer.classList.add("open"); scrim.classList.add("open"); renderFavDrawer(); }
+  $("#drawerNameInput").value = Progreso.nombre || "";
+  function open(){ drawer.classList.add("open"); scrim.classList.add("open"); renderProgressDrawer(); }
   function close(){ drawer.classList.remove("open"); scrim.classList.remove("open"); }
   $("#favBtn").addEventListener("click",open);
   $("#favDrawerClose").addEventListener("click",close);
@@ -2052,6 +2259,7 @@ function initSearch(){
 
 /* ================= INICIALIZACIÓN ================= */
 document.addEventListener("DOMContentLoaded",()=>{
+  loadProgreso();
   initTheme();
   initMobileNav();
   initScrollEffects();
