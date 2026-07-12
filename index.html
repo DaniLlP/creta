@@ -2502,5 +2502,16 @@ document.addEventListener("DOMContentLoaded",()=>{
   }
 });
 </script>
+<script type="module">
+import { supabase } from "./js/supabase.js";
+
+console.log("Supabase connected!");
+
+const {
+  data: { session }
+} = await supabase.auth.getSession();
+
+console.log(session);
+</script>
 </body>
 </html>
