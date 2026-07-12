@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 /* ============================================================
    GUÍA DEFINITIVA DE CRETA — hoja de estilos
@@ -666,6 +667,25 @@ footer.site-footer .disclaimer-box strong{color:#EFE7D3;}
 }
 [data-theme="dark"] .drawer-count-badge{background:var(--ochre-bright);color:#1a1508;}
 
+/* ============ Cuenta y amigos (Supabase) ============ */
+.auth-box{background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--radius-m);padding:14px 16px;margin-bottom:18px;font-size:12.8px;}
+.auth-box.muted{color:var(--text-soft);}
+.auth-box .auth-row{display:flex;gap:8px;margin-top:8px;}
+.auth-box input[type="email"],.auth-box input[type="text"]{
+  flex:1;padding:9px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:12.8px;
+}
+.auth-box .btn-sm{white-space:nowrap;}
+.auth-status{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;}
+.auth-status .as-user{font-weight:700;color:var(--text);}
+.auth-status .as-user i{color:var(--olive);margin-right:6px;}
+.auth-msg{font-size:11.5px;margin-top:8px;color:var(--aegean);}
+[data-theme="dark"] .auth-msg{color:var(--aegean-bright);}
+.auth-msg.error{color:var(--oxblood);}
+[data-theme="dark"] .auth-msg.error{color:var(--oxblood-bright);}
+.friend-result .fi-name{font-size:15px;}
+.share-link-box{display:flex;gap:6px;margin-top:8px;}
+.share-link-box input{flex:1;font-family:var(--font-mono);font-size:10.5px;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text-soft);}
+
 @media print{
   .site-header,.mobile-nav,.back-to-top,.progress-bar,.fav-toggle,.icon-btn,.search-wrap,.chip-row,iframe,.gallery-lightbox,video{display:none !important;}
   body{background:#fff;color:#000;}
@@ -1228,13 +1248,15 @@ footer.site-footer .disclaimer-box strong{color:#EFE7D3;}
     <h3><i class="fa-solid fa-book-bookmark" style="color:var(--oxblood);margin-right:8px;"></i>Mi diario de Creta</h3>
     <button class="fav-drawer-close" id="favDrawerClose"><i class="fa-solid fa-xmark"></i></button>
   </div>
-  <div class="drawer-name-field">
+  <div id="authBox" class="auth-box muted">Cargando estado de la cuenta…</div>
+  <div class="drawer-name-field" id="localNameField">
     <input type="text" id="drawerNameInput" placeholder="Tu nombre (para tus reseñas)" maxlength="40">
   </div>
   <div class="drawer-tabs" id="drawerTabs">
     <button class="active" data-tab="favoritos">Favoritos</button>
     <button data-tab="probado">Probado/visitado</button>
     <button data-tab="pendiente">Pendiente</button>
+    <button data-tab="amigos">Amigos</button>
   </div>
   <div id="favDrawerContent"></div>
 </div>
@@ -1688,7 +1710,8 @@ $("#drawerTabs").addEventListener("click",e=>{
   $$("button",$("#drawerTabs")).forEach(b=>b.classList.remove("active"));
   btn.classList.add("active");
   activeDrawerTab = btn.dataset.tab;
-  renderProgressDrawer();
+  if(activeDrawerTab==="amigos") renderAmigosTab();
+  else renderProgressDrawer();
 });
 $("#drawerNameInput").addEventListener("input",e=>{
   Progreso.nombre = e.target.value;
@@ -1813,6 +1836,7 @@ document.addEventListener("click",e=>{
     toggle.classList.toggle("done", !!Progreso[type][id]);
     toggle.innerHTML = `<i class="fa-solid ${Progreso[type][id]?'fa-check-circle':'fa-circle'}"></i> ${Progreso[type][id] ? (type==="probado"?"Probado":"Visitado") : (type==="probado"?"Marcar como probado":"Marcar como visitado")}`;
     renderProgressDrawer();
+    if(Progreso[type][id]) pushReviewToCloud(id,type,label,0,"");
     return;
   }
   const star = e.target.closest("[data-star]");
@@ -1826,6 +1850,7 @@ document.addEventListener("click",e=>{
     saveProgreso();
     $$("button",row).forEach((b,idx)=>b.classList.toggle("filled", idx<n));
     renderProgressDrawer();
+    pushReviewToCloud(id,type,Progreso[type][id].label,n,Progreso[type][id].review);
   }
 });
 document.addEventListener("input",e=>{
@@ -1836,7 +1861,176 @@ document.addEventListener("input",e=>{
   if(!Progreso[type][id]) Progreso[type][id] = {label:"",rating:0,review:"",date:new Date().toISOString().slice(0,10)};
   Progreso[type][id].review = box.value;
   saveProgreso();
+  clearTimeout(window._reviewSyncTimer);
+  window._reviewSyncTimer = setTimeout(()=>{
+    pushReviewToCloud(id,type,Progreso[type][id].label,Progreso[type][id].rating,box.value);
+  },800);
 });
+
+/* ================= SUPABASE: cuenta, sincronización y amigos ================= */
+// Rellena estas dos constantes con los datos de tu proyecto (Settings → API en Supabase).
+// Mientras sigan con el valor "TU_..." la app funciona en modo solo local, como hasta ahora.
+const SUPABASE_URL = "TU_SUPABASE_URL";
+const SUPABASE_ANON_KEY = "TU_SUPABASE_ANON_KEY";
+const SUPABASE_ENABLED = !SUPABASE_URL.startsWith("TU_") && !SUPABASE_ANON_KEY.startsWith("TU_") && !!window.supabase;
+let sb = null, sbUser = null, sbProfile = null;
+if(SUPABASE_ENABLED){ sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); }
+
+function renderAuthBox(){
+  const box = $("#authBox");
+  const nameField = $("#localNameField");
+  if(!SUPABASE_ENABLED){
+    box.className = "auth-box muted";
+    box.innerHTML = `<i class="fa-solid fa-cloud"></i> La sincronización y el compartir con amigos no están activados todavía en este archivo — mira el README para configurarlos. Mientras tanto, tu progreso se guarda solo en este dispositivo.`;
+    nameField.style.display = "";
+    return;
+  }
+  if(!sbUser){
+    box.className = "auth-box";
+    box.innerHTML = `
+      <div><i class="fa-solid fa-envelope" style="margin-right:6px;"></i>Inicia sesión con tu email para sincronizar y compartir tu diario.</div>
+      <div class="auth-row">
+        <input type="email" id="authEmailInput" placeholder="tu@email.com" autocomplete="email">
+        <button class="btn btn-sm btn-accent" id="authSendLink">Enviar enlace</button>
+      </div>
+      <div class="auth-msg" id="authMsg" style="display:none;"></div>`;
+    nameField.style.display = "";
+    return;
+  }
+  nameField.style.display = "none";
+  if(!sbProfile){
+    box.className = "auth-box";
+    box.innerHTML = `
+      <div><i class="fa-solid fa-user-plus" style="margin-right:6px;"></i>¡Sesión iniciada! Elige un nombre de usuario único para tu diario compartible.</div>
+      <div class="auth-row">
+        <input type="text" id="authUsernameInput" placeholder="p.ej. dani_llorens" maxlength="24">
+        <button class="btn btn-sm btn-accent" id="authSaveUsername">Guardar</button>
+      </div>
+      <div class="auth-msg" id="authMsg" style="display:none;"></div>`;
+    return;
+  }
+  const shareUrl = window.location.origin + window.location.pathname + "?perfil=" + encodeURIComponent(sbProfile.username);
+  box.className = "auth-box";
+  box.innerHTML = `
+    <div class="auth-status">
+      <span class="as-user"><i class="fa-solid fa-circle-check"></i>@${esc(sbProfile.username)}</span>
+      <button class="btn btn-sm btn-outline" id="authSignOut">Cerrar sesión</button>
+    </div>
+    <div class="share-link-box">
+      <input type="text" readonly value="${esc(shareUrl)}" id="shareLinkInput">
+      <button class="btn btn-sm btn-outline" id="copyShareLink" title="Copiar enlace"><i class="fa-solid fa-copy"></i></button>
+    </div>`;
+}
+function authMsg(text,isError){
+  const el = $("#authMsg"); if(!el) return;
+  el.style.display = "block";
+  el.textContent = text;
+  el.classList.toggle("error", !!isError);
+}
+document.addEventListener("click",e=>{
+  if(e.target.closest("#authSendLink")){
+    const email = $("#authEmailInput").value.trim();
+    if(!email){ authMsg("Escribe un email válido.",true); return; }
+    authMsg("Enviando enlace…",false);
+    sb.auth.signInWithOtp({ email, options:{ emailRedirectTo: window.location.href } }).then(({error})=>{
+      authMsg(error ? error.message : "Enlace enviado — revisa tu correo y ábrelo en este mismo dispositivo.", !!error);
+    });
+  }
+  if(e.target.closest("#authSaveUsername")){
+    const input = $("#authUsernameInput");
+    const username = input.value.trim().toLowerCase().replace(/[^a-z0-9_]/g,"");
+    if(username.length<3){ authMsg("Mínimo 3 caracteres (letras, números, guion bajo).",true); return; }
+    sb.from("profiles").insert({ id: sbUser.id, username }).select().single().then(({data,error})=>{
+      if(error){ authMsg(error.message.includes("duplicate") ? "Ese nombre de usuario ya está en uso." : error.message, true); return; }
+      sbProfile = data;
+      renderAuthBox();
+    });
+  }
+  if(e.target.closest("#authSignOut")){
+    sb.auth.signOut().then(()=>{ sbUser=null; sbProfile=null; renderAuthBox(); });
+  }
+  if(e.target.closest("#copyShareLink")){
+    const input = $("#shareLinkInput");
+    input.select();
+    navigator.clipboard && navigator.clipboard.writeText(input.value).then(()=>{
+      const btn = $("#copyShareLink"); const old = btn.innerHTML;
+      btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+      setTimeout(()=>btn.innerHTML=old,1500);
+    });
+  }
+});
+
+async function pushReviewToCloud(id,type,label,rating,review){
+  if(!SUPABASE_ENABLED || !sbUser || !sbProfile) return;
+  await sb.from("reviews").upsert({
+    user_id: sbUser.id, item_id:id, item_type:type, item_label:label, rating: rating||0, review: review||"",
+    updated_at: new Date().toISOString()
+  }, { onConflict:"user_id,item_id" });
+}
+async function pullReviewsFromCloud(){
+  if(!SUPABASE_ENABLED || !sbUser) return;
+  const { data, error } = await sb.from("reviews").select("*").eq("user_id", sbUser.id);
+  if(error || !data) return;
+  data.forEach(r=>{
+    Progreso[r.item_type][r.item_id] = { label:r.item_label, rating:r.rating||0, review:r.review||"", date:(r.updated_at||"").slice(0,10) };
+  });
+  saveProgreso();
+  renderDishes(); renderHiddenGems(); refreshFavIcons(); renderProgressDrawer();
+}
+async function initSupabaseAuth(){
+  if(!SUPABASE_ENABLED){ renderAuthBox(); return; }
+  const { data:{ session } } = await sb.auth.getSession();
+  if(session) await onSignedIn(session.user);
+  else renderAuthBox();
+  sb.auth.onAuthStateChange(async (event, session)=>{
+    if(event==="SIGNED_IN" && session) await onSignedIn(session.user);
+    if(event==="SIGNED_OUT"){ sbUser=null; sbProfile=null; renderAuthBox(); }
+  });
+}
+async function onSignedIn(user){
+  sbUser = user;
+  const { data: profile } = await sb.from("profiles").select("*").eq("id",user.id).single();
+  sbProfile = profile || null;
+  if(sbProfile){ await pullReviewsFromCloud(); }
+  renderAuthBox();
+  history.replaceState(null,"",window.location.pathname + (new URLSearchParams(window.location.search).get("perfil") ? "?perfil="+new URLSearchParams(window.location.search).get("perfil") : ""));
+}
+
+/* -------- Ver el diario de un amigo por su nombre de usuario -------- */
+async function renderAmigosTab(prefillUsername){
+  const box = $("#favDrawerContent");
+  if(!SUPABASE_ENABLED){
+    box.innerHTML = `<div class="fav-drawer-empty"><i class="fa-solid fa-user-group" style="font-size:26px;display:block;margin-bottom:10px;"></i>Activa Supabase (ver README) para ver los diarios de tus amigos.</div>`;
+    return;
+  }
+  box.innerHTML = `
+    <div class="auth-row">
+      <input type="text" id="friendUsernameInput" placeholder="nombre de usuario de tu amigo/a" value="${esc(prefillUsername||"")}">
+      <button class="btn btn-sm btn-outline" id="friendSearchBtn">Ver</button>
+    </div>
+    <div id="friendResults" style="margin-top:16px;"></div>`;
+  $("#friendSearchBtn").addEventListener("click", ()=>loadFriendProfile($("#friendUsernameInput").value.trim()));
+  if(prefillUsername) loadFriendProfile(prefillUsername);
+}
+async function loadFriendProfile(username){
+  const results = $("#friendResults");
+  if(!username){ return; }
+  username = username.toLowerCase().replace(/[^a-z0-9_]/g,"");
+  results.innerHTML = `<div class="fav-drawer-empty" style="padding:20px;">Buscando…</div>`;
+  const { data: profile } = await sb.from("profiles").select("*").eq("username",username).single();
+  if(!profile){ results.innerHTML = `<div class="fav-drawer-empty" style="padding:20px;">No se encontró a @${esc(username)}.</div>`; return; }
+  const { data: reviews } = await sb.from("reviews").select("*").eq("user_id",profile.id).order("updated_at",{ascending:false});
+  const list = reviews || [];
+  results.innerHTML = `
+    <h4 style="font-size:16px;margin-bottom:12px;"><i class="fa-solid fa-user" style="color:var(--oxblood);margin-right:6px;"></i>@${esc(profile.username)}</h4>
+    ${list.length===0 ? `<div class="fav-drawer-empty" style="padding:20px;">Aún no ha marcado nada.</div>` :
+      list.map(r=>`
+        <div class="progress-item friend-result">
+          <div class="pi-top"><span class="pi-name">${esc(r.item_label)}</span><span class="pi-stars">${'★'.repeat(r.rating||0)}${'☆'.repeat(5-(r.rating||0))}</span></div>
+          <div class="fi-type">${r.item_type==="probado"?"Probado":"Visitado"}</div>
+          ${r.review ? `<div class="pi-review">"${esc(r.review)}"</div>` : ""}
+        </div>`).join("")}`;
+}
 
 /* ================= RENDER: PLATOS Y COMIDA ================= */
 function renderDishes(){
@@ -2195,12 +2389,16 @@ function initSubtabs(containerId){
 }
 
 /* ================= FAVORITOS: cajón ================= */
+function openDrawer(){
+  $("#favDrawer").classList.add("open");
+  $("#scrim").classList.add("open");
+  if(activeDrawerTab==="amigos") renderAmigosTab(); else renderProgressDrawer();
+}
 function initFavDrawer(){
   const drawer = $("#favDrawer"), scrim = $("#scrim");
   $("#drawerNameInput").value = Progreso.nombre || "";
-  function open(){ drawer.classList.add("open"); scrim.classList.add("open"); renderProgressDrawer(); }
   function close(){ drawer.classList.remove("open"); scrim.classList.remove("open"); }
-  $("#favBtn").addEventListener("click",open);
+  $("#favBtn").addEventListener("click",openDrawer);
   $("#favDrawerClose").addEventListener("click",close);
   scrim.addEventListener("click",close);
 }
@@ -2292,6 +2490,16 @@ document.addEventListener("DOMContentLoaded",()=>{
   initSearch();
   refreshFavIcons();
   initReveal();
+  initSupabaseAuth();
+
+  const perfilParam = new URLSearchParams(window.location.search).get("perfil");
+  if(perfilParam){
+    $$("button",$("#drawerTabs")).forEach(b=>b.classList.remove("active"));
+    $('[data-tab="amigos"]',$("#drawerTabs")).classList.add("active");
+    activeDrawerTab = "amigos";
+    openDrawer();
+    setTimeout(()=>renderAmigosTab(perfilParam), SUPABASE_ENABLED ? 300 : 0);
+  }
 });
 </script>
 </body>

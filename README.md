@@ -21,7 +21,24 @@ Una guía de viaje interactiva de una sola página (HTML/CSS/JS puro, sin framew
 
 ## Sobre el seguimiento personal (probado/visitado + valoraciones)
 
-Se guarda con `localStorage`, así que es **por navegador y dispositivo** — no sincroniza entre tu móvil y tu portátil, y no se comparte con nadie. Si algún día quieres cuentas reales con email y ver las valoraciones de tus amigos, hace falta un backend de verdad (por ejemplo Supabase, como en tu proyecto training-hub) con una tabla de reseñas y autenticación por enlace mágico — es un paso aparte, con su propio proyecto y claves.
+Se guarda con `localStorage` **y**, si activas Supabase (ver abajo), también en la nube — sincronizado entre tus dispositivos y visible para quien tenga tu enlace de perfil.
+
+## Activar cuentas, sincronización y compartir con amigos (Supabase)
+
+1. Crea un proyecto gratis en [supabase.com](https://supabase.com).
+2. En **SQL Editor → New query**, pega el contenido de `schema.sql` (incluido en este repo) y ejecútalo. Esto crea las tablas `profiles` y `reviews` con las políticas de seguridad (RLS) correctas: cada usuario solo puede editar sus propios datos, pero todos son visibles públicamente para que tus amigos puedan verlos.
+3. En **Authentication → URL Configuration**, añade la URL de tu sitio (`https://danillp.github.io/creta/`) a la lista de "Redirect URLs".
+4. En **Settings → API**, copia el **Project URL** y la clave **anon/public**.
+5. Abre `index.html`, busca estas dos líneas cerca de "SUPABASE" y sustitúyelas:
+   ```js
+   const SUPABASE_URL = "TU_SUPABASE_URL";
+   const SUPABASE_ANON_KEY = "TU_SUPABASE_ANON_KEY";
+   ```
+6. Sube el archivo actualizado a GitHub. Listo — el botón de favoritos ahora mostrará un inicio de sesión por email (enlace mágico, sin contraseña), y una vez dentro podrás elegir un nombre de usuario, ver tu enlace para compartir (`?perfil=tu-usuario`) y buscar el diario de un amigo por su nombre de usuario en la pestaña "Amigos".
+
+**Cómo funciona el compartir:** cada reseña que guardes (probado/visitado + estrellas + comentario) se sube a la tabla `reviews`, ligada a tu cuenta. Cualquiera puede leerlas (política de solo lectura pública), pero solo tú puedes escribir las tuyas — así que compartir tu enlace o tu nombre de usuario con un amigo le deja ver tu diario sin poder editarlo.
+
+**Límites de esta versión:** no hay sistema de "solicitud de amistad" — es más simple: perfiles públicos por nombre de usuario, como un diario que enseñas a quien tenga el enlace. Si más adelante quieres perfiles privados con lista de amigos aprobados, se puede añadir una tabla `follows` y ajustar las políticas RLS para restringir la lectura a `auth.uid() = user_id or exists(select 1 from follows where...)`.
 
 
 ## Cómo verla
