@@ -693,6 +693,23 @@ footer.site-footer .disclaimer-box strong{color:#EFE7D3;}
 .share-link-box{display:flex;gap:6px;margin-top:8px;}
 .share-link-box input{flex:1;font-family:var(--font-mono);font-size:10.5px;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text-soft);}
 
+/* ============ Condiciones del mar en directo ============ */
+.conditions-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:36px;}
+@media (max-width:980px){.conditions-strip{grid-template-columns:repeat(2,1fr);}}
+.condition-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-m);padding:14px 16px;}
+.condition-card .cc-place{font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-soft);margin-bottom:8px;}
+.condition-card .cc-row{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;padding:3px 0;}
+.condition-card .cc-row i{width:16px;color:var(--aegean);margin-right:6px;}
+[data-theme="dark"] .condition-card .cc-row i{color:var(--aegean-bright);}
+.condition-card .cc-val{font-family:var(--font-mono);font-weight:700;}
+.condition-card .cc-score{margin-top:8px;font-size:10.5px;font-weight:700;padding:4px 8px;border-radius:8px;text-align:center;font-family:var(--font-mono);text-transform:uppercase;}
+.cc-score.calm{background:color-mix(in srgb, var(--olive) 18%, transparent);color:var(--olive);}
+.cc-score.moderate{background:color-mix(in srgb, var(--ochre) 20%, transparent);color:var(--ochre);}
+.cc-score.rough{background:color-mix(in srgb, var(--oxblood) 16%, transparent);color:var(--oxblood);}
+[data-theme="dark"] .cc-score.rough{color:var(--oxblood-bright);}
+.conditions-note{font-size:11.5px;color:var(--text-soft);margin-bottom:32px;}
+.conditions-loading{grid-column:1/-1;text-align:center;padding:20px;color:var(--text-soft);font-size:13px;}
+
 @media print{
   .site-header,.mobile-nav,.back-to-top,.progress-bar,.fav-toggle,.icon-btn,.search-wrap,.chip-row,iframe,.gallery-lightbox,video{display:none !important;}
   body{background:#fff;color:#000;}
@@ -843,26 +860,52 @@ footer.site-footer .disclaimer-box strong{color:#EFE7D3;}
       <h2>Del rosa de Elafonisi al turquesa de Balos</h2>
       <p class="lede">Creta tiene más de 400 playas registradas. En vez de listarlas todas, cruzamos guías locales, foros de senderismo y miles de reseñas recientes para quedarnos con las que de verdad merecen tu tiempo — clasificadas por región para que puedas planear por zonas en lugar de cruzar la isla cada día.</p>
     </div>
-    <div class="chip-row" id="beachFilters">
-      <button class="chip active" data-filter="all">Todas</button>
-      <button class="chip" data-filter="oeste">Oeste</button>
-      <button class="chip" data-filter="centro-sur">Centro sur</button>
-      <button class="chip" data-filter="este">Este</button>
-      <button class="chip" data-filter="familia">Aptas para niños</button>
-      <button class="chip" data-filter="aventura">Acceso aventurero</button>
-    </div>
-    <span class="results-count" id="beachCount"></span>
-    <div class="cards-grid" id="beachesGrid"></div>
 
-    <div class="grid grid-2 mt-lg" style="align-items:start;">
-      <div>
-        <h3 style="font-size:22px;margin-bottom:12px;"><i class="fa-solid fa-umbrella-beach" style="color:var(--oxblood);margin-right:8px;"></i>Cómo elegir sin perder el día</h3>
-        <p style="color:var(--text-soft);font-size:14.5px;line-height:1.7;">La regla de oro que repiten todas las guías locales: <strong>ve pronto o ve tarde</strong>. En Balos y Elafonisi, llegar antes de las 9:30 significa aparcamiento fácil y la playa casi para ti; después de las 11:00 llegan los autobuses de excursión. Alquila un coche si puedes — tres cuartas partes de esta lista son un suplicio en transporte público, aunque KTEL cubre las rutas principales en temporada alta.</p>
-        <p style="color:var(--text-soft);font-size:14.5px;line-height:1.7;margin-top:12px;">Ten en cuenta los cambios recientes de acceso: en Balos ya no se puede bajar en coche hasta la playa (pista cerrada, aparcamiento arriba + 20 min a pie), y en Elafonisi el aparcamiento está ahora a 650 m de la arena por la protección Natura 2000 de la zona.</p>
+    <div class="eyebrow" style="margin-top:0;">Condiciones del mar ahora mismo</div>
+    <div class="conditions-strip" id="conditionsStrip"><div class="conditions-loading"><i class="fa-solid fa-spinner fa-spin"></i> Consultando Open-Meteo…</div></div>
+    <p class="conditions-note"><i class="fa-solid fa-circle-info"></i> Datos en directo de <a href="https://open-meteo.com" target="_blank" rel="noopener" style="color:inherit;">Open-Meteo</a> (oleaje, temperatura del mar, viento) — se cargan cada vez que abres esta página, sin necesidad de configuración.</p>
+
+    <div class="subtabs" id="playasTabs">
+      <button class="subtab-btn active" data-panel="playas-lista"><i class="fa-solid fa-umbrella-beach"></i>Playas</button>
+      <button class="subtab-btn" data-panel="fauna"><i class="fa-solid fa-paw"></i>Fauna y vida marina</button>
+      <button class="subtab-btn" data-panel="en-barco"><i class="fa-solid fa-sailboat"></i>En barco</button>
+    </div>
+
+    <div class="subpanel active" id="panel-playas-lista">
+      <div class="chip-row" id="beachFilters">
+        <button class="chip active" data-filter="all">Todas</button>
+        <button class="chip" data-filter="oeste">Oeste</button>
+        <button class="chip" data-filter="centro-sur">Centro sur</button>
+        <button class="chip" data-filter="este">Este</button>
+        <button class="chip" data-filter="familia">Aptas para niños</button>
+        <button class="chip" data-filter="aventura">Acceso aventurero</button>
       </div>
-      <div class="overview-map-wrap">
-        <iframe src="https://www.google.com/maps?q=Elafonissi+Beach+Crete&z=10&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de playas del suroeste de Creta" allowfullscreen></iframe>
+      <span class="results-count" id="beachCount"></span>
+      <div class="cards-grid" id="beachesGrid"></div>
+
+      <div class="grid grid-2 mt-lg" style="align-items:start;">
+        <div>
+          <h3 style="font-size:22px;margin-bottom:12px;"><i class="fa-solid fa-umbrella-beach" style="color:var(--oxblood);margin-right:8px;"></i>Cómo elegir sin perder el día</h3>
+          <p style="color:var(--text-soft);font-size:14.5px;line-height:1.7;">La regla de oro que repiten todas las guías locales: <strong>ve pronto o ve tarde</strong>. En Balos y Elafonisi, llegar antes de las 9:30 significa aparcamiento fácil y la playa casi para ti; después de las 11:00 llegan los autobuses de excursión. Alquila un coche si puedes — tres cuartas partes de esta lista son un suplicio en transporte público, aunque KTEL cubre las rutas principales en temporada alta.</p>
+          <p style="color:var(--text-soft);font-size:14.5px;line-height:1.7;margin-top:12px;">Ten en cuenta los cambios recientes de acceso: en Balos ya no se puede bajar en coche hasta la playa (pista cerrada, aparcamiento arriba + 20 min a pie), y en Elafonisi el aparcamiento está ahora a 650 m de la arena por la protección Natura 2000 de la zona.</p>
+        </div>
+        <div class="overview-map-wrap">
+          <iframe src="https://www.google.com/maps?q=Elafonissi+Beach+Crete&z=10&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de playas del suroeste de Creta" allowfullscreen></iframe>
+        </div>
       </div>
+    </div>
+
+    <div class="subpanel" id="panel-fauna">
+      <p style="color:var(--text-soft);font-size:14.5px;margin-bottom:20px;max-width:70ch;">Creta lleva millones de años aislada del continente, así que su fauna tiene mucho de endémico y de sorprendente — desde una cabra montés que solo vive aquí hasta uno de los pinnípedos más amenazados del planeta nadando en sus calas.</p>
+      <div class="grid grid-3" id="faunaGrid"></div>
+    </div>
+
+    <div class="subpanel" id="panel-en-barco">
+      <p style="color:var(--text-soft);font-size:14.5px;margin-bottom:24px;max-width:70ch;">Buena parte de la mejor Creta solo se ve desde el agua: islotes deshabitados, cuevas marinas y playas sin carretera de acceso.</p>
+      <h3 style="font-size:19px;margin-bottom:14px;"><i class="fa-solid fa-anchor" style="color:var(--oxblood);margin-right:8px;"></i>Dónde alquilar</h3>
+      <div class="grid grid-3" id="boatRentalGrid" style="margin-bottom:44px;"></div>
+      <h3 style="font-size:19px;margin-bottom:14px;"><i class="fa-solid fa-water" style="color:var(--oxblood);margin-right:8px;"></i>Destinos solo (o mejor) por mar</h3>
+      <div class="cards-grid" id="boatSpotsGrid"></div>
     </div>
   </div>
 </section>
@@ -1555,6 +1598,54 @@ shopping: [
   {icon:"fa-mitten",title:"Cuero de Chania",text:"La calle de los curtidores ('Skridlof') en el casco antiguo de Chania mantiene talleres de sandalias y bolsos artesanales."}
 ],
 
+fauna: [
+  {name:"Kri-kri (cabra montés cretense)",icon:"fa-paw",desc:"Cabra salvaje endémica, símbolo de la isla. La población más pura vive protegida en el islote de Agios Theodoros y en el desfiladero de Samaria — con suerte la ves saltando entre las rocas del cañón."},
+  {name:"Foca monje del Mediterráneo",icon:"fa-water",desc:"Una de las focas más amenazadas del mundo (quedan unos 700 ejemplares en total). Cría en cuevas marinas poco accesibles de la costa cretense; verla en libertad es raro pero ocurre, sobre todo en zonas remotas del sur y el oeste."},
+  {name:"Tortuga boba (Caretta caretta)",icon:"fa-shrimp",desc:"Anida en la arena de varias playas cretenses entre junio y agosto — la bahía de Chania y la playa de Rétino son puntos de anidación vigilados. Si ves nidos marcados con cinta, mantén la distancia y no uses luz artificial de noche."},
+  {name:"Delfines",icon:"fa-water",desc:"Delfín común y delfín mular frecuentan las aguas abiertas al norte y al sur de la isla — muchas excursiones en barco (y algunos ferris) tienen avistamientos ocasionales, sobre todo fuera de temporada alta."},
+  {name:"Buitre leonado",icon:"fa-feather",desc:"Grandes colonias en los acantilados de las gargantas — Samaria e Ha son de los mejores lugares de Europa para verlos planear a poca distancia."},
+  {name:"Halcón de Eleonor",icon:"fa-feather",desc:"Rapaz migratoria que cría en colonias en islotes e islas del Egeo cretense en verano, coincidiendo con el paso de aves migrantes de las que se alimenta."},
+  {name:"Gato salvaje cretense (fourókatos)",icon:"fa-cat",desc:"Un felino esquivo de las zonas altas de las Lefka Ori, entre leyenda pastoril y estudio científico — muy raro de ver, pero parte del imaginario popular de la isla."},
+  {name:"Sin serpientes venenosas",icon:"fa-check",desc:"Dato tranquilizador: Creta no tiene serpientes venenosas para el ser humano. Sí verás lagartijas endémicas (Podarcis cretensis) tomando el sol en casi cualquier muro de piedra."},
+  {name:"Vida marina de esnórquel",icon:"fa-fish",desc:"Doradas, salpas, pulpos, erizos y, en aguas más profundas de las calas del oeste, meros — el fondo rocoso de Kedrodasos, Seitan Limania y Marathi son de los mejores puntos de la isla para verla sin equipo de buceo."}
+],
+
+boatRentals: [
+  {name:"Puerto viejo de Chania",icon:"fa-anchor",desc:"Alquiler con y sin patrón, y salidas organizadas a Balos, Gramvousa y las calas de Akrotiri."},
+  {name:"Kissamos",icon:"fa-anchor",desc:"El punto de partida más corto para llegar a Balos y Gramvousa en barco en vez de por la pista de tierra."},
+  {name:"Elounda y Plaka",icon:"fa-anchor",desc:"Salidas frecuentes a Spinalonga y la bahía de Kolokytha; también lanchas sin licencia para explorar por tu cuenta."},
+  {name:"Agios Nikolaos",icon:"fa-anchor",desc:"Alquiler de lanchas pequeñas (sin licencia necesaria hasta cierta potencia) para moverte por el golfo de Mirabello."},
+  {name:"Ierapetra",icon:"fa-anchor",desc:"Base para llegar a la isla de Chrissi, con su bosque de cedros y arena casi caribeña — 1 hora de trayecto."},
+  {name:"Puerto viejo de Heraclión",icon:"fa-anchor",desc:"Salidas a la isla de Dia, deshabitada, con buenas aguas para esnórquel y restos arqueológicos submarinos."},
+  {name:"Chora Sfakion",icon:"fa-anchor",desc:"La puerta marítima al pueblo aislado de Loutro y, más lejos, a la remota isla de Gavdos."},
+  {name:"Plakias",icon:"fa-anchor",desc:"Buena base para llegar en barco a la playa de Preveli sin bajar la larga escalera del sendero."},
+  {name:"Ammoudara / Rétino",icon:"fa-anchor",desc:"Lanchas pequeñas sin licencia para moverse por la costa norte-centro sin depender de excursiones organizadas."}
+],
+
+boatSpots: [
+  {id:"balos-barco",name:"Balos y Gramvousa en barco",region:"oeste",tags:["aventura"],score:9.4,
+   desc:"La forma más cómoda de ver la laguna: sales de Kissamos, paras a nadar junto a la fortaleza veneciana de Gramvousa y llegas a Balos sin la caminata ni la pista de tierra.",
+   dificultad:"Fácil (en excursión organizada)",aparcamiento:"No aplica — sale en barco",gente:"Alta en temporada, el barco reparte la afluencia",
+   instalaciones:"Cantina a bordo en la mayoría de excursiones",familiaApta:"Sí",esnorquelNota:"Parada de baño junto a Gramvousa",
+   mejorMes:"Mayo–octubre",tiempoVisita:"Excursión de día completo (7–8 h)",agua:"Turquesa intenso"},
+  {id:"dia-isla",name:"Isla de Dia",region:"centro-sur",tags:["aventura","esnorquel"],score:8.5,
+   desc:"Islote deshabitado frente a Heraclión, reserva natural con buen fondo para esnórquel y restos de naufragios antiguos bajo el agua — mencionada ya en fuentes minoicas.",
+   dificultad:"Fácil",aparcamiento:"No aplica",gente:"Baja",instalaciones:"Ninguna — lleva agua y comida",
+   familiaApta:"Sí",esnorquelNota:"Muy buena, aguas protegidas",mejorMes:"Junio–septiembre",tiempoVisita:"Medio día",agua:"Azul profundo, muy transparente"},
+  {id:"chrissi-isla",name:"Isla de Chrissi",region:"este",tags:["familia","esnorquel"],score:9.0,
+   desc:"Islote deshabitado al sur de Ierapetra con un bosque de cedros protegido y arena blanca que recuerda al Caribe — declarada red Natura 2000.",
+   dificultad:"Fácil",aparcamiento:"No aplica",gente:"Moderada en temporada alta",instalaciones:"Un chiringuito cerca del muelle",
+   familiaApta:"Sí, muy recomendable",esnorquelNota:"Excelente, aguas cristalinas",mejorMes:"Junio–septiembre",tiempoVisita:"Día completo",agua:"Turquesa casi caribeño"},
+  {id:"spinalonga-barco",name:"Spinalonga y Kolokytha",region:"este",tags:["familia"],score:8.8,
+   desc:"La fortaleza-leprosario veneciana solo se visita en barco desde Elounda, Plaka o Agios Nikolaos; muchas excursiones añaden baño en la bahía de Kolokytha, casi cerrada y muy tranquila.",
+   dificultad:"Fácil",aparcamiento:"No aplica",gente:"Alta en la fortaleza, baja en la bahía",instalaciones:"Cafetería en Spinalonga",
+   familiaApta:"Sí",esnorquelNota:"Buena en Kolokytha",mejorMes:"Abril–octubre",tiempoVisita:"Medio día",agua:"Turquesa en Kolokytha"},
+  {id:"loutro-gavdos",name:"Loutro y Gavdos",region:"oeste",tags:["aventura"],score:8.9,
+   desc:"Loutro es un pueblo sin carretera solo accesible en barco o a pie; Gavdos, más lejos, es el punto habitado más meridional de Europa — playas remotas y ambiente de fin del mundo.",
+   dificultad:"Moderada (trayectos largos)",aparcamiento:"En Chora Sfakion",gente:"Baja",instalaciones:"Tabernas en Loutro, muy pocas en Gavdos",
+   familiaApta:"Con niños mayores",esnorquelNota:"Muy buena en ambos",mejorMes:"Junio–septiembre",tiempoVisita:"Loutro medio día, Gavdos día completo o más",agua:"Azul intenso"}
+],
+
 weather: [
   {m:"Ene",air:16,sea:16,crowd:20},{m:"Feb",air:16,sea:15,crowd:20},{m:"Mar",air:18,sea:16,crowd:25},
   {m:"Abr",air:21,sea:18,crowd:38},{m:"May",air:25,sea:20,crowd:58},{m:"Jun",air:28,sea:23,crowd:80},
@@ -1892,8 +1983,8 @@ document.addEventListener("input",e=>{
 /* ================= SUPABASE: cuenta, sincronización y amigos ================= */
 // Rellena estas dos constantes con los datos de tu proyecto (Settings → API en Supabase).
 // Mientras sigan con el valor "TU_..." la app funciona en modo solo local, como hasta ahora.
-const SUPABASE_URL = "https://twelmnurbonnttwtsxzk.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_uihaTd8UB0mnddI4YC8gMw_qQJmMDwI";
+const SUPABASE_URL = "TU_SUPABASE_URL";
+const SUPABASE_ANON_KEY = "TU_SUPABASE_ANON_KEY";
 const SUPABASE_ENABLED = !SUPABASE_URL.startsWith("TU_") && !SUPABASE_ANON_KEY.startsWith("TU_") && !!window.supabase;
 let sb = null, sbUser = null, sbProfile = null;
 if(SUPABASE_ENABLED){ sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); }
@@ -2340,6 +2431,77 @@ function renderShopping(){
       <p style="font-size:13px;color:var(--text-soft);margin-top:8px;line-height:1.55;">${p.text}</p>
     </div>`).join("");
 }
+
+/* ================= RENDER: FAUNA Y BARCOS ================= */
+function renderFauna(){
+  $("#faunaGrid").innerHTML = CRETE_DATA.fauna.map(f=>`
+    <div class="gem-card">
+      <i class="fa-solid ${f.icon} gem-icon"></i>
+      <h4>${f.name}</h4>
+      <p>${f.desc}</p>
+    </div>`).join("");
+}
+function renderBoatRentals(){
+  $("#boatRentalGrid").innerHTML = CRETE_DATA.boatRentals.map(b=>`
+    <div class="activity-tile">
+      <div class="at-icon"><i class="fa-solid ${b.icon}"></i></div>
+      <h4>${b.name}</h4><p>${b.desc}</p>
+    </div>`).join("");
+}
+function renderBoatSpots(){
+  $("#boatSpotsGrid").innerHTML = CRETE_DATA.boatSpots.map(beachCard).join("");
+  refreshFavIcons();
+}
+
+/* ================= CONDICIONES DEL MAR EN DIRECTO (Open-Meteo) ================= */
+const SEA_POINTS = [
+  {name:"Chania / Balos",lat:35.53,lng:23.75},
+  {name:"Rétino",lat:35.37,lng:24.47},
+  {name:"Heraclión",lat:35.35,lng:25.13},
+  {name:"Agios Nikolaos",lat:35.19,lng:25.79},
+  {name:"Ierapetra",lat:35.00,lng:25.80}
+];
+function windDirLabel(deg){
+  if(deg==null) return "—";
+  const dirs = ["N","NE","E","SE","S","SO","O","NO"];
+  return dirs[Math.round(deg/45)%8];
+}
+function seaScore(wave,wind){
+  if(wave==null && wind==null) return null;
+  const w = wave||0, k = wind||0;
+  if(w<0.5 && k<15) return {label:"Tranquilo",cls:"calm"};
+  if(w<1.1 && k<28) return {label:"Moderado",cls:"moderate"};
+  return {label:"Movido",cls:"rough"};
+}
+async function fetchSeaConditions(){
+  const box = $("#conditionsStrip");
+  try{
+    const results = await Promise.all(SEA_POINTS.map(async p=>{
+      const [marineRes,windRes] = await Promise.all([
+        fetch(`https://marine-api.open-meteo.com/v1/marine?latitude=${p.lat}&longitude=${p.lng}&current=wave_height,sea_surface_temperature&timezone=auto`).then(r=>r.ok?r.json():null).catch(()=>null),
+        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${p.lat}&longitude=${p.lng}&current=wind_speed_10m,wind_direction_10m&timezone=auto`).then(r=>r.ok?r.json():null).catch(()=>null)
+      ]);
+      const wave = marineRes && marineRes.current ? marineRes.current.wave_height : null;
+      const seaTemp = marineRes && marineRes.current ? marineRes.current.sea_surface_temperature : null;
+      const wind = windRes && windRes.current ? windRes.current.wind_speed_10m : null;
+      const windDir = windRes && windRes.current ? windRes.current.wind_direction_10m : null;
+      return {...p, wave, seaTemp, wind, windDir};
+    }));
+    box.innerHTML = results.map(r=>{
+      const score = seaScore(r.wave,r.wind);
+      return `<div class="condition-card">
+        <div class="cc-place">${r.name}</div>
+        <div class="cc-row"><span><i class="fa-solid fa-water"></i>Oleaje</span><span class="cc-val">${r.wave!=null?r.wave.toFixed(1)+" m":"—"}</span></div>
+        <div class="cc-row"><span><i class="fa-solid fa-temperature-half"></i>Mar</span><span class="cc-val">${r.seaTemp!=null?r.seaTemp.toFixed(1)+"°C":"—"}</span></div>
+        <div class="cc-row"><span><i class="fa-solid fa-wind"></i>Viento</span><span class="cc-val">${r.wind!=null?Math.round(r.wind)+" km/h "+windDirLabel(r.windDir):"—"}</span></div>
+        ${score?`<div class="cc-score ${score.cls}">${score.label}</div>`:""}
+      </div>`;
+    }).join("");
+  }catch(e){
+    box.innerHTML = `<div class="conditions-loading"><i class="fa-solid fa-triangle-exclamation"></i> No se pudieron cargar las condiciones en directo ahora mismo (revisa tu conexión) — los datos mensuales siguen disponibles en Clima.</div>`;
+  }
+}
+
 /* ================= RENDER: CLIMA ================= */
 function renderWeatherChart(){
   const maxV = 32;
@@ -2594,9 +2756,14 @@ document.addEventListener("DOMContentLoaded",()=>{
   initSubtabs("aventuraTabs");
   initSubtabs("culturaTabs");
   initSubtabs("practicaTabs");
+  initSubtabs("playasTabs");
   initFavDrawer();
 
   renderBeaches();
+  renderFauna();
+  renderBoatRentals();
+  renderBoatSpots();
+  fetchSeaConditions();
   renderDishes();
   renderFood();
   renderActivities();
