@@ -1892,8 +1892,8 @@ document.addEventListener("input",e=>{
 /* ================= SUPABASE: cuenta, sincronización y amigos ================= */
 // Rellena estas dos constantes con los datos de tu proyecto (Settings → API en Supabase).
 // Mientras sigan con el valor "TU_..." la app funciona en modo solo local, como hasta ahora.
-const SUPABASE_URL = "TU_SUPABASE_URL";
-const SUPABASE_ANON_KEY = "TU_SUPABASE_ANON_KEY";
+const SUPABASE_URL = "https://twelmnurbonnttwtsxzk.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_uihaTd8UB0mnddI4YC8gMw_qQJmMDwI";
 const SUPABASE_ENABLED = !SUPABASE_URL.startsWith("TU_") && !SUPABASE_ANON_KEY.startsWith("TU_") && !!window.supabase;
 let sb = null, sbUser = null, sbProfile = null;
 if(SUPABASE_ENABLED){ sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); }
