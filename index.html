@@ -1237,7 +1237,7 @@ footer.site-footer .disclaimer-box strong{color:#EFE7D3;}
         Visit Greece · Explore Crete · Crete Travel · West Crete · Discover Greece · Wikivoyage · UNESCO World Heritage Centre y Programa MAB · Hellenic Civil Aviation Authority (HCAA) · Samaria National Park / OFYPEKA · The MICHELIN Guide Greece · Rental Center Crete · Balos-Travel · Santorini Dave · 22places · Sunheron · Crete Insider · Routinely Nomadic · Our Wanders · Tristan Balme · Greece Moments · Natania Travel · Kastanofolia Taverna · The Greek Foodie · The National Herald · foros y comunidades de r/Crete y r/Greece de Reddit · reseñas agregadas de Google Places · TripAdvisor · Travel & Tour World · Kolymbari Courier · Kasteli Airport (Wikipedia) · GTP Headlines. Toda la redacción es original: los datos se contrastaron entre varias fuentes independientes en vez de copiarse de una sola.
       </p>
       <p style="font-size:12px;color:#8F8570;line-height:1.8;max-width:900px;margin-top:14px;">
-        <strong style="color:#EFE7D3;">Fotos de platos:</strong> Dakos, Bougatsa, Kalitsounia y Graviera cretense usan fotografías reales de Wikimedia Commons, de dominio libre — cada una enlaza a su archivo original y autor al voltear la tarjeta. El resto de platos y rincones ocultos usan un icono ilustrativo mientras no se ha encontrado una foto libre de derechos verificada; puedes sustituirlos por tus propias fotos añadiendo un campo <code>img</code> a la entrada correspondiente en <code>CRETE_DATA</code>.
+        <strong style="color:#EFE7D3;">Fotos de platos:</strong> Dakos y Bougatsa usan fotografías reales de Wikimedia Commons, de dominio libre y verificadas como tomas limpias del plato — cada una enlaza a su archivo original y autor al voltear la tarjeta. Se descartaron a propósito otras fotos candidatas (p. ej. de Kalitsounia y Graviera) por proceder de series fotográficas de mesa en un restaurante concreto, con riesgo de mostrar cartas, precios u otros elementos ajenos al plato. El resto de platos y rincones ocultos usan un icono ilustrativo mientras no se encuentre una foto limpia y libre de derechos; puedes sustituirlos por tus propias fotos añadiendo un campo <code>img</code> a la entrada correspondiente en <code>CRETE_DATA</code>.
       </p>
       <div class="disclaimer-box mt-lg">
         <strong>Aviso importante:</strong> los horarios, precios, normas de acceso y fechas de apertura (gargantas, museos, aeropuertos, transporte) cambian con frecuencia y algunos, como la Garganta de Samaria, han tenido cierres imprevistos en 2026 por daños del temporal. Verifica siempre la información crítica en la fuente oficial antes de viajar. Esta guía se ofrece con fines informativos y no sustituye la comprobación directa con proveedores, parques nacionales y autoridades locales.
@@ -1350,8 +1350,7 @@ beaches: [
 dishes: [
   {name:"Dakos",icon:"fa-bowl-food",desc:"Galleta de cebada humedecida con tomate rallado, mizithra y orégano. El meze cretense por excelencia.",
    img:"https://commons.wikimedia.org/wiki/Special:FilePath/Koukouvagia.jpg",imgCredit:"https://commons.wikimedia.org/wiki/File:Koukouvagia.jpg"},
-  {name:"Kalitsounia",icon:"fa-cookie",desc:"Empanadillas de queso mizithra (saladas) o con miel y canela (dulces, lichnarakia).",
-   img:"https://commons.wikimedia.org/wiki/Special:FilePath/Restaurant_Erotokritos_(Almyrida)_-_beignets.jpg",imgCredit:"https://commons.wikimedia.org/wiki/File:Restaurant_Erotokritos_(Almyrida)_-_beignets.jpg"},
+  {name:"Kalitsounia",icon:"fa-cookie",desc:"Empanadillas de queso mizithra (saladas) o con miel y canela (dulces, lichnarakia)."},
   {name:"Chaniotiko boureki",icon:"fa-layer-group",desc:"Capas de calabacín, patata y mizithra al horno — especialidad exclusiva de Chania."},
   {name:"Antikristo",icon:"fa-fire",desc:"Cordero asado lentamente en espetones verticales alrededor de una hoguera, técnica pastoril ancestral."},
   {name:"Gamopilafo",icon:"fa-utensils",desc:"Arroz de boda cocinado en caldo de cordero o cabra con staka — se sirve en celebraciones."},
@@ -1362,8 +1361,7 @@ dishes: [
   {name:"Bougatsa",icon:"fa-slice",desc:"Hojaldre relleno de crema de sémola, espolvoreado con azúcar y canela — desayuno de Chania.",
    img:"https://commons.wikimedia.org/wiki/Special:FilePath/Bougatsa.jpg",imgCredit:"https://commons.wikimedia.org/wiki/File:Bougatsa.jpg"},
   {name:"Kserotigana",icon:"fa-swirl",desc:"Espirales de masa frita bañadas en miel y canela, típicas de bodas y fiestas."},
-  {name:"Graviera cretense",icon:"fa-cheese",desc:"Queso de oveja semicurado con Denominación de Origen — el más exportado de Grecia.",
-   img:"https://commons.wikimedia.org/wiki/Special:FilePath/Graviera_Kritis_Kraounaki_Rethymnou.jpg",imgCredit:"https://commons.wikimedia.org/wiki/File:Graviera_Kritis_Kraounaki_Rethymnou.jpg"}
+  {name:"Graviera cretense",icon:"fa-cheese",desc:"Queso de oveja semicurado con Denominación de Origen — el más exportado de Grecia."}
 ],
 
 food: [
@@ -1894,12 +1892,13 @@ document.addEventListener("input",e=>{
 /* ================= SUPABASE: cuenta, sincronización y amigos ================= */
 // Rellena estas dos constantes con los datos de tu proyecto (Settings → API en Supabase).
 // Mientras sigan con el valor "TU_..." la app funciona en modo solo local, como hasta ahora.
-const SUPABASE_URL = "https://twelmnurbonnttwtsxzk.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_uihaTd8UB0mnddI4YC8gMw_qQJmMDwI";
+const SUPABASE_URL = "TU_SUPABASE_URL";
+const SUPABASE_ANON_KEY = "TU_SUPABASE_ANON_KEY";
 const SUPABASE_ENABLED = !SUPABASE_URL.startsWith("TU_") && !SUPABASE_ANON_KEY.startsWith("TU_") && !!window.supabase;
 let sb = null, sbUser = null, sbProfile = null;
 if(SUPABASE_ENABLED){ sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); }
 
+let pendingOtpEmail = null;
 function renderAuthBox(){
   const box = $("#authBox");
   const nameField = $("#localNameField");
@@ -1911,11 +1910,24 @@ function renderAuthBox(){
   }
   if(!sbUser){
     box.className = "auth-box";
+    if(pendingOtpEmail){
+      box.innerHTML = `
+        <div><i class="fa-solid fa-key" style="margin-right:6px;"></i>Escribe el código de 6 dígitos que te acabamos de enviar a <strong>${esc(pendingOtpEmail)}</strong>.</div>
+        <div class="auth-row">
+          <input type="text" id="authCodeInput" placeholder="123456" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code">
+          <button class="btn btn-sm btn-accent" id="authVerifyCode">Verificar</button>
+        </div>
+        <div class="auth-msg" id="authMsg" style="display:none;"></div>
+        <button class="btn btn-sm btn-outline" id="authResendCode" style="margin-top:8px;">Usar otro email</button>`;
+      nameField.style.display = "";
+      setTimeout(()=>{ const c=$("#authCodeInput"); if(c) c.focus(); },50);
+      return;
+    }
     box.innerHTML = `
-      <div><i class="fa-solid fa-envelope" style="margin-right:6px;"></i>Inicia sesión con tu email para sincronizar y compartir tu diario.</div>
+      <div><i class="fa-solid fa-envelope" style="margin-right:6px;"></i>Inicia sesión con tu email para sincronizar y compartir tu diario. Te enviaremos un código de 6 dígitos — no hace falta salir de esta página.</div>
       <div class="auth-row">
-        <input type="email" id="authEmailInput" placeholder="tu@email.com" autocomplete="email">
-        <button class="btn btn-sm btn-accent" id="authSendLink">Enviar enlace</button>
+        <input type="email" id="authEmailInput" placeholder="tu@email.com" autocomplete="email" inputmode="email">
+        <button class="btn btn-sm btn-accent" id="authSendLink">Enviar código</button>
       </div>
       <div class="auth-msg" id="authMsg" style="display:none;"></div>`;
     nameField.style.display = "";
@@ -1954,11 +1966,28 @@ function authMsg(text,isError){
 document.addEventListener("click",e=>{
   if(e.target.closest("#authSendLink")){
     const email = $("#authEmailInput").value.trim();
-    if(!email){ authMsg("Escribe un email válido.",true); return; }
-    authMsg("Enviando enlace…",false);
-    sb.auth.signInWithOtp({ email, options:{ emailRedirectTo: window.location.href } }).then(({error})=>{
-      authMsg(error ? error.message : "Enlace enviado — revisa tu correo y ábrelo en este mismo dispositivo.", !!error);
+    if(!email || !email.includes("@")){ authMsg("Escribe un email válido.",true); return; }
+    authMsg("Enviando código…",false);
+    // shouldCreateUser:true crea la cuenta la primera vez; emailRedirectTo se ignora para el código de 6 dígitos.
+    sb.auth.signInWithOtp({ email, options:{ shouldCreateUser:true } }).then(({error})=>{
+      if(error){ authMsg(error.message,true); return; }
+      pendingOtpEmail = email;
+      renderAuthBox();
     });
+  }
+  if(e.target.closest("#authVerifyCode")){
+    const code = $("#authCodeInput").value.trim();
+    if(code.length<6){ authMsg("El código tiene 6 dígitos.",true); return; }
+    authMsg("Comprobando…",false);
+    sb.auth.verifyOtp({ email: pendingOtpEmail, token: code, type:"email" }).then(({data,error})=>{
+      if(error){ authMsg("Código incorrecto o caducado — pide uno nuevo.",true); return; }
+      pendingOtpEmail = null;
+      // onAuthStateChange se encarga de llamar a onSignedIn()
+    });
+  }
+  if(e.target.closest("#authResendCode")){
+    pendingOtpEmail = null;
+    renderAuthBox();
   }
   if(e.target.closest("#authSaveUsername")){
     const input = $("#authUsernameInput");
@@ -1981,6 +2010,13 @@ document.addEventListener("click",e=>{
       btn.innerHTML = '<i class="fa-solid fa-check"></i>';
       setTimeout(()=>btn.innerHTML=old,1500);
     });
+  }
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Enter"){
+    if(e.target.id==="authEmailInput") $("#authSendLink").click();
+    if(e.target.id==="authCodeInput") $("#authVerifyCode").click();
+    if(e.target.id==="authUsernameInput") $("#authSaveUsername").click();
   }
 });
 
@@ -2017,8 +2053,8 @@ async function onSignedIn(user){
   sbProfile = profile || null;
   if(sbProfile){ await pullReviewsFromCloud(); }
   renderAuthBox();
-  history.replaceState(null,"",window.location.pathname + (new URLSearchParams(window.location.search).get("perfil") ? "?perfil="+new URLSearchParams(window.location.search).get("perfil") : ""));
 }
+
 
 /* -------- Amigos: solicitudes, aceptación y diario compartido -------- */
 async function renderAmigosTab(prefillUsername){

@@ -27,7 +27,7 @@ Se guarda con `localStorage` **y**, si activas Supabase (ver abajo), también en
 
 1. Crea un proyecto gratis en [supabase.com](https://supabase.com).
 2. En **SQL Editor → New query**, pega el contenido de `schema.sql` (incluido en este repo) y ejecútalo. Esto crea las tablas `profiles` y `reviews` con las políticas de seguridad (RLS) correctas: cada usuario solo puede editar sus propios datos, pero todos son visibles públicamente para que tus amigos puedan verlos.
-3. En **Authentication → URL Configuration**, añade la URL de tu sitio (`https://danillp.github.io/creta/`) a la lista de "Redirect URLs".
+3. **Importante — edita la plantilla de email:** ve a **Authentication → Email Templates → Magic Link** y añade `{{ .Token }}` en algún punto del cuerpo del correo (por ejemplo: `Tu código de acceso es: {{ .Token }}`). Por defecto, Supabase solo pone un botón de enlace en ese email — sin este cambio, el código de 6 dígitos que la app pide nunca aparecerá en el correo.
 4. En **Settings → API**, copia el **Project URL** y la clave **anon/public**.
 5. Abre `index.html`, busca estas dos líneas cerca de "SUPABASE" y sustitúyelas:
    ```js
@@ -37,6 +37,8 @@ Se guarda con `localStorage` **y**, si activas Supabase (ver abajo), también en
 6. Sube el archivo actualizado a GitHub. Listo — el botón de favoritos ahora mostrará un inicio de sesión por email (enlace mágico, sin contraseña), y una vez dentro podrás elegir un nombre de usuario, ver tu enlace para compartir (`?perfil=tu-usuario`) y buscar el diario de un amigo por su nombre de usuario en la pestaña "Amigos".
 
 **Cómo funciona el compartir:** perfiles públicos por nombre de usuario (para poder encontrar a alguien y enviarle una solicitud), pero las reseñas ya no son visibles para cualquiera — hace falta una amistad aceptada por las dos partes. Busca el nombre de usuario de tu amigo/a en la pestaña "Amigos", pulsa "Enviar solicitud"; cuando lo acepte, verás su diario ahí mismo. Compartir tu enlace (`?perfil=tu-usuario`) le lleva directo a la pantalla de solicitud si aún no sois amigos.
+
+**Por qué un código de 6 dígitos y no un enlace mágico:** si añades la web a la pantalla de inicio del iPhone ("Añadir a pantalla de inicio"), iOS trata ese icono como una app aislada, con su propio almacenamiento — completamente separado de Safari. Un enlace de email siempre se abre en Safari, nunca dentro del icono de la pantalla de inicio, así que la sesión que se crea al tocar el enlace queda "atrapada" en Safari y el icono de tu pantalla de inicio nunca se entera. Por eso la app pide un código de 6 dígitos en vez de un enlace: lo escribes directamente donde lo pediste, sin salir nunca de la app, y funciona igual en Safari normal, en el icono de pantalla de inicio o en cualquier otro navegador.
 
 
 ## Cómo verla
