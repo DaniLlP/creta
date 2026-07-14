@@ -390,6 +390,11 @@ ul{margin:0;padding:0;list-style:none;}
 .dc-actions{margin-top:auto;padding-top:14px;display:flex;gap:8px;flex-wrap:wrap;}
 .dc-tags{display:none;} /* used only for search indexing */
 
+.dc-photo-real{padding:0;}
+.dc-photo-real img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+.dc-photo-real.img-failed img{display:none;}
+.dc-photo-icon{z-index:1;}
+
 .empty-state{
   text-align:center;padding:60px 20px;color:var(--text-soft);font-size:15px;
   border:1.5px dashed var(--border-strong);border-radius:var(--radius-m);grid-column:1/-1;
@@ -897,7 +902,7 @@ footer.site-footer .disclaimer-box strong{color:#EFE7D3;}
 
     <div class="subpanel" id="panel-fauna">
       <p style="color:var(--text-soft);font-size:14.5px;margin-bottom:20px;max-width:70ch;">Creta lleva millones de años aislada del continente, así que su fauna tiene mucho de endémico y de sorprendente — desde una cabra montés que solo vive aquí hasta uno de los pinnípedos más amenazados del planeta nadando en sus calas.</p>
-      <div class="grid grid-3" id="faunaGrid"></div>
+      <div class="flip-grid" id="faunaGrid"></div>
     </div>
 
     <div class="subpanel" id="panel-en-barco">
@@ -1324,13 +1329,15 @@ beaches: [
    lat:35.2712,lng:23.5413,dificultad:"Fácil",aparcamiento:"Elafonisi Mega Parking, 5€/día, a 650 m andando",
    gente:"Muy alta en julio-agosto, tranquila en mayo y octubre",instalaciones:"Dos beach bars, duchas, sombrillas y tumbonas (20€ el set)",
    familiaApta:"Sí, ideal para niños pequeños",esnorquelNota:"Discreto, mejor en el lado del islote",
-   mejorMes:"Mayo o finales de septiembre",tiempoVisita:"3–4 horas",agua:"Turquesa a rosado pálido"},
+   mejorMes:"Mayo o finales de septiembre",tiempoVisita:"3–4 horas",agua:"Turquesa a rosado pálido",
+   img:"https://commons.wikimedia.org/wiki/Special:FilePath/Elafonisi%20pink%20sand.jpg",imgCredit:"https://commons.wikimedia.org/wiki/File:Elafonisi_pink_sand.jpg"},
   {id:"balos",name:"Balos",region:"oeste",tags:["aventura","puestasol"],score:9.5,
    desc:"La laguna más fotografiada de Grecia, en la remota península de Gramvousa. El acceso en coche ya no llega hasta la arena: se deja el vehículo arriba y se baja 20 minutos a pie, o se llega en barco desde Kissamos o Chania.",
    lat:35.5793,lng:23.5887,dificultad:"Moderada (acceso)",aparcamiento:"Pista de tierra + aparcamiento superior, 3€; entrada a la zona protegida 1€",
    gente:"Alta a mediodía con los barcos turísticos; vacía al amanecer",instalaciones:"Un pequeño quiosco, sin sombra",
    familiaApta:"Con reservas por el camino y el sol sin sombra",esnorquelNota:"Bueno cerca de las rocas de Cabo Tigani",
-   mejorMes:"Junio o septiembre",tiempoVisita:"Medio día completo",agua:"Turquesa, verde y azul intenso en franjas"},
+   mejorMes:"Junio o septiembre",tiempoVisita:"Medio día completo",agua:"Turquesa, verde y azul intenso en franjas",
+   img:"https://commons.wikimedia.org/wiki/Special:FilePath/BalosLagoonCreta.jpg",imgCredit:"https://commons.wikimedia.org/wiki/File:BalosLagoonCreta.jpg"},
   {id:"falassarna",name:"Falassarna",region:"oeste",tags:["familia","puestasol"],score:9.0,
    desc:"Una playa larga y abierta — en realidad cinco calas consecutivas — con el horizonte occidental despejado. Considerada por muchos el mejor atardecer de la isla, y mucho más accesible que sus vecinas Balos y Elafonisi.",
    lat:35.4920,lng:23.5807,dificultad:"Fácil",aparcamiento:"Aparcamiento gratuito pequeño + uno grande de pago junto a la arena",
@@ -1556,15 +1563,15 @@ unesco: [
 ],
 
 hiddenGems: [
-  {name:"Anogeia",icon:"fa-mountain",desc:"Pueblo de montaña reconstruido tras ser arrasado en la Segunda Guerra Mundial, cuna de músicos de lira y quesos de pastor."},
-  {name:"Loutro",icon:"fa-ship",desc:"Pueblo costero sin carretera de acceso — solo se llega en barco o a pie por el sendero de la costa sur."},
-  {name:"Zaros",icon:"fa-droplet",desc:"Manantiales, truchas de piscifactoría y el lago Votomos, a los pies del Psiloritis."},
-  {name:"Archanes",icon:"fa-wine-bottle",desc:"Pueblo vinícola de casas restauradas con mucho mimo, a un paso de Cnosos pero sin las multitudes."},
-  {name:"Kritsa y Panagia Kera",icon:"fa-church",desc:"Callejuelas de artesanía textil y una pequeña iglesia bizantina con algunos de los frescos mejor conservados de Creta."},
-  {name:"Milia",icon:"fa-house",desc:"Aldea abandonada reconstruida como eco-proyecto de turismo sostenible, sin electricidad de red — todo con energía solar."},
-  {name:"Meseta de Lasithi y Cueva Dikteon",icon:"fa-wind",desc:"Molinos de lona blanca y la cueva donde la mitología sitúa el nacimiento de Zeus, accesible en un paseo corto."},
-  {name:"Elos y los pueblos del castaño",icon:"fa-tree",desc:"Región montañosa del oeste con bosques de castaños que en Creta resultan casi una sorpresa geográfica."},
-  {name:"Garganta de Theriso",icon:"fa-road",desc:"Ruta de coche corta y espectacular desde Chania, cuna del movimiento revolucionario cretense de 1905."}
+  {name:"Anogeia",icon:"fa-mountain",desc:"Pueblo de montaña reconstruido tras ser arrasado en la Segunda Guerra Mundial, cuna de músicos de lira y quesos de pastor.",maps:"Anogeia Crete"},
+  {name:"Loutro",icon:"fa-ship",desc:"Pueblo costero sin carretera de acceso — solo se llega en barco o a pie por el sendero de la costa sur.",maps:"Loutro Crete"},
+  {name:"Zaros",icon:"fa-droplet",desc:"Manantiales, truchas de piscifactoría y el lago Votomos, a los pies del Psiloritis.",maps:"Lake Votomos Zaros Crete"},
+  {name:"Archanes",icon:"fa-wine-bottle",desc:"Pueblo vinícola de casas restauradas con mucho mimo, a un paso de Cnosos pero sin las multitudes.",maps:"Archanes Crete"},
+  {name:"Kritsa y Panagia Kera",icon:"fa-church",desc:"Callejuelas de artesanía textil y una pequeña iglesia bizantina con algunos de los frescos mejor conservados de Creta.",maps:"Panagia Kera Kritsa Crete"},
+  {name:"Milia",icon:"fa-house",desc:"Aldea abandonada reconstruida como eco-proyecto de turismo sostenible, sin electricidad de red — todo con energía solar.",maps:"Milia Mountain Retreat Crete"},
+  {name:"Meseta de Lasithi y Cueva Dikteon",icon:"fa-wind",desc:"Molinos de lona blanca y la cueva donde la mitología sitúa el nacimiento de Zeus, accesible en un paseo corto.",maps:"Dikteon Cave Lasithi Crete"},
+  {name:"Elos y los pueblos del castaño",icon:"fa-tree",desc:"Región montañosa del oeste con bosques de castaños que en Creta resultan casi una sorpresa geográfica.",maps:"Elos Chania Crete"},
+  {name:"Garganta de Theriso",icon:"fa-road",desc:"Ruta de coche corta y espectacular desde Chania, cuna del movimiento revolucionario cretense de 1905.",maps:"Therisso Gorge Crete"}
 ],
 
 photoSpots: [
@@ -1599,15 +1606,15 @@ shopping: [
 ],
 
 fauna: [
-  {name:"Kri-kri (cabra montés cretense)",icon:"fa-paw",desc:"Cabra salvaje endémica, símbolo de la isla. La población más pura vive protegida en el islote de Agios Theodoros y en el desfiladero de Samaria — con suerte la ves saltando entre las rocas del cañón."},
-  {name:"Foca monje del Mediterráneo",icon:"fa-water",desc:"Una de las focas más amenazadas del mundo (quedan unos 700 ejemplares en total). Cría en cuevas marinas poco accesibles de la costa cretense; verla en libertad es raro pero ocurre, sobre todo en zonas remotas del sur y el oeste."},
-  {name:"Tortuga boba (Caretta caretta)",icon:"fa-shrimp",desc:"Anida en la arena de varias playas cretenses entre junio y agosto — la bahía de Chania y la playa de Rétino son puntos de anidación vigilados. Si ves nidos marcados con cinta, mantén la distancia y no uses luz artificial de noche."},
-  {name:"Delfines",icon:"fa-water",desc:"Delfín común y delfín mular frecuentan las aguas abiertas al norte y al sur de la isla — muchas excursiones en barco (y algunos ferris) tienen avistamientos ocasionales, sobre todo fuera de temporada alta."},
-  {name:"Buitre leonado",icon:"fa-feather",desc:"Grandes colonias en los acantilados de las gargantas — Samaria e Ha son de los mejores lugares de Europa para verlos planear a poca distancia."},
-  {name:"Halcón de Eleonor",icon:"fa-feather",desc:"Rapaz migratoria que cría en colonias en islotes e islas del Egeo cretense en verano, coincidiendo con el paso de aves migrantes de las que se alimenta."},
-  {name:"Gato salvaje cretense (fourókatos)",icon:"fa-cat",desc:"Un felino esquivo de las zonas altas de las Lefka Ori, entre leyenda pastoril y estudio científico — muy raro de ver, pero parte del imaginario popular de la isla."},
-  {name:"Sin serpientes venenosas",icon:"fa-check",desc:"Dato tranquilizador: Creta no tiene serpientes venenosas para el ser humano. Sí verás lagartijas endémicas (Podarcis cretensis) tomando el sol en casi cualquier muro de piedra."},
-  {name:"Vida marina de esnórquel",icon:"fa-fish",desc:"Doradas, salpas, pulpos, erizos y, en aguas más profundas de las calas del oeste, meros — el fondo rocoso de Kedrodasos, Seitan Limania y Marathi son de los mejores puntos de la isla para verla sin equipo de buceo."}
+  {id:"kri-kri",name:"Kri-kri (cabra montés cretense)",icon:"fa-paw",desc:"Cabra salvaje endémica, símbolo de la isla. La población más pura vive protegida en el islote de Agios Theodoros y en el desfiladero de Samaria — con suerte la ves saltando entre las rocas del cañón.",maps:"Samaria Gorge Crete"},
+  {id:"foca-monje",name:"Foca monje del Mediterráneo",icon:"fa-water",desc:"Una de las focas más amenazadas del mundo (quedan unos 700 ejemplares en total). Cría en cuevas marinas poco accesibles de la costa cretense; verla en libertad es raro pero ocurre, sobre todo en zonas remotas del sur y el oeste."},
+  {id:"tortuga-boba",name:"Tortuga boba (Caretta caretta)",icon:"fa-shrimp",desc:"Anida en la arena de varias playas cretenses entre junio y agosto — la bahía de Chania y la playa de Rétino son puntos de anidación vigilados. Si ves nidos marcados con cinta, mantén la distancia y no uses luz artificial de noche.",maps:"Rethymno Beach Crete"},
+  {id:"delfines",name:"Delfines",icon:"fa-water",desc:"Delfín común y delfín mular frecuentan las aguas abiertas al norte y al sur de la isla — muchas excursiones en barco (y algunos ferris) tienen avistamientos ocasionales, sobre todo fuera de temporada alta."},
+  {id:"buitre-leonado",name:"Buitre leonado",icon:"fa-feather",desc:"Grandes colonias en los acantilados de las gargantas — Samaria e Ha son de los mejores lugares de Europa para verlos planear a poca distancia.",maps:"Samaria Gorge Crete"},
+  {id:"halcon-eleonor",name:"Halcón de Eleonor",icon:"fa-feather",desc:"Rapaz migratoria que cría en colonias en islotes e islas del Egeo cretense en verano, coincidiendo con el paso de aves migrantes de las que se alimenta."},
+  {id:"gato-salvaje",name:"Gato salvaje cretense (fourókatos)",icon:"fa-cat",desc:"Un felino esquivo de las zonas altas de las Lefka Ori, entre leyenda pastoril y estudio científico — muy raro de ver, pero parte del imaginario popular de la isla.",maps:"Lefka Ori White Mountains Crete"},
+  {id:"sin-serpientes",name:"Sin serpientes venenosas",icon:"fa-check",desc:"Dato tranquilizador: Creta no tiene serpientes venenosas para el ser humano. Sí verás lagartijas endémicas (Podarcis cretensis) tomando el sol en casi cualquier muro de piedra."},
+  {id:"vida-esnorquel",name:"Vida marina de esnórquel",icon:"fa-fish",desc:"Doradas, salpas, pulpos, erizos y, en aguas más profundas de las calas del oeste, meros — el fondo rocoso de Kedrodasos, Seitan Limania y Marathi son de los mejores puntos de la isla para verla sin equipo de buceo.",maps:"Kedrodasos Beach Crete"}
 ],
 
 boatRentals: [
@@ -1794,11 +1801,14 @@ function renderProgressDrawer(){
   if(activeDrawerTab==="pendiente"){
     const pendDishes = CRETE_DATA.dishes.filter(d=>!Progreso.probado["probado-"+(d.id||d.name.replace(/\s+/g,"-").toLowerCase())]);
     const pendGems = CRETE_DATA.hiddenGems.filter(g=>!Progreso.visitado["visitado-"+(g.id||g.name.replace(/\s+/g,"-").toLowerCase())]);
+    const pendFauna = CRETE_DATA.fauna.filter(f=>!Progreso.visitado["visitado-"+f.id]);
     box.innerHTML = `
       <div style="font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;color:var(--text-soft);margin:6px 0 8px;">Platos por probar</div>
       <div class="pending-pill-list" style="margin-bottom:20px;">${pendDishes.map(d=>`<span class="pending-pill">${d.name}</span>`).join("") || '<span class="pending-pill">¡Todos probados!</span>'}</div>
       <div style="font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;color:var(--text-soft);margin:6px 0 8px;">Rincones por visitar</div>
-      <div class="pending-pill-list">${pendGems.map(g=>`<span class="pending-pill">${g.name}</span>`).join("") || '<span class="pending-pill">¡Todos visitados!</span>'}</div>`;
+      <div class="pending-pill-list" style="margin-bottom:20px;">${pendGems.map(g=>`<span class="pending-pill">${g.name}</span>`).join("") || '<span class="pending-pill">¡Todos visitados!</span>'}</div>
+      <div style="font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;color:var(--text-soft);margin:6px 0 8px;">Fauna por avistar</div>
+      <div class="pending-pill-list">${pendFauna.map(f=>`<span class="pending-pill">${f.name}</span>`).join("") || '<span class="pending-pill">¡Todo avistado!</span>'}</div>`;
   }
 }
 document.addEventListener("click",e=>{
@@ -1823,8 +1833,10 @@ $("#drawerNameInput").addEventListener("input",e=>{
 
 /* ================= RENDER: PLAYAS ================= */
 function beachCard(b,i){
+  const hasImg = !!b.img;
   return `<article class="data-card" data-region="${b.region}" data-tags="${b.tags.join(",")}">
-    <div class="dc-photo" style="background:${gradFor(i)}">
+    <div class="dc-photo ${hasImg?'dc-photo-real':''}" style="background:${gradFor(i)}">
+      ${hasImg ? `<img src="${b.img}" alt="${esc(b.name)}" loading="lazy" onerror="this.closest('.dc-photo').classList.add('img-failed');this.remove();">` : ""}
       ${favToggleHtml("beach-"+b.id,b.name,"Playa")}
       <i class="fa-solid fa-water dc-photo-icon"></i>
       <span class="dc-photo-tag">${b.region.replace("-"," ")}</span>
@@ -1847,6 +1859,7 @@ function beachCard(b,i){
           <dt>Esnórquel</dt><dd>${b.esnorquelNota}</dd>
           <dt>Mejor mes</dt><dd>${b.mejorMes}</dd>
           <dt>Color del agua</dt><dd>${b.agua}</dd>
+          ${hasImg ? `<dt>Foto</dt><dd><a href="${b.imgCredit}" target="_blank" rel="noopener" style="color:inherit;">Wikimedia Commons</a></dd>` : ""}
         </dl>
       </details>
       <div class="dc-actions">
@@ -1893,9 +1906,11 @@ function flipCardHtml(item,type,i,extraClass){
   const done = !!rec;
   const rating = rec ? rec.rating||0 : 0;
   const review = rec ? rec.review||"" : "";
-  const label = type==="probado" ? "Marcar como probado" : "Marcar como visitado";
-  const doneLabel = type==="probado" ? "Probado" : "Visitado";
+  let label = type==="probado" ? "Marcar como probado" : "Marcar como visitado";
+  let doneLabel = type==="probado" ? "Probado" : "Visitado";
+  if(extraClass==="fauna"){ label = "Marcar como avistado"; doneLabel = "Avistado"; }
   const hasImg = !!item.img;
+  const hasMaps = !!item.maps;
   const frontMedia = hasImg
     ? `<div class="flip-photo flip-photo-real" style="background:${gradFor(i+(extraClass==='gem'?1:0))}">
          <img src="${item.img}" alt="${esc(item.name)}" loading="lazy" onerror="this.closest('.flip-photo').classList.add('img-failed');this.remove();">
@@ -1924,7 +1939,10 @@ function flipCardHtml(item,type,i,extraClass){
             ${[1,2,3,4,5].map(n=>`<button data-star="${n}" class="${n<=rating?'filled':''}" aria-label="${n} estrellas"><i class="fa-solid fa-star"></i></button>`).join("")}
           </div>
           <textarea class="review-box" data-review-for="${id}" placeholder="Tu reseña rápida (opcional)…">${esc(review)}</textarea>
-          ${hasImg ? `<a href="${item.imgCredit}" target="_blank" rel="noopener" class="img-credit-link">Foto: Wikimedia Commons</a>` : ""}
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+            ${hasMaps ? `<a href="${mapsLink(item.maps)}" target="_blank" rel="noopener" class="btn btn-sm btn-outline"><i class="fa-solid fa-location-dot"></i> Maps</a>` : ""}
+            ${hasImg ? `<a href="${item.imgCredit}" target="_blank" rel="noopener" class="img-credit-link">Foto: Wikimedia Commons</a>` : ""}
+          </div>
         </div>
       </div>
     </div>
@@ -1983,8 +2001,8 @@ document.addEventListener("input",e=>{
 /* ================= SUPABASE: cuenta, sincronización y amigos ================= */
 // Rellena estas dos constantes con los datos de tu proyecto (Settings → API en Supabase).
 // Mientras sigan con el valor "TU_..." la app funciona en modo solo local, como hasta ahora.
-const SUPABASE_URL = "https://twelmnurbonnttwtsxzk.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_uihaTd8UB0mnddI4YC8gMw_qQJmMDwI";
+const SUPABASE_URL = "TU_SUPABASE_URL";
+const SUPABASE_ANON_KEY = "TU_SUPABASE_ANON_KEY";
 const SUPABASE_ENABLED = !SUPABASE_URL.startsWith("TU_") && !SUPABASE_ANON_KEY.startsWith("TU_") && !!window.supabase;
 let sb = null, sbUser = null, sbProfile = null;
 if(SUPABASE_ENABLED){ sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); }
@@ -2434,12 +2452,7 @@ function renderShopping(){
 
 /* ================= RENDER: FAUNA Y BARCOS ================= */
 function renderFauna(){
-  $("#faunaGrid").innerHTML = CRETE_DATA.fauna.map(f=>`
-    <div class="gem-card">
-      <i class="fa-solid ${f.icon} gem-icon"></i>
-      <h4>${f.name}</h4>
-      <p>${f.desc}</p>
-    </div>`).join("");
+  $("#faunaGrid").innerHTML = CRETE_DATA.fauna.map((f,i)=>flipCardHtml(f,"visitado",i,"fauna")).join("");
 }
 function renderBoatRentals(){
   $("#boatRentalGrid").innerHTML = CRETE_DATA.boatRentals.map(b=>`
