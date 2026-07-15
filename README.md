@@ -31,13 +31,14 @@ Se guarda con `localStorage` **y**, si activas Supabase (ver abajo), también en
 1. Crea un proyecto gratis en [supabase.com](https://supabase.com).
 2. En **SQL Editor → New query**, pega el contenido de `schema.sql` (incluido en este repo) y ejecútalo. Esto crea las tablas `profiles` y `reviews` con las políticas de seguridad (RLS) correctas: cada usuario solo puede editar sus propios datos, pero todos son visibles públicamente para que tus amigos puedan verlos.
 3. **Importante — edita la plantilla de email:** ve a **Authentication → Email Templates → Magic Link** y añade `{{ .Token }}` en algún punto del cuerpo del correo (por ejemplo: `Tu código de acceso es: {{ .Token }}`). Por defecto, Supabase solo pone un botón de enlace en ese email — sin este cambio, el código de 6 dígitos que la app pide nunca aparecerá en el correo.
-4. En **Settings → API**, copia el **Project URL** y la clave **anon/public**.
-5. Abre `index.html`, busca estas dos líneas cerca de "SUPABASE" y sustitúyelas:
+4. En **Settings → API**, copia el **Project URL** y la clave **anon / publishable**.
+5. Rellena `js/config.js` (incluido en este repo) con esos dos valores:
    ```js
-   const SUPABASE_URL = "TU_SUPABASE_URL";
-   const SUPABASE_ANON_KEY = "TU_SUPABASE_ANON_KEY";
+   export const SUPABASE_URL = "https://tu-proyecto.supabase.co";
+   export const SUPABASE_ANON_KEY = "sb_publishable_xxxxxxxxxxxxxxxxx";
    ```
-6. Sube el archivo actualizado a GitHub. Listo — el botón de favoritos ahora mostrará un inicio de sesión por email (enlace mágico, sin contraseña), y una vez dentro podrás elegir un nombre de usuario, ver tu enlace para compartir (`?perfil=tu-usuario`) y buscar el diario de un amigo por su nombre de usuario en la pestaña "Amigos".
+   Este archivo vive aparte de `index.html` a propósito: cada vez que subas una versión nueva de `index.html` (con más contenido o funciones), `js/config.js` se queda como está — no hace falta volver a pegar tus credenciales cada vez. `index.html` las importa automáticamente al cargar; si `js/config.js` no existe (por ejemplo, si abres el `.html` suelto en tu ordenador sin subirlo a ningún sitio), la app simplemente se queda en modo solo local, sin errores.
+6. Sube `index.html` y la carpeta `js/` a GitHub (misma subida web de siempre). Listo — el botón de favoritos ahora mostrará un inicio de sesión por email (código de 6 dígitos), y una vez dentro podrás elegir un nombre de usuario, ver tu enlace para compartir (`?perfil=tu-usuario`) y buscar el diario de un amigo por su nombre de usuario en la pestaña "Amigos".
 
 **Cómo funciona el compartir:** perfiles públicos por nombre de usuario (para poder encontrar a alguien y enviarle una solicitud), pero las reseñas ya no son visibles para cualquiera — hace falta una amistad aceptada por las dos partes. Busca el nombre de usuario de tu amigo/a en la pestaña "Amigos", pulsa "Enviar solicitud"; cuando lo acepte, verás su diario ahí mismo. Compartir tu enlace (`?perfil=tu-usuario`) le lleva directo a la pantalla de solicitud si aún no sois amigos.
 
@@ -61,10 +62,15 @@ Luego en GitHub: **Settings → Pages → Source → Deploy from branch → main
 
 ```
 .
-├── index.html   ← la guía completa (HTML + CSS + JS embebidos, un solo archivo)
+├── index.html      ← la guía completa (HTML + CSS + JS, un solo archivo)
+├── js/
+│   └── config.js   ← tus credenciales de Supabase (no se toca al actualizar index.html)
+├── schema.sql       ← esquema de base de datos, para pegar en el SQL Editor de Supabase
 ├── README.md
 └── LICENSE
 ```
+
+**Nota sobre probar en local:** si abres `index.html` haciendo doble clic desde tu ordenador (protocolo `file://` en vez de `https://`), los navegadores bloquean por seguridad la carga de `js/config.js` mediante `import` — la app lo detecta y sigue funcionando en modo solo local sin errores, pero Supabase no se activará. Para probarlo de verdad, súbelo a GitHub Pages (o levanta un servidor local simple, tipo `python3 -m http.server`).
 
 Todo el contenido (CSS, JavaScript, HTML) vive en un único archivo a propósito, tal y como se pidió originalmente — sin build step, sin dependencias que instalar. Las únicas llamadas externas en tiempo de ejecución son: Google Fonts, Font Awesome (CDN), y los `<iframe>` de Google Maps.
 

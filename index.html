@@ -1320,7 +1320,7 @@ footer.site-footer .disclaimer-box strong{color:#EFE7D3;}
 </div>
 
 
-<script>
+<script type="module">
 const CRETE_DATA = {
 
 beaches: [
@@ -1999,10 +1999,21 @@ document.addEventListener("input",e=>{
 });
 
 /* ================= SUPABASE: cuenta, sincronización y amigos ================= */
-// Rellena estas dos constantes con los datos de tu proyecto (Settings → API en Supabase).
-// Mientras sigan con el valor "TU_..." la app funciona en modo solo local, como hasta ahora.
-const SUPABASE_URL = "TU_SUPABASE_URL";
-const SUPABASE_ANON_KEY = "TU_SUPABASE_ANON_KEY";
+// Las credenciales viven en un archivo aparte: js/config.js (junto a este index.html
+// en tu repositorio), para que no tengas que volver a pegarlas cada vez que actualices
+// esta página. Formato esperado en js/config.js:
+//   export const SUPABASE_URL = "https://TU_PROYECTO.supabase.co";
+//   export const SUPABASE_ANON_KEY = "sb_publishable_xxxxxxxxxxxxxxxxx";
+// Si ese archivo no existe (por ejemplo, si abres este .html suelto en tu ordenador sin
+// subirlo a un servidor), la app sigue funcionando entera en modo solo local, sin errores.
+let SUPABASE_URL = "TU_SUPABASE_URL", SUPABASE_ANON_KEY = "TU_SUPABASE_ANON_KEY";
+try{
+  const cfg = await import("./js/config.js");
+  if(cfg.SUPABASE_URL) SUPABASE_URL = cfg.SUPABASE_URL;
+  if(cfg.SUPABASE_ANON_KEY) SUPABASE_ANON_KEY = cfg.SUPABASE_ANON_KEY;
+}catch(e){
+  // js/config.js no encontrado o no cargable aquí — se queda en modo solo local.
+}
 const SUPABASE_ENABLED = !SUPABASE_URL.startsWith("TU_") && !SUPABASE_ANON_KEY.startsWith("TU_") && !!window.supabase;
 let sb = null, sbUser = null, sbProfile = null;
 if(SUPABASE_ENABLED){ sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); }
