@@ -2006,17 +2006,27 @@ document.addEventListener("input",e=>{
 //   export const SUPABASE_ANON_KEY = "sb_publishable_xxxxxxxxxxxxxxxxx";
 // Si ese archivo no existe (por ejemplo, si abres este .html suelto en tu ordenador sin
 // subirlo a un servidor), la app sigue funcionando entera en modo solo local, sin errores.
+//
+// IMPORTANTE: esta carga es asíncrona y NO bloqueante a propósito — el resto de la
+// página (playas, gastronomía, todo) se renderiza de inmediato sin esperar a esto,
+// aunque la carga de config.js sea lenta, falle o no exista.
 let SUPABASE_URL = "TU_SUPABASE_URL", SUPABASE_ANON_KEY = "TU_SUPABASE_ANON_KEY";
-try{
-  const cfg = await import("./js/config.js");
-  if(cfg.SUPABASE_URL) SUPABASE_URL = cfg.SUPABASE_URL;
-  if(cfg.SUPABASE_ANON_KEY) SUPABASE_ANON_KEY = cfg.SUPABASE_ANON_KEY;
-}catch(e){
-  // js/config.js no encontrado o no cargable aquí — se queda en modo solo local.
-}
-const SUPABASE_ENABLED = !SUPABASE_URL.startsWith("TU_") && !SUPABASE_ANON_KEY.startsWith("TU_") && !!window.supabase;
+let SUPABASE_ENABLED = false;
 let sb = null, sbUser = null, sbProfile = null;
-if(SUPABASE_ENABLED){ sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); }
+
+(async function loadSupabaseConfigAndInit(){
+  try{
+    const cfg = await import("./js/config.js");
+    if(cfg.SUPABASE_URL) SUPABASE_URL = cfg.SUPABASE_URL;
+    if(cfg.SUPABASE_ANON_KEY) SUPABASE_ANON_KEY = cfg.SUPABASE_ANON_KEY;
+  }catch(e){
+    // js/config.js no encontrado o no cargable aquí (normal en local con file://,
+    // o si aún no lo has creado) — se queda en modo solo local, sin errores.
+  }
+  SUPABASE_ENABLED = !SUPABASE_URL.startsWith("TU_") && !SUPABASE_ANON_KEY.startsWith("TU_") && !!window.supabase;
+  if(SUPABASE_ENABLED){ sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); }
+  initSupabaseAuth();
+})();
 
 let pendingOtpEmail = null;
 function renderAuthBox(){
@@ -2811,7 +2821,6 @@ document.addEventListener("DOMContentLoaded",()=>{
   initSearch();
   refreshFavIcons();
   initReveal();
-  initSupabaseAuth();
 
   const perfilParam = new URLSearchParams(window.location.search).get("perfil");
   if(perfilParam){
