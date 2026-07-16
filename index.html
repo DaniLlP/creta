@@ -715,6 +715,60 @@ footer.site-footer .disclaimer-box strong{color:#EFE7D3;}
 .conditions-note{font-size:11.5px;color:var(--text-soft);margin-bottom:32px;}
 .conditions-loading{grid-column:1/-1;text-align:center;padding:20px;color:var(--text-soft);font-size:13px;}
 
+/* ============ Guía profesional destacada (p.ej. Balos/Gramvousa) ============ */
+.pro-guide{
+  background:var(--surface);border:1.5px solid var(--oxblood);border-radius:var(--radius-l);
+  padding:32px 28px;margin-bottom:44px;position:relative;overflow:hidden;
+}
+[data-theme="dark"] .pro-guide{border-color:var(--ochre-bright);}
+.pro-guide::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--oxblood),var(--ochre),var(--aegean));}
+.pro-guide-badge{
+  display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.08em;color:#fff;background:var(--oxblood);padding:6px 13px;border-radius:14px;font-weight:700;margin-bottom:16px;
+}
+[data-theme="dark"] .pro-guide-badge{background:var(--ochre-bright);color:#1a1508;}
+.pro-guide h3.pg-title{font-size:26px;margin-bottom:10px;}
+.pro-guide .pg-intro{font-size:14.5px;color:var(--text-soft);line-height:1.7;max-width:75ch;margin-bottom:8px;}
+.pro-guide .pg-section{margin-top:30px;}
+.pro-guide .pg-section-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.pro-guide .pg-section-head i{color:var(--oxblood);font-size:16px;width:20px;text-align:center;}
+[data-theme="dark"] .pro-guide .pg-section-head i{color:var(--ochre-bright);}
+.pro-guide .pg-section-head h4{font-size:18px;}
+.pg-route{counter-reset:route;}
+.pg-route li{
+  counter-increment:route;position:relative;padding:10px 0 10px 40px;font-size:14px;color:var(--text);
+  border-bottom:1px solid var(--border);
+}
+.pg-route li:last-child{border-bottom:none;}
+.pg-route li::before{
+  content:counter(route);position:absolute;left:0;top:8px;width:26px;height:26px;border-radius:50%;
+  background:var(--oxblood);color:#fff;font-family:var(--font-mono);font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+[data-theme="dark"] .pg-route li::before{background:var(--ochre-bright);color:#1a1508;}
+.pg-spot{background:var(--bg-alt);border-radius:var(--radius-m);padding:18px 20px;margin-bottom:14px;}
+.pg-spot-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+.pg-spot-head strong{font-family:var(--font-display);font-size:16.5px;font-weight:600;}
+.pg-stars{color:var(--ochre);font-size:14px;letter-spacing:1px;white-space:nowrap;}
+[data-theme="dark"] .pg-stars{color:var(--ochre-bright);}
+.pg-species-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.pg-species-tags span{font-size:11.5px;padding:4px 10px;border-radius:12px;background:var(--surface);border:1px solid var(--border);color:var(--text-soft);}
+.pg-checklist{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+@media (max-width:700px){.pg-checklist{grid-template-columns:repeat(2,1fr);}}
+.pg-checklist span{display:flex;align-items:center;gap:8px;font-size:13px;padding:9px 12px;background:var(--bg-alt);border-radius:8px;}
+.pg-checklist i{color:var(--aegean);width:14px;}
+[data-theme="dark"] .pg-checklist i{color:var(--aegean-bright);}
+.pg-tips{list-style:none;padding:0;margin:0;}
+.pg-tips li{position:relative;padding:8px 0 8px 24px;font-size:13.5px;color:var(--text-soft);line-height:1.55;}
+.pg-tips li::before{content:"→";position:absolute;left:0;color:var(--oxblood);font-weight:700;}
+[data-theme="dark"] .pg-tips li::before{color:var(--ochre-bright);}
+.pg-ratings{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;}
+@media (max-width:700px){.pg-ratings{grid-template-columns:repeat(2,1fr);}}
+.pg-rating-item{text-align:center;background:var(--bg-alt);border-radius:var(--radius-m);padding:16px 10px;}
+.pg-rating-item .pr-label{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;color:var(--text-soft);margin-bottom:6px;}
+.pg-rating-item .pg-stars{font-size:16px;}
+.pro-guide .pg-closing{font-size:13.5px;color:var(--text-soft);font-style:italic;line-height:1.65;margin-top:24px;padding-top:20px;border-top:1px solid var(--border);}
+
 @media print{
   .site-header,.mobile-nav,.back-to-top,.progress-bar,.fav-toggle,.icon-btn,.search-wrap,.chip-row,iframe,.gallery-lightbox,video{display:none !important;}
   body{background:#fff;color:#000;}
@@ -907,6 +961,107 @@ footer.site-footer .disclaimer-box strong{color:#EFE7D3;}
 
     <div class="subpanel" id="panel-en-barco">
       <p style="color:var(--text-soft);font-size:14.5px;margin-bottom:24px;max-width:70ch;">Buena parte de la mejor Creta solo se ve desde el agua: islotes deshabitados, cuevas marinas y playas sin carretera de acceso.</p>
+
+      <div class="pro-guide">
+        <span class="pro-guide-badge"><i class="fa-solid fa-star"></i> Guía profesional · 16:00–22:00</span>
+        <h3 class="pg-title">Balos y Gramvousa: excursión en barco de tarde</h3>
+        <p class="pg-intro">La excursión en barco de tarde/noche a la Laguna de Balos y la Isla de Gramvousa es una de las mejores del oeste de Creta. Comparada con los cruceros de mañana, las salidas después de las 16:00 suelen ser más tranquilas, la luz es más suave para hacer fotos y el mar suele tener menos gente.</p>
+
+        <div class="pg-section">
+          <div class="pg-section-head"><i class="fa-solid fa-route"></i><h4>Ruta</h4></div>
+          <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:10px;">La mayoría de las excursiones salen del puerto de Kissamos e incluyen:</p>
+          <ol class="pg-route">
+            <li>Navegación a lo largo de la península de Gramvousa</li>
+            <li>Parada en la isla de Gramvousa</li>
+            <li>Baño y esnórquel</li>
+            <li>Visita a la Laguna de Balos</li>
+            <li>Crucero de vuelta a Kissamos al atardecer</li>
+          </ol>
+        </div>
+
+        <div class="pg-section">
+          <div class="pg-section-head"><i class="fa-solid fa-mask-snorkel"></i><h4>Guía de esnórquel</h4></div>
+          <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:14px;">Balos es famosa por sus colores más que por la abundancia de vida marina. El mejor esnórquel no está en la laguna poco profunda, sino en los bordes rocosos y en la isla de Gramvousa.</p>
+          <div class="pg-spot">
+            <div class="pg-spot-head"><strong>En la isla de Gramvousa</strong><span class="pg-stars">★★★★★</span></div>
+            <p style="font-size:13px;color:var(--text-soft);">El punto álgido para quienes hacen esnórquel. La visibilidad alcanza a menudo 20–30 m con mar en calma. Hay también un pecio parcialmente sumergido cerca de la isla, visible desde la orilla, que atrae peces.</p>
+            <div class="pg-species-tags">
+              <span>Bancos de sargos y doradas</span><span>Castañuelas</span><span>Lábridos</span><span>Doncellas</span><span>Peces loro (ocasional)</span><span>Pulpos entre las rocas</span><span>Estrellas de mar</span><span>Erizos de mar</span><span>Algas y esponjas de colores</span><span>Pequeños cangrejos</span>
+            </div>
+          </div>
+          <div class="pg-spot">
+            <div class="pg-spot-head"><strong>En la Laguna de Balos</strong><span class="pg-stars">★★★☆☆</span></div>
+            <p style="font-size:13px;color:var(--text-soft);">La laguna es poco profunda y de arena blanca. Al ser el fondo arenoso, caminar remueve sedimento y reduce la visibilidad — el agua más clara está en los bordes rocosos exteriores de la laguna.</p>
+            <div class="pg-species-tags">
+              <span>Peces pequeños</span><span>Góbidos de arena</span><span>Doradas juveniles</span><span>Camarones diminutos</span><span>Parches de posidonia</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pg-section">
+          <div class="pg-section-head"><i class="fa-solid fa-paw"></i><h4>Fauna</h4></div>
+          <p style="font-size:13.5px;color:var(--text-soft);">La zona está protegida dentro de la red Natura 2000. Con suerte puedes llegar a ver tortugas bobas (<em>Caretta caretta</em>), focas monje del Mediterráneo (raro), cormoranes, cormoranes moñudos y halcones de Eleonor. Observa siempre a la fauna desde la distancia y evita molestar a los animales.</p>
+        </div>
+
+        <div class="pg-section">
+          <div class="pg-section-head"><i class="fa-solid fa-camera-retro"></i><h4>Fotografía</h4></div>
+          <p style="font-size:13.5px;color:var(--text-soft);">El horario de 16:00 a 22:00 ofrece una luz excelente: hora dorada sobre Balos, atardecer detrás de Gramvousa, agua turquesa con menos visitantes en el encuadre, y colores cálidos sobre la fortaleza veneciana.</p>
+        </div>
+
+        <div class="pg-section">
+          <div class="pg-section-head"><i class="fa-solid fa-list-check"></i><h4>Qué llevar</h4></div>
+          <div class="pg-checklist">
+            <span><i class="fa-solid fa-check"></i>Máscara de esnórquel</span>
+            <span><i class="fa-solid fa-check"></i>Aletas (opcional)</span>
+            <span><i class="fa-solid fa-check"></i>Escarpines (recomendado)</span>
+            <span><i class="fa-solid fa-check"></i>Funda de móvil estanca</span>
+            <span><i class="fa-solid fa-check"></i>Gafas de sol polarizadas</span>
+            <span><i class="fa-solid fa-check"></i>Protector solar sin dañar arrecifes</span>
+            <span><i class="fa-solid fa-check"></i>Sombrero</span>
+            <span><i class="fa-solid fa-check"></i>Al menos 1,5 L de agua</span>
+            <span><i class="fa-solid fa-check"></i>Chaqueta ligera para la vuelta</span>
+          </div>
+        </div>
+
+        <div class="pg-section">
+          <div class="pg-section-head"><i class="fa-solid fa-table"></i><h4>Mejores puntos de esnórquel</h4></div>
+          <div class="spec-table-wrap">
+            <table class="spec-table">
+              <thead><tr><th>Zona</th><th>Profundidad</th><th>Valoración</th><th>Vida marina</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Rocas de Gramvousa</strong></td><td>2–6 m</td><td class="pg-stars">★★★★★</td><td class="row-desc">Bancos de sargos y doradas, castañuelas, lábridos, doncellas, pulpos, estrellas de mar</td></tr>
+                <tr><td><strong>Zona del pecio</strong></td><td>4–8 m</td><td class="pg-stars">★★★★☆</td><td class="row-desc">Peces atraídos por la estructura del pecio, bancos más numerosos y confiados</td></tr>
+                <tr><td><strong>Borde rocoso de Balos</strong></td><td>1–3 m</td><td class="pg-stars">★★★★☆</td><td class="row-desc">Peces de roca, algo de vida escondida en las grietas</td></tr>
+                <tr><td><strong>Laguna central</strong></td><td>0,3–1 m</td><td class="pg-stars">★★☆☆☆</td><td class="row-desc">Peces pequeños, góbidos de arena, camarones diminutos</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="pg-section">
+          <div class="pg-section-head"><i class="fa-solid fa-lightbulb"></i><h4>Consejos</h4></div>
+          <ul class="pg-tips">
+            <li>Entra al agua desde zonas rocosas en vez de la laguna arenosa — la visibilidad es mucho mejor.</li>
+            <li>Nada despacio junto a las rocas en vez de cruzar la arena abierta.</li>
+            <li>La luz de última hora de la tarde facilita ver a los peces.</li>
+            <li>Evita tocar los erizos de mar — son comunes en las rocas sumergidas.</li>
+          </ul>
+        </div>
+
+        <div class="pg-section">
+          <div class="pg-section-head"><i class="fa-solid fa-star-half-stroke"></i><h4>Valoración general</h4></div>
+          <div class="pg-ratings">
+            <div class="pg-rating-item"><div class="pr-label">Paisaje</div><div class="pg-stars">★★★★★</div></div>
+            <div class="pg-rating-item"><div class="pr-label">Baño</div><div class="pg-stars">★★★★★</div></div>
+            <div class="pg-rating-item"><div class="pr-label">Esnórquel</div><div class="pg-stars">★★★★☆</div></div>
+            <div class="pg-rating-item"><div class="pr-label">Fotografía</div><div class="pg-stars">★★★★★</div></div>
+            <div class="pg-rating-item"><div class="pr-label">Fauna</div><div class="pg-stars">★★★★☆</div></div>
+          </div>
+        </div>
+
+        <p class="pg-closing">Para quienes disfrutan nadando y haciendo esnórquel, Gramvousa suele ser la parada estrella, mientras que Balos se aprecia mejor por su laguna única, su arena blanca y rosada, y su llamativo color turquesa.</p>
+      </div>
+
       <h3 style="font-size:19px;margin-bottom:14px;"><i class="fa-solid fa-anchor" style="color:var(--oxblood);margin-right:8px;"></i>Dónde alquilar</h3>
       <div class="grid grid-3" id="boatRentalGrid" style="margin-bottom:44px;"></div>
 
