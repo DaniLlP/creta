@@ -901,7 +901,7 @@ footer.site-footer .disclaimer-box strong{color:#EFE7D3;}
     </div>
 
     <div class="subpanel" id="panel-fauna">
-      <p style="color:var(--text-soft);font-size:14.5px;margin-bottom:20px;max-width:70ch;">Creta lleva millones de años aislada del continente, así que su fauna tiene mucho de endémico y de sorprendente — desde una cabra montés que solo vive aquí hasta uno de los pinnípedos más amenazados del planeta nadando en sus calas.</p>
+      <p style="color:var(--text-soft);font-size:14.5px;margin-bottom:20px;max-width:70ch;">Creta lleva millones de años aislada del continente, así que su fauna tiene mucho de endémico y de sorprendente — desde una cabra montés que solo vive aquí hasta uno de los pinnípedos más amenazados del planeta nadando en sus calas. Incluye también lo que puedes encontrarte con solo un tubo de esnórquel o una botella: pulpos, morenas, meros y hasta ánforas de época minoica en el fondo.</p>
       <div class="flip-grid" id="faunaGrid"></div>
     </div>
 
@@ -909,8 +909,25 @@ footer.site-footer .disclaimer-box strong{color:#EFE7D3;}
       <p style="color:var(--text-soft);font-size:14.5px;margin-bottom:24px;max-width:70ch;">Buena parte de la mejor Creta solo se ve desde el agua: islotes deshabitados, cuevas marinas y playas sin carretera de acceso.</p>
       <h3 style="font-size:19px;margin-bottom:14px;"><i class="fa-solid fa-anchor" style="color:var(--oxblood);margin-right:8px;"></i>Dónde alquilar</h3>
       <div class="grid grid-3" id="boatRentalGrid" style="margin-bottom:44px;"></div>
+
       <h3 style="font-size:19px;margin-bottom:14px;"><i class="fa-solid fa-water" style="color:var(--oxblood);margin-right:8px;"></i>Destinos solo (o mejor) por mar</h3>
-      <div class="cards-grid" id="boatSpotsGrid"></div>
+      <div class="chip-row" id="boatSpotFilters">
+        <button class="chip active" data-filter="all">Toda la isla</button>
+        <button class="chip" data-filter="oeste">Oeste</button>
+        <button class="chip" data-filter="centro-sur">Centro sur</button>
+        <button class="chip" data-filter="este">Este</button>
+      </div>
+      <div class="cards-grid" id="boatSpotsGrid" style="margin-bottom:44px;"></div>
+
+      <h3 style="font-size:19px;margin-bottom:6px;"><i class="fa-solid fa-mask-snorkel" style="color:var(--oxblood);margin-right:8px;"></i>Mejores puntos de esnórquel</h3>
+      <p style="color:var(--text-soft);font-size:13.5px;margin-bottom:16px;max-width:70ch;">Accesibles desde la orilla, sin necesidad de barco — la fauna que puedes encontrar está descrita en la pestaña <em>Fauna y vida marina</em>.</p>
+      <div class="chip-row" id="snorkelFilters">
+        <button class="chip active" data-filter="all">Toda la isla</button>
+        <button class="chip" data-filter="oeste">Oeste</button>
+        <button class="chip" data-filter="centro-sur">Centro sur</button>
+        <button class="chip" data-filter="este">Este</button>
+      </div>
+      <div class="grid grid-3" id="snorkelGrid"></div>
     </div>
   </div>
 </section>
@@ -1097,6 +1114,12 @@ footer.site-footer .disclaimer-box strong{color:#EFE7D3;}
     <div class="subpanel" id="panel-rincones">
       <p style="color:var(--text-soft);font-size:14.5px;margin-bottom:24px;max-width:70ch;">Sitios que la mayoría de visitantes se salta por pura falta de tiempo — y que suelen ser lo primero que recomienda alguien que vive en la isla.</p>
       <p style="color:var(--text-soft);font-size:13px;margin-bottom:16px;"><i class="fa-solid fa-hand-pointer" style="margin-right:6px;"></i>Toca para voltear y marcar como visitado, puntuar y anotar una reseña.</p>
+      <div class="chip-row" id="gemFilters">
+        <button class="chip active" data-filter="all">Toda la isla</button>
+        <button class="chip" data-filter="oeste">Oeste</button>
+        <button class="chip" data-filter="centro">Centro</button>
+        <button class="chip" data-filter="este">Este</button>
+      </div>
       <div class="flip-grid" id="hiddenGemsGrid"></div>
     </div>
 
@@ -1563,15 +1586,15 @@ unesco: [
 ],
 
 hiddenGems: [
-  {name:"Anogeia",icon:"fa-mountain",desc:"Pueblo de montaña reconstruido tras ser arrasado en la Segunda Guerra Mundial, cuna de músicos de lira y quesos de pastor.",maps:"Anogeia Crete"},
-  {name:"Loutro",icon:"fa-ship",desc:"Pueblo costero sin carretera de acceso — solo se llega en barco o a pie por el sendero de la costa sur.",maps:"Loutro Crete"},
-  {name:"Zaros",icon:"fa-droplet",desc:"Manantiales, truchas de piscifactoría y el lago Votomos, a los pies del Psiloritis.",maps:"Lake Votomos Zaros Crete"},
-  {name:"Archanes",icon:"fa-wine-bottle",desc:"Pueblo vinícola de casas restauradas con mucho mimo, a un paso de Cnosos pero sin las multitudes.",maps:"Archanes Crete"},
-  {name:"Kritsa y Panagia Kera",icon:"fa-church",desc:"Callejuelas de artesanía textil y una pequeña iglesia bizantina con algunos de los frescos mejor conservados de Creta.",maps:"Panagia Kera Kritsa Crete"},
-  {name:"Milia",icon:"fa-house",desc:"Aldea abandonada reconstruida como eco-proyecto de turismo sostenible, sin electricidad de red — todo con energía solar.",maps:"Milia Mountain Retreat Crete"},
-  {name:"Meseta de Lasithi y Cueva Dikteon",icon:"fa-wind",desc:"Molinos de lona blanca y la cueva donde la mitología sitúa el nacimiento de Zeus, accesible en un paseo corto.",maps:"Dikteon Cave Lasithi Crete"},
-  {name:"Elos y los pueblos del castaño",icon:"fa-tree",desc:"Región montañosa del oeste con bosques de castaños que en Creta resultan casi una sorpresa geográfica.",maps:"Elos Chania Crete"},
-  {name:"Garganta de Theriso",icon:"fa-road",desc:"Ruta de coche corta y espectacular desde Chania, cuna del movimiento revolucionario cretense de 1905.",maps:"Therisso Gorge Crete"}
+  {name:"Anogeia",region:"centro",icon:"fa-mountain",desc:"Pueblo de montaña reconstruido tras ser arrasado en la Segunda Guerra Mundial, cuna de músicos de lira y quesos de pastor.",maps:"Anogeia Crete"},
+  {name:"Loutro",region:"oeste",icon:"fa-ship",desc:"Pueblo costero sin carretera de acceso — solo se llega en barco o a pie por el sendero de la costa sur.",maps:"Loutro Crete"},
+  {name:"Zaros",region:"centro",icon:"fa-droplet",desc:"Manantiales, truchas de piscifactoría y el lago Votomos, a los pies del Psiloritis.",maps:"Lake Votomos Zaros Crete"},
+  {name:"Archanes",region:"centro",icon:"fa-wine-bottle",desc:"Pueblo vinícola de casas restauradas con mucho mimo, a un paso de Cnosos pero sin las multitudes.",maps:"Archanes Crete"},
+  {name:"Kritsa y Panagia Kera",region:"este",icon:"fa-church",desc:"Callejuelas de artesanía textil y una pequeña iglesia bizantina con algunos de los frescos mejor conservados de Creta.",maps:"Panagia Kera Kritsa Crete"},
+  {name:"Milia",region:"oeste",icon:"fa-house",desc:"Aldea abandonada reconstruida como eco-proyecto de turismo sostenible, sin electricidad de red — todo con energía solar.",maps:"Milia Mountain Retreat Crete"},
+  {name:"Meseta de Lasithi y Cueva Dikteon",region:"este",icon:"fa-wind",desc:"Molinos de lona blanca y la cueva donde la mitología sitúa el nacimiento de Zeus, accesible en un paseo corto.",maps:"Dikteon Cave Lasithi Crete"},
+  {name:"Elos y los pueblos del castaño",region:"oeste",icon:"fa-tree",desc:"Región montañosa del oeste con bosques de castaños que en Creta resultan casi una sorpresa geográfica.",maps:"Elos Chania Crete"},
+  {name:"Garganta de Theriso",region:"oeste",icon:"fa-road",desc:"Ruta de coche corta y espectacular desde Chania, cuna del movimiento revolucionario cretense de 1905.",maps:"Therisso Gorge Crete"}
 ],
 
 photoSpots: [
@@ -1606,15 +1629,24 @@ shopping: [
 ],
 
 fauna: [
-  {id:"kri-kri",name:"Kri-kri (cabra montés cretense)",icon:"fa-paw",desc:"Cabra salvaje endémica, símbolo de la isla. La población más pura vive protegida en el islote de Agios Theodoros y en el desfiladero de Samaria — con suerte la ves saltando entre las rocas del cañón.",maps:"Samaria Gorge Crete"},
+  {id:"kri-kri",name:"Kri-kri (cabra montés cretense)",icon:"fa-paw",desc:"Cabra salvaje endémica, símbolo de la isla. La población más pura vive protegida en el islote de Agios Theodoros y en el desfiladero de Samaria — con suerte la ves saltando entre las rocas del cañón.",maps:"Samaria Gorge Crete",
+   img:"https://commons.wikimedia.org/wiki/Special:FilePath/Cretan%20wild%20goat%20(Capra%20hircus%20cretica)%20at%20the%20Tallinn%20Zoo.jpeg",imgCredit:"https://commons.wikimedia.org/wiki/File:Cretan_wild_goat_(Capra_hircus_cretica)_at_the_Tallinn_Zoo.jpeg"},
   {id:"foca-monje",name:"Foca monje del Mediterráneo",icon:"fa-water",desc:"Una de las focas más amenazadas del mundo (quedan unos 700 ejemplares en total). Cría en cuevas marinas poco accesibles de la costa cretense; verla en libertad es raro pero ocurre, sobre todo en zonas remotas del sur y el oeste."},
   {id:"tortuga-boba",name:"Tortuga boba (Caretta caretta)",icon:"fa-shrimp",desc:"Anida en la arena de varias playas cretenses entre junio y agosto — la bahía de Chania y la playa de Rétino son puntos de anidación vigilados. Si ves nidos marcados con cinta, mantén la distancia y no uses luz artificial de noche.",maps:"Rethymno Beach Crete"},
   {id:"delfines",name:"Delfines",icon:"fa-water",desc:"Delfín común y delfín mular frecuentan las aguas abiertas al norte y al sur de la isla — muchas excursiones en barco (y algunos ferris) tienen avistamientos ocasionales, sobre todo fuera de temporada alta."},
-  {id:"buitre-leonado",name:"Buitre leonado",icon:"fa-feather",desc:"Grandes colonias en los acantilados de las gargantas — Samaria e Ha son de los mejores lugares de Europa para verlos planear a poca distancia.",maps:"Samaria Gorge Crete"},
+  {id:"buitre-leonado",name:"Buitre leonado",icon:"fa-feather",desc:"Grandes colonias en los acantilados de las gargantas — Samaria e Ha son de los mejores lugares de Europa para verlos planear a poca distancia.",maps:"Samaria Gorge Crete",
+   img:"https://commons.wikimedia.org/wiki/Special:FilePath/Griffon%20vultures%20gyps%20fulvus%20JEG4824.jpg",imgCredit:"https://commons.wikimedia.org/wiki/File:Griffon_vultures_gyps_fulvus_JEG4824.jpg"},
   {id:"halcon-eleonor",name:"Halcón de Eleonor",icon:"fa-feather",desc:"Rapaz migratoria que cría en colonias en islotes e islas del Egeo cretense en verano, coincidiendo con el paso de aves migrantes de las que se alimenta."},
   {id:"gato-salvaje",name:"Gato salvaje cretense (fourókatos)",icon:"fa-cat",desc:"Un felino esquivo de las zonas altas de las Lefka Ori, entre leyenda pastoril y estudio científico — muy raro de ver, pero parte del imaginario popular de la isla.",maps:"Lefka Ori White Mountains Crete"},
   {id:"sin-serpientes",name:"Sin serpientes venenosas",icon:"fa-check",desc:"Dato tranquilizador: Creta no tiene serpientes venenosas para el ser humano. Sí verás lagartijas endémicas (Podarcis cretensis) tomando el sol en casi cualquier muro de piedra."},
-  {id:"vida-esnorquel",name:"Vida marina de esnórquel",icon:"fa-fish",desc:"Doradas, salpas, pulpos, erizos y, en aguas más profundas de las calas del oeste, meros — el fondo rocoso de Kedrodasos, Seitan Limania y Marathi son de los mejores puntos de la isla para verla sin equipo de buceo.",maps:"Kedrodasos Beach Crete"}
+  {id:"pulpo",name:"Pulpo común",icon:"fa-fish",desc:"El habitante más carismático del fondo rocoso — curioso, cambia de color y textura al instante. Frecuente en esnórquel poco profundo en Kedrodasos, Seitan Limania y casi cualquier cala de roca del oeste.",
+   img:"https://commons.wikimedia.org/wiki/Special:FilePath/Common%20octopus.jpg",imgCredit:"https://commons.wikimedia.org/wiki/File:Common_octopus.jpg"},
+  {id:"morena",name:"Morena mediterránea",icon:"fa-worm",desc:"Vive escondida en grietas y muestra solo la cabeza durante el día — de noche sale a cazar. Presente en casi todos los puntos de buceo rocosos de la isla; no la toques, su mordisco es real."},
+  {id:"mero",name:"Mero (Epinephelus marginatus)",icon:"fa-fish-fins",desc:"El gran señor de los pecios y paredes rocosas de Creta — un pez grande, curioso y protegido, que en algunos puntos de inmersión se acerca sin miedo a los buceadores.",
+   img:"https://commons.wikimedia.org/wiki/Special:FilePath/Mero%20(Epinephelus%20marginatus),%20Cabo%20de%20Palos,%20Espa%C3%B1a,%202022-07-14,%20DD%2041.jpg",imgCredit:"https://commons.wikimedia.org/wiki/File:Mero_(Epinephelus_marginatus),_Cabo_de_Palos,_España,_2022-07-14,_DD_41.jpg"},
+  {id:"nudibranquios",name:"Nudibranquios",icon:"fa-shapes",desc:"Babosas de mar de colores casi imposibles, de un par de centímetros — el objetivo favorito de los fotógrafos macro. Búscalas despacio sobre esponjas y rocas cubiertas de algas."},
+  {id:"praderas-posidonia",name:"Praderas de Posidonia",icon:"fa-leaf",desc:"No es un animal, sino la planta que sostiene casi todo lo demás: estas praderas de fanerógama marina producen oxígeno, fijan el fondo y dan refugio a caballitos de mar y tortugas. Nunca se ancla ni se nada pisándolas."},
+  {id:"pecios-anforas",name:"Pecios y ánforas",icon:"fa-anchor",desc:"La costa cretense esconde restos de la Segunda Guerra Mundial y ánforas de época minoica y romana esparcidas por el fondo — de los atractivos más singulares del buceo en la isla, y motivo de más para no tocar ni sacar nada del agua."}
 ],
 
 boatRentals: [
@@ -1651,6 +1683,21 @@ boatSpots: [
    desc:"Loutro es un pueblo sin carretera solo accesible en barco o a pie; Gavdos, más lejos, es el punto habitado más meridional de Europa — playas remotas y ambiente de fin del mundo.",
    dificultad:"Moderada (trayectos largos)",aparcamiento:"En Chora Sfakion",gente:"Baja",instalaciones:"Tabernas en Loutro, muy pocas en Gavdos",
    familiaApta:"Con niños mayores",esnorquelNota:"Muy buena en ambos",mejorMes:"Junio–septiembre",tiempoVisita:"Loutro medio día, Gavdos día completo o más",agua:"Azul intenso"}
+],
+
+snorkelSpots: [
+  {name:"Kedrodasos",region:"oeste",icon:"fa-mask-snorkel",profundidad:"0,5–4 m, fondo de roca y arena",
+   desc:"El mejor fondo rocoso del suroeste: pulpos, doradas y algún mero en las zonas más profundas. Entrada fácil desde la arena, agua muy transparente."},
+  {name:"Seitan Limania",region:"oeste",icon:"fa-mask-snorkel",profundidad:"1–6 m, paredes de roca",
+   desc:"Las paredes del cañón bajan casi verticales — buen sitio para ver morenas escondidas en grietas. Corriente y oleaje pueden complicar la salida; solo para nadadores seguros."},
+  {name:"Marathi",region:"oeste",icon:"fa-mask-snorkel",profundidad:"0,5–2 m, muy suave",
+   desc:"El más tranquilo de la lista: aguas resguardadas, praderas de posidonia visibles desde la superficie y apto para principiantes y niños."},
+  {name:"Voulisma",region:"este",icon:"fa-mask-snorkel",profundidad:"1–3 m, arena y roca",
+   desc:"Visibilidad excelente casi todo el año, con bancos de peces pequeños cerca de las rocas de los extremos de la bahía."},
+  {name:"Isla de Chrissi",region:"este",icon:"fa-mask-snorkel",profundidad:"1–5 m, aguas vírgenes",
+   desc:"Al estar deshabitada y protegida, la vida marina es más abundante que en la costa — estrellas de mar y erizos muy visibles en el fondo somero."},
+  {name:"Islote de Elafonisi",region:"oeste",icon:"fa-mask-snorkel",profundidad:"0,3–2 m, muy somero",
+   desc:"Cruzando el vado hacia el islote, el lado exterior tiene algo más de fondo y peces de roca — evita las horas de más gente en la laguna principal."}
 ],
 
 weather: [
@@ -2441,12 +2488,20 @@ function renderUnesco(){
 }
 
 /* ================= RENDER: RINCONES OCULTOS Y FOTOGRAFÍA ================= */
-function renderHiddenGems(){
-  $("#hiddenGemsGrid").innerHTML = CRETE_DATA.hiddenGems.map((g,i)=>{
+function renderHiddenGems(filter="all"){
+  let list = CRETE_DATA.hiddenGems;
+  if(filter!=="all") list = list.filter(g=>g.region===filter);
+  $("#hiddenGemsGrid").innerHTML = list.map((g,i)=>{
     g.id = g.id || g.name.replace(/\s+/g,"-").toLowerCase();
     return flipCardHtml(g,"visitado",i,"gem");
-  }).join("");
+  }).join("") || `<div class="empty-state"><i class="fa-solid fa-map-location-dot"></i>Nada con este filtro todavía.</div>`;
 }
+$("#gemFilters").addEventListener("click",e=>{
+  const chip = e.target.closest(".chip"); if(!chip) return;
+  $$(".chip",$("#gemFilters")).forEach(c=>c.classList.remove("active"));
+  chip.classList.add("active");
+  renderHiddenGems(chip.dataset.filter);
+});
 function renderPhotoSpots(){
   $("#photoSpotsList").innerHTML = CRETE_DATA.photoSpots.map(p=>`
     <div class="photo-spot-row">
@@ -2482,10 +2537,35 @@ function renderBoatRentals(){
       <h4>${b.name}</h4><p>${b.desc}</p>
     </div>`).join("");
 }
-function renderBoatSpots(){
-  $("#boatSpotsGrid").innerHTML = CRETE_DATA.boatSpots.map(beachCard).join("");
+function renderBoatSpots(filter="all"){
+  let list = CRETE_DATA.boatSpots;
+  if(filter!=="all") list = list.filter(b=>b.region===filter);
+  $("#boatSpotsGrid").innerHTML = list.map(beachCard).join("") || `<div class="empty-state"><i class="fa-solid fa-sailboat"></i>Nada con este filtro todavía.</div>`;
   refreshFavIcons();
 }
+$("#boatSpotFilters").addEventListener("click",e=>{
+  const chip = e.target.closest(".chip"); if(!chip) return;
+  $$(".chip",$("#boatSpotFilters")).forEach(c=>c.classList.remove("active"));
+  chip.classList.add("active");
+  renderBoatSpots(chip.dataset.filter);
+});
+function renderSnorkelSpots(filter="all"){
+  let list = CRETE_DATA.snorkelSpots;
+  if(filter!=="all") list = list.filter(s=>s.region===filter);
+  $("#snorkelGrid").innerHTML = list.map(s=>`
+    <div class="activity-tile">
+      <div class="at-icon"><i class="fa-solid ${s.icon}"></i></div>
+      <span class="at-cat">${s.region} · ${s.profundidad}</span>
+      <h4>${s.name}</h4>
+      <p>${s.desc}</p>
+    </div>`).join("") || `<div class="empty-state"><i class="fa-solid fa-mask-snorkel"></i>Nada con este filtro todavía.</div>`;
+}
+$("#snorkelFilters").addEventListener("click",e=>{
+  const chip = e.target.closest(".chip"); if(!chip) return;
+  $$(".chip",$("#snorkelFilters")).forEach(c=>c.classList.remove("active"));
+  chip.classList.add("active");
+  renderSnorkelSpots(chip.dataset.filter);
+});
 
 /* ================= CONDICIONES DEL MAR EN DIRECTO (Open-Meteo) ================= */
 const SEA_POINTS = [
@@ -2797,6 +2877,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   renderFauna();
   renderBoatRentals();
   renderBoatSpots();
+  renderSnorkelSpots();
   fetchSeaConditions();
   renderDishes();
   renderFood();
