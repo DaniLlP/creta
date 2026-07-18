@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Condiciones del mar en Creta — Informe en directo de 28 playas</title>
+<meta name="description" content="Viento, oleaje, temperatura del mar y UV en directo para 28 playas de Creta, con datos de Open-Meteo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EFEAD9;
+    --paper-deep:#E6DEC7;
+    --paper-card:#F8F4E8;
+    --ink:#241E17;
+    --ink-soft:#5B5142;
+    --ink-faint:#8A7F6C;
+    --teal:#0D6B71;
+    --teal-soft:#D9EAEA;
+    --brass:#B8863A;
+    --brass-soft:#F3E6C9;
+    --alert:#9C2E1B;
+    --alert-soft:#F5DCD4;
+    --line: rgba(36,30,23,.16);
+    --line-soft: rgba(36,30,23,.10);
+    --shadow: 36,30,23;
+    --font-display:'Fraunces', Georgia, serif;
+    --font-body:'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono:'Space Mono', 'SF Mono', Consolas, monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{display:block;max-width:100%;}
+  .sr-only{
+    position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+  }
+  a{color:var(--teal);}
+  :focus-visible{outline:2px solid var(--brass);outline-offset:2px;}
+
+  /* ---------- Back bar ---------- */
+  .back-bar{
+    background:var(--ink);
+  }
+  .back-bar a{
+    display:flex;align-items:center;gap:.5rem;
+    max-width:1180px;margin:0 auto;padding:.6rem 1.25rem;
+    color:var(--paper);font-family:var(--font-mono);font-size:.78rem;
+    text-decoration:none;letter-spacing:.02em;
+  }
+  .back-bar a:hover{color:var(--brass-soft);}
+  .back-bar svg{width:14px;height:14px;flex-shrink:0;}
+
+  /* ---------- Hero ---------- */
+  .graticule{
+    height:11px;
+    background-image:repeating-linear-gradient(to right, var(--ink) 0 1px, transparent 1px 26px);
+    background-position:bottom left;
+    opacity:.22;
+  }
+  .hero{padding:0 0 1.75rem;}
+  .cartouche{
+    max-width:920px;
+    margin:0 auto;
+    padding:2.1rem 1.5rem 1.6rem;
+    text-align:center;
+  }
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:.72rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0 0 .9rem;
+  }
+  .cartouche h1{
+    font-family:var(--font-display);
+    font-optical-sizing:auto;
+    font-weight:600;
+    font-size:clamp(2.1rem, 5vw, 3.1rem);
+    letter-spacing:-.01em;
+    margin:0 0 .7rem;
+  }
+  .lede{
+    max-width:560px;
+    margin:0 auto;
+    color:var(--ink-soft);
+    font-size:1rem;
+  }
+  .lede span{color:var(--ink);font-family:var(--font-mono);font-weight:500;}
+
+  .summary-strip{
+    margin:1.9rem auto 0;
+    max-width:820px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .stat-block{
+    padding:.9rem .6rem;
+    border-left:1px solid var(--line);
+    display:flex;flex-direction:column;gap:.3rem;
+  }
+  .stat-block:first-child{border-left:none;}
+  .stat-block-label{
+    font-family:var(--font-mono);
+    font-size:.62rem;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+  .stat-block-value{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:1.05rem;
+    line-height:1.25;
+  }
+  .summary-strip.is-empty .stat-block-value::after{content:"–";}
+
+  /* ---------- Main / controls ---------- */
+  main{max-width:1180px;margin:0 auto;padding:0 1.25rem 3rem;}
+
+  .controls{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.65rem;
+    align-items:center;
+    padding:1.1rem 0 .9rem;
+  }
+  .control-group{position:relative;}
+  .search-group{flex:1 1 220px;}
+  .search-group svg{
+    position:absolute;left:.75rem;top:50%;transform:translateY(-50%);
+    width:16px;height:16px;color:var(--ink-faint);pointer-events:none;
+  }
+  input[type=search]{
+    width:100%;
+    font-family:var(--font-body);
+    font-size:.92rem;
+    padding:.62rem .8rem .62rem 2.15rem;
+    border:1px solid var(--line);
+    border-radius:3px;
+    background:var(--paper-card);
+    color:var(--ink);
+  }
+  input[type=search]::placeholder{color:var(--ink-faint);}
+  select{
+    font-family:var(--font-body);
+    font-size:.86rem;
+    padding:.6rem 2rem .6rem .8rem;
+    border:1px solid var(--line);
+    border-radius:3px;
+    background:var(--paper-card) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%235B5142" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>') no-repeat right .6rem center / 14px 14px;
+    -webkit-appearance:none;appearance:none;
+    color:var(--ink);
+  }
+  .refresh-btn{
+    display:inline-flex;align-items:center;gap:.45rem;
+    font-family:var(--font-body);font-size:.86rem;font-weight:600;
+    padding:.6rem 1rem;
+    border:1px solid var(--ink);
+    border-radius:3px;
+    background:var(--ink);
+    color:var(--paper);
+    cursor:pointer;
+    margin-left:auto;
+  }
+  .refresh-btn:hover{background:#3a3020;}
+  .refresh-btn svg{width:15px;height:15px;}
+  .refresh-btn.is-loading svg{animation:spin 0.9s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  .tide-note{
+    font-size:.85rem;
+    color:var(--ink-soft);
+    background:var(--paper-deep);
+    border-left:3px solid var(--brass);
+    padding:.75rem 1rem;
+    border-radius:0 3px 3px 0;
+    margin:0 0 1.5rem;
+  }
+  .tide-note strong{color:var(--ink);}
+
+  /* ---------- States ---------- */
+  .loading-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+    gap:1.1rem;
+  }
+  .skeleton-card{
+    height:230px;
+    border:1px solid var(--line-soft);
+    border-radius:4px;
+    background:linear-gradient(100deg, var(--paper-card) 30%, var(--paper-deep) 45%, var(--paper-card) 60%);
+    background-size:200% 100%;
+    animation:shimmer 1.6s ease-in-out infinite;
+  }
+  @keyframes shimmer{0%{background-position:150% 0;}100%{background-position:-50% 0;}}
+
+  .error-banner{
+    text-align:center;
+    padding:2.4rem 1.5rem;
+    border:1px solid var(--alert);
+    background:var(--alert-soft);
+    border-radius:4px;
+  }
+  .error-banner p{margin:0 0 1rem;color:var(--ink);}
+  .error-banner button{
+    font-family:var(--font-body);font-weight:600;font-size:.88rem;
+    padding:.55rem 1.1rem;border:1px solid var(--alert);border-radius:3px;
+    background:transparent;color:var(--alert);cursor:pointer;
+  }
+  .error-banner button:hover{background:var(--alert);color:#fff;}
+
+  .empty-state{
+    text-align:center;
+    padding:3rem 1.5rem;
+    color:var(--ink-soft);
+    border:1px dashed var(--line);
+    border-radius:4px;
+  }
+
+  /* ---------- Card grid ---------- */
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+    gap:1.1rem;
+  }
+  .beach-card{
+    border:1px solid var(--line);
+    border-radius:4px;
+    background:var(--paper-card);
+    padding:1.15rem 1.15rem 1rem;
+    display:flex;flex-direction:column;gap:.85rem;
+    transition:transform .15s ease, box-shadow .15s ease;
+    animation:rise .4s ease backwards;
+  }
+  .beach-card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 24px -12px rgba(var(--shadow), .3);
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .card-top h3{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:1.32rem;
+    margin:.15rem 0 .3rem;
+    letter-spacing:-.01em;
+  }
+  .card-top .eyebrow{margin-bottom:.2rem;font-size:.65rem;}
+  .beach-note{
+    margin:0;font-size:.83rem;color:var(--ink-soft);
+    min-height:2.4em;
+  }
+
+  .status-pill{
+    display:inline-flex;align-items:center;gap:.4rem;
+    width:fit-content;
+    font-family:var(--font-mono);
+    font-size:.7rem;letter-spacing:.04em;text-transform:uppercase;
+    padding:.32rem .65rem;border-radius:20px;
+    font-weight:700;
+  }
+  .status-pill .dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
+  .status-excellent{background:var(--teal);color:#fff;}
+  .status-good{background:var(--teal-soft);color:var(--teal);}
+  .status-fair{background:var(--brass-soft);color:#8a6423;}
+  .status-poor{background:var(--alert-soft);color:var(--alert);}
+  .status-unknown{background:var(--paper-deep);color:var(--ink-faint);}
+
+  .card-primary{
+    display:grid;
+    grid-template-columns:1fr 1fr auto;
+    gap:.6rem;
+    align-items:start;
+    border-top:1px solid var(--line-soft);
+    border-bottom:1px solid var(--line-soft);
+    padding:.85rem 0;
+  }
+  .stat{display:flex;flex-direction:column;align-items:flex-start;gap:.15rem;}
+  .stat .icon{width:18px;height:18px;color:var(--brass);margin-bottom:.15rem;}
+  .stat-value{font-family:var(--font-mono);font-weight:700;font-size:1.05rem;color:var(--ink);}
+  .stat-label{font-size:.68rem;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.04em;}
+  .compass-stat{align-items:center;text-align:center;}
+  .compass-rose{width:42px;height:42px;}
+
+  .card-secondary{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:.5rem .8rem;
+    font-size:.78rem;
+    color:var(--ink-soft);
+  }
+  .card-secondary span{display:flex;align-items:center;gap:.35rem;}
+  .card-secondary svg{width:14px;height:14px;color:var(--ink-faint);flex-shrink:0;}
+
+  /* ---------- Footer ---------- */
+  footer{
+    max-width:1180px;margin:0 auto;padding:1.5rem 1.25rem 3rem;
+    border-top:1px solid var(--line);
+    font-size:.78rem;color:var(--ink-faint);
+  }
+  footer p{margin:0 0 .5rem;}
+  footer a{color:var(--ink-soft);}
+  .fine-print{font-style:italic;}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:640px){
+    .summary-strip{grid-template-columns:repeat(2,1fr);}
+    .stat-block:nth-child(3){border-left:none;}
+    .stat-block:nth-child(1),.stat-block:nth-child(2){border-bottom:1px solid var(--line);padding-bottom:1rem;}
+    .refresh-btn{margin-left:0;width:100%;justify-content:center;}
+    .search-group{flex-basis:100%;}
+    .control-group:not(.search-group){flex:1 1 auto;}
+    .control-group select{width:100%;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="back-bar">
+  <a href="index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Volver a la guía completa de Creta
+  </a>
+</div>
+
+<header class="hero">
+  <div class="graticule" aria-hidden="true"></div>
+  <div class="cartouche">
+    <p class="eyebrow">Mar de Creta y Mar de Libia · Lecturas en directo</p>
+    <h1>Condiciones del mar en Creta</h1>
+    <p class="lede">Viento, oleaje, temperatura del mar y UV en <span id="beachCount">28</span> playas, en directo desde los modelos marinos y meteorológicos de Open-Meteo.</p>
+    <div class="summary-strip is-empty" id="summaryStrip">
+      <div class="stat-block"><span class="stat-block-label">Mejor opción ahora</span><span class="stat-block-value"></span></div>
+      <div class="stat-block"><span class="stat-block-label">Mar más cálido</span><span class="stat-block-value"></span></div>
+      <div class="stat-block"><span class="stat-block-label">Viento más en calma</span><span class="stat-block-value"></span></div>
+      <div class="stat-block"><span class="stat-block-label">Actualizado</span><span class="stat-block-value"></span></div>
+    </div>
+  </div>
+  <div class="graticule" aria-hidden="true"></div>
+</header>
+
+<main>
+  <div class="controls">
+    <div class="control-group search-group">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>
+      <label for="searchInput" class="sr-only">Buscar playas</label>
+      <input type="search" id="searchInput" placeholder="Buscar una playa o región…">
+    </div>
+    <div class="control-group">
+      <label for="regionSelect" class="sr-only">Región</label>
+      <select id="regionSelect">
+        <option value="all">Todas las regiones</option>
+        <option value="Chania">Chania</option>
+        <option value="Rétino">Rétino</option>
+        <option value="Heraclión">Heraclión</option>
+        <option value="Lasithi">Lasithi</option>
+      </select>
+    </div>
+    <div class="control-group">
+      <label for="sortSelect" class="sr-only">Ordenar por</label>
+      <select id="sortSelect">
+        <option value="condition">Mejores condiciones primero</option>
+        <option value="temp">Mar más cálido primero</option>
+        <option value="wind">Viento más en calma primero</option>
+        <option value="name">Nombre A–Z</option>
+        <option value="region">Región</option>
+      </select>
+    </div>
+    <button class="refresh-btn" id="refreshBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11A8 8 0 0 0 6.3 6.3L4 8.6M4 13a8 8 0 0 0 13.7 4.7L20 15.4"/><path d="M4 4v4.6h4.6M20 20v-4.6h-4.6"/></svg>
+      Actualizar
+    </button>
+  </div>
+
+  <p class="tide-note">
+    <strong>Sobre las mareas:</strong> el Mediterráneo apenas tiene marea — normalmente menos de 10–15&nbsp;cm en Creta, frente a los metros de los océanos. La hora de la marea no es un factor real para planear una visita a la playa aquí; el viento y la dirección del oleaje importan mucho más. Aun así, cada tarjeta muestra el nivel del mar en directo, como referencia. Las condiciones se valoran combinando altura de ola y velocidad del viento: cuanto más en calma y suave, mejor.
+  </p>
+
+  <div class="loading-grid" id="loadingState">
+    <div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div>
+    <div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div>
+  </div>
+
+  <div class="error-banner" id="errorState" hidden>
+    <p><strong>No se pudo conectar con Open-Meteo.</strong> Comprueba tu conexión e inténtalo de nuevo.</p>
+    <button id="retryBtn" type="button">Reintentar</button>
+  </div>
+
+  <div class="empty-state" id="emptyState" hidden>
+    <p>Ninguna playa coincide con esa búsqueda. Prueba con otro nombre o borra los filtros.</p>
+  </div>
+
+  <div class="card-grid" id="cardGrid" hidden></div>
+</main>
+
+<footer>
+  <p>Datos marinos (altura y periodo de ola, temperatura del mar, nivel del mar) de la API marina de Open-Meteo, modelos DWD EWAM/ICON&nbsp;Wave a 5&nbsp;km de resolución en el Mediterráneo. Viento, temperatura del aire y UV, de los modelos meteorológicos de Open-Meteo. <a href="https://open-meteo.com/" target="_blank" rel="noopener">open-meteo.com</a>, CC BY 4.0.</p>
+  <p class="fine-print">Las coordenadas marcan la ubicación aproximada de cada playa; cada lectura corresponde a la celda del modelo oceánico/atmosférico más cercana, no a un sensor en el sitio — úsalo como guía de planificación, no como pronóstico exacto. Es una herramienta personal de viaje, no una autoridad de seguridad: comprueba siempre las banderas y las indicaciones de los socorristas antes de bañarte.</p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var BEACHES = [
+    { name:"Elafonisi", region:"Chania", lat:35.2706, lon:23.5375, note:"Arena con tono rosado; se cruza una laguna poco profunda" },
+    { name:"Balos", region:"Chania", lat:35.5453, lon:23.5919, note:"Laguna turquesa; se llega en barco o por pista de tierra" },
+    { name:"Falassarna", region:"Chania", lat:35.4778, lon:23.5814, note:"Arena abierta y amplia, famosa por sus atardeceres" },
+    { name:"Seitan Limania", region:"Chania", lat:35.5765, lon:24.1467, note:"Cala entre acantilados cerca de Akrotiri" },
+    { name:"Marathi", region:"Chania", lat:35.5625, lon:24.0653, note:"Bahía doble y resguardada, casi siempre en calma" },
+    { name:"Sougia", region:"Chania", lat:35.2589, lon:23.9847, note:"Playa de guijarros tranquila, en el mar de Libia" },
+    { name:"Paleochora", region:"Chania", lat:35.2333, lon:23.6833, note:"Arena en el lado sur, más viento en el lado norte" },
+
+    { name:"Preveli", region:"Rétino", lat:35.1425, lon:24.4642, note:"Un río bordeado de palmeras desemboca en el mar" },
+    { name:"Plakias", region:"Rétino", lat:35.1858, lon:24.4108, note:"Bahía larga de arena bajo los acantilados del mar de Libia" },
+    { name:"Damnoni", region:"Rétino", lat:35.1836, lon:24.4406, note:"Cala más tranquila justo al este de Plakias" },
+    { name:"Bali", region:"Rétino", lat:35.4103, lon:24.7719, note:"Serie de pequeñas calas en la costa norte" },
+    { name:"Agia Galini", region:"Rétino", lat:35.1017, lon:24.6858, note:"Playa de pueblo pesquero, junto al puerto" },
+    { name:"Triopetra", region:"Rétino", lat:35.1275, lon:24.5983, note:"Remota, dividida en dos por un peñasco" },
+    { name:"Rétino (ciudad)", region:"Rétino", lat:35.3667, lon:24.4750, note:"Playa larga de la ciudad, junto al puerto veneciano" },
+
+    { name:"Matala", region:"Heraclión", lat:35.0686, lon:24.7328, note:"Cuevas de piedra arenisca sobre la bahía" },
+    { name:"Agiofarago", region:"Heraclión", lat:34.9236, lon:24.7986, note:"Cala al final de un desfiladero, sin acceso por carretera" },
+    { name:"Agia Pelagia", region:"Heraclión", lat:35.4258, lon:24.9539, note:"Bahía turística al noroeste de la ciudad" },
+    { name:"Ammoudara", region:"Heraclión", lat:35.3436, lon:25.0839, note:"Tramo largo de arena al oeste de Heraclión" },
+    { name:"Amnisos", region:"Heraclión", lat:35.3389, lon:25.1889, note:"Costa de época minoica cerca del aeropuerto" },
+    { name:"Kokkini Hani", region:"Heraclión", lat:35.3244, lon:25.2003, note:"Familiar y cerca de la ciudad" },
+
+    { name:"Vai", region:"Lasithi", lat:35.2794, lon:26.2461, note:"El palmeral natural más grande de Europa" },
+    { name:"Elounda", region:"Lasithi", lat:35.2683, lon:25.7256, note:"Bahía en calma frente a Spinalonga" },
+    { name:"Voulisma", region:"Lasithi", lat:35.1789, lon:25.7239, note:"Arena dorada, entrada suave al agua" },
+    { name:"Xerokampos", region:"Lasithi", lat:35.0489, lon:26.2953, note:"Remota y entre dunas, en el extremo sureste" },
+    { name:"Kato Zakros", region:"Lasithi", lat:35.1042, lon:26.2597, note:"Cala de guijarros junto al Palacio de Zakros" },
+    { name:"Agios Nikolaos", region:"Lasithi", lat:35.1928, lon:25.7161, note:"Playa en el pueblo, junto al lago Voulismeni" },
+    { name:"Isla de Chrissi", region:"Lasithi", lat:34.9219, lon:25.7278, note:"Islote al que solo se llega en barco desde Ierapetra" },
+    { name:"Ierapetra", region:"Lasithi", lat:35.0083, lon:25.7397, note:"La ciudad más al sur de Europa, en el mar de Libia" }
+  ];
+
+  document.getElementById("beachCount").textContent = BEACHES.length;
+
+  // Valores por defecto para que los controles nunca toquen campos indefinidos
+  // antes de que responda la primera petición
+  BEACHES.forEach(function(b){
+    b.seaTemp = null; b.waveHeight = null; b.wavePeriod = null; b.waveDirection = null; b.seaLevel = null;
+    b.airTemp = null; b.windSpeed = null; b.windDirection = null; b.windGusts = null;
+    b.weatherCode = null; b.isDay = 1; b.uv = null;
+    b.condition = { label:"Cargando…", cls:"unknown" };
+  });
+
+  var ICONS = {
+    sun: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path stroke-linecap="round" d="M12 2.5v2.6M12 18.9v2.6M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2.5 12h2.6M18.9 12h2.6M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>',
+    moon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linejoin="round" d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>',
+    cloud: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linejoin="round" d="M7 18a4.5 4.5 0 0 1-.7-8.94A5.5 5.5 0 0 1 17.2 8.1 4 4 0 0 1 17 18H7Z"/></svg>',
+    sunCloud: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7.5" cy="7.5" r="2.8"/><path stroke-linecap="round" d="M7.5 2.6v1.4M13 7.9h1.4M2.6 7.9H4"/><path stroke-linejoin="round" d="M9.3 19h6.9a3.6 3.6 0 0 0 .5-7.16A4.9 4.9 0 0 0 8.8 13.2"/></svg>',
+    fog: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 9h11M4 13h16M4 17h13"/></svg>',
+    rain: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linejoin="round" d="M7 15.5a4 4 0 0 1-.6-7.95A5 5 0 0 1 16.2 6.6 3.6 3.6 0 0 1 16 13.5"/><path stroke-linecap="round" d="M8 18.5l-1 2M12 18.5l-1 2M16 18.5l-1 2"/></svg>',
+    storm: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linejoin="round" d="M7 13.5a4 4 0 0 1-.6-7.95A5 5 0 0 1 16.2 4.6 3.6 3.6 0 0 1 16 11.5"/><path fill="currentColor" stroke="none" d="M12.6 12l-3 5h2.7l-1.4 4.3 3.9-5.8h-2.6l1.5-3.5Z"/></svg>',
+    snow: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 3v18M4.5 7.5l15 9M19.5 7.5l-15 9"/></svg>',
+    wave: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 15c1.6 0 1.6-2 3.2-2s1.6 2 3.2 2 1.6-2 3.2-2 1.6 2 3.2 2 1.6-2 3.2-2 1.6 2 3.2 2"/><path opacity=".5" d="M2 19.5c1.6 0 1.6-2 3.2-2s1.6 2 3.2 2 1.6-2 3.2-2 1.6 2 3.2 2 1.6-2 3.2-2 1.6 2 3.2 2"/></svg>',
+    thermo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linejoin="round" d="M10.5 14.4V5a1.5 1.5 0 0 1 3 0v9.4a3.5 3.5 0 1 1-3 0Z"/></svg>',
+    sunrays: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3.2"/><path stroke-linecap="round" d="M12 4.5v2M12 17.5v2M19.5 12h-2M6.5 12h-2M17.3 6.7l-1.4 1.4M8.1 15.9l-1.4 1.4M17.3 17.3l-1.4-1.4M8.1 8.1L6.7 6.7"/></svg>',
+    gust: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 8h11.5a2.5 2.5 0 1 0-2.3-3.5M2 12.5h15a2.5 2.5 0 1 1-2.3 3.5M2 17h9.5a2 2 0 1 1-1.8 2.8"/></svg>',
+    tide: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5v14M3 5l3-3 3 3 3-3 3 3 3-3 3 3"/><path opacity=".45" d="M3 19h18"/></svg>'
+  };
+
+  var WEATHER_CODES = {
+    0:{label:"Despejado",icon:"sun"}, 1:{label:"Mayormente despejado",icon:"sunCloud"}, 2:{label:"Parcialmente nublado",icon:"sunCloud"}, 3:{label:"Cubierto",icon:"cloud"},
+    45:{label:"Niebla",icon:"fog"}, 48:{label:"Niebla",icon:"fog"},
+    51:{label:"Llovizna ligera",icon:"rain"}, 53:{label:"Llovizna",icon:"rain"}, 55:{label:"Llovizna densa",icon:"rain"},
+    56:{label:"Llovizna helada",icon:"rain"}, 57:{label:"Llovizna helada",icon:"rain"},
+    61:{label:"Lluvia ligera",icon:"rain"}, 63:{label:"Lluvia",icon:"rain"}, 65:{label:"Lluvia intensa",icon:"rain"},
+    66:{label:"Lluvia helada",icon:"rain"}, 67:{label:"Lluvia helada",icon:"rain"},
+    71:{label:"Nieve",icon:"snow"}, 73:{label:"Nieve",icon:"snow"}, 75:{label:"Nieve intensa",icon:"snow"}, 77:{label:"Cinarra",icon:"snow"},
+    80:{label:"Chubascos",icon:"rain"}, 81:{label:"Chubascos",icon:"rain"}, 82:{label:"Chubascos fuertes",icon:"rain"},
+    85:{label:"Chubascos de nieve",icon:"snow"}, 86:{label:"Chubascos de nieve",icon:"snow"},
+    95:{label:"Tormenta",icon:"storm"}, 96:{label:"Tormenta con granizo",icon:"storm"}, 99:{label:"Tormenta severa",icon:"storm"}
+  };
+
+  var state = { region:"all", sort:"condition", query:"", lastUpdated:null };
+
+  function numOrNull(v){ return (typeof v === "number" && !isNaN(v)) ? v : null; }
+
+  function fmt(v, decimals){
+    if (v === null || v === undefined || isNaN(v)) return "–";
+    return Number(v).toFixed(decimals);
+  }
+
+  function signed(v){
+    if (v === null || v === undefined || isNaN(v)) return "–";
+    var n = Number(v);
+    return (n >= 0 ? "+" : "") + n.toFixed(2);
+  }
+
+  function degToCompass(deg){
+    if (deg === null || deg === undefined || isNaN(deg)) return "–";
+    var dirs = ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSO","SO","OSO","O","ONO","NO","NNO"];
+    var idx = Math.round(deg / 22.5) % 16;
+    return dirs[idx];
+  }
+
+  function uvCategory(uv){
+    if (uv === null || uv === undefined || isNaN(uv)) return "";
+    if (uv < 3) return "baja";
+    if (uv < 6) return "moderada";
+    if (uv < 8) return "alta";
+    if (uv < 11) return "muy alta";
+    return "extrema";
+  }
+
+  function getCondition(wave, wind){
+    if (wave === null || wind === null) return { label:"Sin datos", cls:"unknown" };
+    if (wave < 0.3 && wind < 15) return { label:"Mar en calma", cls:"excellent" };
+    if (wave < 0.6 && wind < 25) return { label:"Buen baño", cls:"good" };
+    if (wave < 1.1 && wind < 35) return { label:"Algo de oleaje", cls:"fair" };
+    return { label:"Oleaje fuerte — precaución", cls:"poor" };
+  }
+
+  function conditionRank(cls){
+    return { excellent:3, good:2, fair:1, poor:0, unknown:-1 }[cls] ?? -1;
+  }
+
+  function weatherInfo(beach){
+    var entry = WEATHER_CODES[beach.weatherCode] || { label:"–", icon:"cloud" };
+    var key = entry.icon;
+    if (key === "sun" && beach.isDay === 0) key = "moon";
+    return { label: entry.label, svg: ICONS[key] || ICONS.cloud };
+  }
+
+  function compassSVG(deg){
+    var d = (typeof deg === "number" && !isNaN(deg)) ? deg : 0;
+    return '<svg viewBox="0 0 48 48" class="compass-rose" aria-hidden="true">' +
+      '<circle cx="24" cy="24" r="21" fill="none" stroke="#D8CDB0" stroke-width="1"/>' +
+      '<circle cx="24" cy="24" r="15" fill="none" stroke="#E7DEC4" stroke-width="0.75"/>' +
+      '<text x="24" y="7.5" text-anchor="middle" font-family="Space Mono, monospace" font-size="6" fill="#5B5142">N</text>' +
+      '<g transform="rotate(' + d + ' 24 24)">' +
+        '<path d="M24 8.5 L27 24 L24 21 L21 24 Z" fill="#B8863A"/>' +
+        '<line x1="24" y1="24" x2="24" y2="36.5" stroke="#D8CDB0" stroke-width="1.4" stroke-linecap="round"/>' +
+      '</g>' +
+      '<circle cx="24" cy="24" r="2" fill="#241E17"/>' +
+    '</svg>';
+  }
+
+  function formatTime(iso){
+    try{
+      var d = new Date(iso);
+      return d.toLocaleTimeString("es-ES", { hour:"2-digit", minute:"2-digit" });
+    }catch(e){ return "–"; }
+  }
+
+  function el(id){ return document.getElementById(id); }
+
+  function showLoading(){
+    el("loadingState").hidden = false;
+    el("errorState").hidden = true;
+    el("cardGrid").hidden = true;
+    el("emptyState").hidden = true;
+    el("refreshBtn").classList.add("is-loading");
+  }
+  function showError(){
+    el("loadingState").hidden = true;
+    el("errorState").hidden = false;
+    el("cardGrid").hidden = true;
+    el("emptyState").hidden = true;
+    el("refreshBtn").classList.remove("is-loading");
+  }
+  function showLoaded(){
+    el("loadingState").hidden = true;
+    el("errorState").hidden = true;
+    el("refreshBtn").classList.remove("is-loading");
+  }
+
+  function getFiltered(){
+    var list = BEACHES.slice();
+    if (state.region !== "all") list = list.filter(function(b){ return b.region === state.region; });
+    if (state.query){
+      var q = state.query.toLowerCase();
+      list = list.filter(function(b){
+        return b.name.toLowerCase().indexOf(q) !== -1 || b.region.toLowerCase().indexOf(q) !== -1;
+      });
+    }
+    switch(state.sort){
+      case "condition":
+        list.sort(function(a,b){
+          return conditionRank(b.condition.cls) - conditionRank(a.condition.cls) || (b.seaTemp ?? -99) - (a.seaTemp ?? -99);
+        });
+        break;
+      case "temp":
+        list.sort(function(a,b){ return (b.seaTemp ?? -99) - (a.seaTemp ?? -99); });
+        break;
+      case "wind":
+        list.sort(function(a,b){ return (a.windSpeed ?? 999) - (b.windSpeed ?? 999); });
+        break;
+      case "name":
+        list.sort(function(a,b){ return a.name.localeCompare(b.name); });
+        break;
+      case "region":
+        list.sort(function(a,b){ return a.region.localeCompare(b.region) || a.name.localeCompare(b.name); });
+        break;
+    }
+    return list;
+  }
+
+  function renderCard(beach, i){
+    var wx = weatherInfo(beach);
+    var uvCat = uvCategory(beach.uv);
+    return (
+    '<article class="beach-card" style="animation-delay:' + Math.min(i*35,400) + 'ms">' +
+      '<div class="card-top">' +
+        '<p class="eyebrow">' + beach.region + ' · ' + beach.lat.toFixed(2) + '°N ' + beach.lon.toFixed(2) + '°E</p>' +
+        '<h3>' + beach.name + '</h3>' +
+        '<p class="beach-note">' + beach.note + '</p>' +
+      '</div>' +
+      '<div class="status-pill status-' + beach.condition.cls + '"><span class="dot"></span>' + beach.condition.label + '</div>' +
+      '<div class="card-primary">' +
+        '<div class="stat"><span class="icon">' + ICONS.thermo + '</span><span class="stat-value">' + fmt(beach.seaTemp,1) + '°</span><span class="stat-label">temp. mar</span></div>' +
+        '<div class="stat"><span class="icon">' + ICONS.wave + '</span><span class="stat-value">' + fmt(beach.waveHeight,1) + 'm</span><span class="stat-label">' + fmt(beach.wavePeriod,0) + 's periodo</span></div>' +
+        '<div class="stat compass-stat">' + compassSVG(beach.windDirection) + '<span class="stat-value">' + fmt(beach.windSpeed,0) + '</span><span class="stat-label">km/h ' + degToCompass(beach.windDirection) + '</span></div>' +
+      '</div>' +
+      '<div class="card-secondary">' +
+        '<span>' + wx.svg + wx.label + ', ' + fmt(beach.airTemp,0) + '°</span>' +
+        '<span>' + ICONS.sunrays + 'UV ' + fmt(beach.uv,0) + (uvCat ? ' · ' + uvCat : '') + '</span>' +
+        '<span>' + ICONS.gust + 'Rachas ' + fmt(beach.windGusts,0) + ' km/h</span>' +
+        '<span>' + ICONS.tide + 'Nivel del mar ' + signed(beach.seaLevel) + 'm</span>' +
+      '</div>' +
+    '</article>'
+    );
+  }
+
+  function renderSummary(){
+    var withData = BEACHES.filter(function(b){ return b.seaTemp !== null && b.seaTemp !== undefined; });
+    var strip = el("summaryStrip");
+    if (withData.length === 0){ strip.classList.add("is-empty"); return; }
+    strip.classList.remove("is-empty");
+
+    var best = withData.slice().sort(function(a,b){
+      return conditionRank(b.condition.cls) - conditionRank(a.condition.cls) || b.seaTemp - a.seaTemp;
+    })[0];
+    var warmest = withData.slice().sort(function(a,b){ return b.seaTemp - a.seaTemp; })[0];
+    var calmest = withData.slice().sort(function(a,b){ return (a.windSpeed ?? 999) - (b.windSpeed ?? 999); })[0];
+    var timeLabel = state.lastUpdated ? formatTime(state.lastUpdated) : "–";
+
+    var blocks = strip.querySelectorAll(".stat-block-value");
+    blocks[0].textContent = best.name;
+    blocks[1].textContent = warmest.name + " · " + fmt(warmest.seaTemp,1) + "°";
+    blocks[2].textContent = calmest.name + " · " + fmt(calmest.windSpeed,0) + " km/h";
+    blocks[3].textContent = timeLabel + " hora local";
+  }
+
+  function renderAll(){
+    var list = getFiltered();
+    var grid = el("cardGrid");
+    var empty = el("emptyState");
+    if (list.length === 0){
+      grid.hidden = true; grid.innerHTML = "";
+      empty.hidden = false;
+    } else {
+      empty.hidden = true;
+      grid.hidden = false;
+      grid.innerHTML = list.map(renderCard).join("");
+    }
+    renderSummary();
+  }
+
+  function loadData(){
+    showLoading();
+    var lats = BEACHES.map(function(b){ return b.lat; }).join(",");
+    var lons = BEACHES.map(function(b){ return b.lon; }).join(",");
+
+    var marineUrl = "https://marine-api.open-meteo.com/v1/marine?latitude=" + lats + "&longitude=" + lons +
+      "&current=wave_height,wave_direction,wave_period,swell_wave_height,swell_wave_period,sea_surface_temperature,sea_level_height_msl" +
+      "&timezone=auto&cell_selection=sea&length_unit=metric&forecast_days=1";
+
+    var weatherUrl = "https://api.open-meteo.com/v1/forecast?latitude=" + lats + "&longitude=" + lons +
+      "&current=temperature_2m,relative_humidity_2m,wind_speed_10m,wind_direction_10m,wind_gusts_10m,weather_code,is_day" +
+      "&daily=uv_index_max,sunrise,sunset&timezone=auto&wind_speed_unit=kmh&forecast_days=1";
+
+    Promise.all([fetch(marineUrl), fetch(weatherUrl)])
+      .then(function(responses){
+        if (!responses[0].ok || !responses[1].ok) throw new Error("Respuesta no válida de Open-Meteo");
+        return Promise.all([responses[0].json(), responses[1].json()]);
+      })
+      .then(function(data){
+        var marineArr = Array.isArray(data[0]) ? data[0] : [data[0]];
+        var weatherArr = Array.isArray(data[1]) ? data[1] : [data[1]];
+        var updatedTime = null;
+
+        BEACHES.forEach(function(beach, i){
+          var m = (marineArr[i] && marineArr[i].current) || {};
+          var w = (weatherArr[i] && weatherArr[i].current) || {};
+          var daily = (weatherArr[i] && weatherArr[i].daily) || {};
+
+          beach.seaTemp = numOrNull(m.sea_surface_temperature);
+          beach.waveHeight = numOrNull(m.wave_height);
+          beach.wavePeriod = numOrNull(m.wave_period);
+          beach.waveDirection = numOrNull(m.wave_direction);
+          beach.seaLevel = numOrNull(m.sea_level_height_msl);
+
+          beach.airTemp = numOrNull(w.temperature_2m);
+          beach.windSpeed = numOrNull(w.wind_speed_10m);
+          beach.windDirection = numOrNull(w.wind_direction_10m);
+          beach.windGusts = numOrNull(w.wind_gusts_10m);
+          beach.weatherCode = w.weather_code;
+          beach.isDay = w.is_day;
+
+          beach.uv = (daily.uv_index_max && daily.uv_index_max.length) ? numOrNull(daily.uv_index_max[0]) : null;
+          beach.condition = getCondition(beach.waveHeight, beach.windSpeed);
+
+          if (!updatedTime && w.time) updatedTime = w.time;
+        });
+
+        state.lastUpdated = updatedTime;
+        showLoaded();
+        renderAll();
+      })
+      .catch(function(err){
+        console.error("Condiciones del mar en Creta: fallo al cargar datos", err);
+        showError();
+      });
+  }
+
+  el("searchInput").addEventListener("input", function(e){ state.query = e.target.value; renderAll(); });
+  el("regionSelect").addEventListener("change", function(e){ state.region = e.target.value; renderAll(); });
+  el("sortSelect").addEventListener("change", function(e){ state.sort = e.target.value; renderAll(); });
+  el("refreshBtn").addEventListener("click", loadData);
+  el("retryBtn").addEventListener("click", loadData);
+
+  loadData();
+})();
+</script>
+</body>
+</html>

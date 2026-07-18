@@ -8,6 +8,7 @@ Una guía de viaje interactiva de una sola página (HTML/CSS/JS puro, sin framew
 
 - Playas curadas con filtros por región y tipo, con mapas de Google Maps integrados
 - **Condiciones del mar en directo** (oleaje, temperatura, viento) para 5 puntos de la costa, vía Open-Meteo — sin API key
+- **Página dedicada `mar.html`**: la misma idea ampliada a 28 playas de las cuatro regiones, con oleaje, temperatura del mar, viento (con rosa de los vientos), UV y nivel del mar, más buscador, filtro por región y varios modos de orden. Accesible desde un botón en la sección de Playas
 - **Fauna y vida marina**: cabra kri-kri, foca monje, tortuga boba, delfines, aves rapaces y más
 - **En barco**: dónde alquilar y qué destinos solo se ven (o se ven mejor) desde el agua — Balos, Dia, Chrissi, Spinalonga, Gavdos…
 - Guía gastronómica: platos tradicionales (tarjetas volteables, marcables como probados) + restaurantes reales en Chania, Rétino y Heraclión
